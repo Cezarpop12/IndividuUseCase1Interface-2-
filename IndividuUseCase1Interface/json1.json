@@ -1,0 +1,8 @@
+{
+    "DatabaseConfig": {
+        "Servername": "mssqlstud.fhict.local",
+        "Username": "dbi470121",
+        "Database": "dbi470121",
+        "Password": "Cezar2002"
+    }
+}
