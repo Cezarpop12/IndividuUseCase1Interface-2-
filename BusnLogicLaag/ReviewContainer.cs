@@ -10,18 +10,55 @@ namespace BusnLogicLaag
     public class ReviewContainer
     {
         private readonly IReviewContainer Container;
-        //Wat is dit?
 
         public ReviewContainer(IReviewContainer container)
         {
             this.Container = container;
-            //Waarvoor maak je een ctor? en hoe gebruik je hem?
         }
-        public Gebruiker MaxWoordenCheck(string beschrijving)
+        
+        public void VoegReviewToeOutfit(Review review, Gebruiker gebruiker, string titel)
         {
-            //bool als datatype of gebruiker? of Review?
-            GebruikerDTO dto1 = Container.MaxWoordenCheck(beschrijving);
-            return new Gebruiker(dto1);
+            ReviewDTO reviewdto = review.GetDTO();
+            GebruikerDTO gebrdto = gebruiker.GetDTO();
+            Container.VoegReviewToeOutfit(reviewdto, gebrdto, titel);
         }
+        
+        public void VoegReviewToeOnderdeel(Review review, Gebruiker gebruiker, string titel)
+        {
+            ReviewDTO reviewdto = review.GetDTO();
+            GebruikerDTO gebrdto = gebruiker.GetDTO();
+            Container.VoegReviewToeOnderdeel(reviewdto, gebrdto, titel);
+        }
+
+        public List<Review> GetAllReviewsVanGebr(string alias)
+        {
+            List<ReviewDTO> reviewdtos = Container.GetAllReviewsVanGebr(alias);
+            List<Review> reviews = new List<Review>();
+            foreach (ReviewDTO reviewdto in reviewdtos)
+            {
+                reviews.Add(new Review(reviewdto));
+            }
+            return reviews;
+        }
+        
+        public List<Review> GetAllReviews()
+        {
+            List<ReviewDTO> reviewdtos = Container.GetAllReviews();
+            List<Review> reviews = new List<Review>();
+            foreach (ReviewDTO reviewdto in reviewdtos)
+            {
+                reviews.Add(new Review(reviewdto));
+            }
+            return reviews;
+        }
+
+
+       //Voor later.
+        
+        //public void VerwijderReview(Review review)
+        //{
+        //    ReviewDTO dto = review.GetDTO();
+        //    Container.VerwijderReview(dto);
+        //}
     }
 }

@@ -1,4 +1,6 @@
-﻿using InterfaceLib;
+﻿using BCrypt.Net;
+using InterfaceLib;
+using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,67 +9,78 @@ using System.Threading.Tasks;
 
 namespace DALMSSQLSERVER
 {
-    public class GebruikerMSSQLDAL : IGebruikerContainer
+    public class GebruikerMSSQLDAL : Database, IGebruikerContainer
     {
-        public List<OutfitDTO> Outfits { get; } = new List<OutfitDTO>();
-        public List<OnderdeelDTO> Onderdelen { get; } = new List<OnderdeelDTO>();
-
-        public void VoegOutfitToe(OutfitDTO outfit)
+        /// <summary>
+        /// Maak een hash bij het meegeven van een gewenst wachtwoord.
+        /// </summary>
+        
+        public void CreateGebr(GebruikerDTO gebruiker, string wachtwoord)
         {
-            if (!this.Outfits.Contains(outfit))
-            {
-                this.Outfits.Add(outfit);
-            }
+            OpenConnection();
+            string passwordHash = BCrypt.Net.BCrypt.EnhancedHashPassword(wachtwoord, 13);
+            string query = @"INSERT INTO Gebruiker (Alias, Gebruikersnaam, Hash) VALUES(@alias, @gebruikersnaam, @hash)";   
+            SqlCommand command = new SqlCommand(query, this.connection);
+            command.Parameters.AddWithValue("@alias", gebruiker.Alias);
+            command.Parameters.AddWithValue("@gebruikersnaam", gebruiker.Gerbuikersnaam);
+            command.Parameters.AddWithValue("@hash", passwordHash); 
+            command.ExecuteNonQuery();
+            CloseConnection();
         }
-
-        public void VerwijderOutfit(OutfitDTO outfit)
+        
+        /// <summary>
+        /// Zoek naar de hash die "gekoppeld" is aan de desbetreffende wachtwoord.
+        /// </summary>
+        
+        public GebruikerDTO ZoekGebrOpGebrnaamEnWW(string gebrnaam, string wachtwoord)
         {
-            if (this.Outfits.Contains(outfit))
+            OpenConnection();
+            SqlCommand command = new SqlCommand(@"SELECT * FROM Gebruiker WHERE Gebruikersnaam = @gebrnaam", this.connection);
+            command.Parameters.AddWithValue("@gebrnaam", gebrnaam);
+            SqlDataReader reader = command.ExecuteReader();
+            if (reader.HasRows)
             {
-                this.Outfits.Remove(outfit);
-            }
-        }
-
-        public void VoegOnderdeelToe(OnderdeelDTO onderdeel)
-        {
-            if (!this.Onderdelen.Contains(onderdeel))
-            {
-                this.Onderdelen.Add(onderdeel);
-            }
-        }
-
-        public void VerwijderOnderdeel(OnderdeelDTO onderdeel)
-        {
-            if (this.Onderdelen.Contains(onderdeel))
-            {
-                this.Onderdelen.Remove(onderdeel);
-            }
-        }
-
-        public List<OutfitDTO> OutfitsPerCategory(OutfitDTO.Category category)
-        {
-            List<OutfitDTO> outfitPerCategory = new List<OutfitDTO>();
-            foreach (var outfit in this.Outfits)
-            {
-                if (outfit.DeCategory == category)
+                while (reader.Read())
                 {
-                    outfitPerCategory.Add(outfit);
+                    string hash = reader["Hash"].ToString();
+                    bool correct = BCrypt.Net.BCrypt.EnhancedVerify(wachtwoord, hash);
+                    if (correct)
+                    {
+                        return new GebruikerDTO(
+                        reader["Gebruikersnaam"].ToString(),
+                        reader["Alias"].ToString());
+                    }
+                    else
+                    {
+                        return null;
+                    }
                 }
             }
-            return outfitPerCategory;
+            CloseConnection();
+            return null;
         }
 
-        public List<OnderdeelDTO> OnderdeelPerCategory(OnderdeelDTO.Category category)
+        /// <summary>
+        /// Pak alles van Gebruiker tabel als Gebruiker ID hetzelfde is als de id die je krijgt bij getuserID(naam), door een naam mee te geven
+        /// </summary>
+
+        public GebruikerDTO GetGebruiker(string alias)
         {
-            List<OnderdeelDTO> outfitPerCategory = new List<OnderdeelDTO>();
-            foreach (var onderdeel in this.Onderdelen)
+            OpenConnection();
+            SqlCommand command = new SqlCommand(@"SELECT * FROM Gebruiker WHERE GebrID = @id", this.connection);
+            command.Parameters.AddWithValue("@id", GetUserID(alias));
+            SqlDataReader reader = command.ExecuteReader();
+            if (reader.HasRows)
             {
-                if (onderdeel.DeCategory == category)
+                while (reader.Read())
                 {
-                    outfitPerCategory.Add(onderdeel);
+                    return new GebruikerDTO(
+                        reader["Gebruikersnaam"].ToString(),
+                        reader["Alias"].ToString());
                 }
             }
-            return outfitPerCategory;
+            CloseConnection();
+            return null;
         }
     }
 }

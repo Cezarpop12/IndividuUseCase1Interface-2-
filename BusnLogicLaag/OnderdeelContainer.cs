@@ -10,24 +10,61 @@ namespace BusnLogicLaag
     public class OnderdeelContainer
     {
         private readonly IOnderdeelContainer Container;
-        //Wat is dit?
 
         public OnderdeelContainer(IOnderdeelContainer container)
         {
             this.Container = container;
-            //Waarvoor maak je een ctor? en hoe gebruik je hem?
-        }
-        public Gebruiker VoegReviewToe(ReviewDTO review)
-        {
-            //void als datatype? of Onderdeel? of review? of gebruiker?
-            GebruikerDTO dto1 = Container.VoegReviewToe(review);
-            return new Gebruiker(dto1);
         }
 
-        public Gebruiker VerwijderReview(ReviewDTO review)
+        public void VoegOnderdeelToe(Gebruiker gebruiker, Onderdeel onderdeel)
         {
-            GebruikerDTO dto2 = Container.VerwijderReview(review);
-            return new Gebruiker(dto2);
+            GebruikerDTO gebrdto = gebruiker.GetDTO();
+            OnderdeelDTO onderdeeldto = onderdeel.GetDTO();
+            Container.VoegOnderdeelToe(gebrdto, onderdeeldto);
+        }
+        
+        public List<Onderdeel> GetAllOnderdelenVanGebr(string alias)
+        {
+            List<OnderdeelDTO> onderdeeldtos = Container.GetAllOnderdelenVanGebr(alias);
+            List<Onderdeel> onderdelen = new List<Onderdeel>();
+            foreach (OnderdeelDTO onderdeeldto in onderdeeldtos)
+            {
+                onderdelen.Add(new Onderdeel(onderdeeldto));
+            }
+            return onderdelen;
+        }
+
+        public bool IsOnderdeel(string titel)
+        {
+            return Container.IsOnderdeel(titel);
+        }
+
+       /// <summary>
+       /// Voor later.
+       /// </summary>
+       /// <returns></returns>
+       
+        public List<Onderdeel> GetAllOnderdelen()
+        {
+            List<OnderdeelDTO> onderdeeldtos = Container.GetAllOnderdelen();
+            List<Onderdeel> onderdelen = new List<Onderdeel>();
+            foreach (OnderdeelDTO onderdeeldto in onderdeeldtos)
+            {
+                onderdelen.Add(new Onderdeel(onderdeeldto));
+            }
+            return onderdelen;
+        }
+
+        /// <summary>
+        /// Voor later.
+        /// </summary>
+        /// <returns></returns>
+
+        public Onderdeel GetOnderdeel(string titel)
+        {
+            OnderdeelDTO onderdeeldto = Container.GetOnderdeel(titel);
+            Onderdeel onderdeel = new Onderdeel(onderdeeldto);
+            return onderdeel;
         }
     }
 }

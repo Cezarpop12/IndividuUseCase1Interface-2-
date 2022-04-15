@@ -10,23 +10,70 @@ namespace BusnLogicLaag
     public class OutfitContainer
     {
         private readonly IOutfitContainer Container;
-        //Wat is dit?
 
         public OutfitContainer(IOutfitContainer container)
         {
             this.Container = container;
-            //Waarvoor maak je een ctor? en hoe gebruik je hem?
-        }
-        public Gebruiker VoegReviewToe(ReviewDTO review)
-        {
-            GebruikerDTO dto1 = Container.VoegReviewToe(review);
-            return new Gebruiker(dto1);
         }
 
-        public Gebruiker VerwijderReview(ReviewDTO review)
+        public void VoegOutfitToe(Gebruiker gebruiker, Outfit outfit)
         {
-            GebruikerDTO dto2 = Container.VerwijderReview(review);
-            return new Gebruiker(dto2);
+            GebruikerDTO gebrdto = gebruiker.GetDTO();            
+            OutfitDTO outfitdto = outfit.GetDTO();
+            Container.VoegOutfitToe(gebrdto, outfitdto);
         }
+        
+        public List<Outfit> GetAllOutfitsVanGebr(string alias)
+        {
+            List<OutfitDTO> outfitdtos = Container.GetAllOutfitsVanGebr(alias);
+            List<Outfit> outfits = new List<Outfit>();
+            foreach (OutfitDTO outfitdto in outfitdtos)
+            {
+                outfits.Add(new Outfit(outfitdto));
+            }
+            return outfits;
+        }
+        
+        public bool IsOutfit(string titel)
+        {
+            return Container.IsOutfit(titel);
+        }
+
+
+
+        /// <summary>
+        /// Voor later.
+        /// </summary>
+        /// <returns></returns>
+        
+        public List<Outfit> GetAllOutfits()
+        {
+            List<OutfitDTO> outfitdtos = Container.GetAllOutfits();
+            List<Outfit> outfits = new List<Outfit>();
+            foreach (OutfitDTO outfitdto in outfitdtos)
+            {
+                outfits.Add(new Outfit(outfitdto));
+            }
+            return outfits; 
+        }
+
+
+
+       /// <summary>
+       /// Voor later.
+       /// </summary>
+
+        public Outfit GetOutfit(string titel)
+        {
+            OutfitDTO outfitdto = Container.GetOutfit(titel);
+            Outfit outfit = new Outfit(outfitdto);
+            return outfit;
+        }
+
+        //public void VerwijderOutfit(Outfit outfit)
+        //{
+        //    OutfitDTO dto = outfit.GetDTO();
+        //    Container.VerwijderOutfit(dto);
+        //}
     }
 }

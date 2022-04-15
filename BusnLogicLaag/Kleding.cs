@@ -4,24 +4,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IndividuUseCase1Interface { 
+namespace BusnLogicLaag
+{
 
     public abstract class Kleding
     {
-        public int Prijs { get; }
-        public string Naam { get; }
-        public string FileAdress { get; }
+        public int Prijs { get; set; }
+        public string Titel { get; set; }
+        public string FileAdress { get; set; }
 
-        public Kleding(string naam, int prijs, string FileAdress)
+        public Kleding(string titel, int prijs, string FileAdress)
         {
-            this.Naam = naam;
+            this.Titel = titel;
             this.Prijs = prijs;
             this.FileAdress = FileAdress;
         }
 
         public override string ToString()
         {
-            return $"Naam: {this.Naam}\nPrijs: {this.Prijs}";
+            return $"Naam: {Titel}\nPrijs: {Prijs}";
         }
     }
 }

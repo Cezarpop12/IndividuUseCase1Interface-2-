@@ -5,32 +5,37 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IndividuUseCase1Interface
+namespace BusnLogicLaag
 {
-    internal class Review
+    public class Review
     {
-        public DateTime DatumTijd { get;}
+        public DateTime DatumTijd { get; }
         public Gebruiker Gebruiker { get; }
         public string StukTekst { get; }
 
-        public Review(string stuktekst, Gebruiker gebruiker)
+        public Review(string stuktekst, Gebruiker gebruiker, DateTime datumtijd)
         {
-            this.StukTekst = stuktekst;
-            this.Gebruiker = gebruiker;
-            this.DatumTijd = DateTime.Now;
+            StukTekst = stuktekst;
+            Gebruiker = gebruiker;
+            DatumTijd = datumtijd;
         }
 
         public Review(ReviewDTO dto)
         {
-            this.StukTekst = dto.StukTekst;
-            this.Gebruiker = dto.Gebruiker;
-            //weer namespace error
-            this.DatumTijd = DateTime.Now;
+            StukTekst = dto.StukTekst;
+            Gebruiker = new Gebruiker(dto.Gebruiker);
+            DatumTijd = DateTime.Now;
+        }
+
+        internal ReviewDTO GetDTO()
+        {
+            ReviewDTO dto = new ReviewDTO(StukTekst, Gebruiker.GetDTO(), DatumTijd);
+            return dto;
         }
 
         public override string ToString()
         {
-            return $"({this.DatumTijd})  {this.Gebruiker.Alias}:  {this.StukTekst}";
+            return $"({DatumTijd})  {Gebruiker.Alias}:  {StukTekst}";
         }
     }
 }

@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace InterfaceLib
 {
-    public class OnderdeelDTO
+    public class OnderdeelDTO : KledingDTO
     {
-        public enum Category
+        public enum OnderdeelCategory
         {
             Broek,
             Shirt,
@@ -18,12 +18,10 @@ namespace InterfaceLib
         }
 
         public List<ReviewDTO> Reviews { get; } = new List<ReviewDTO>();
-        public Category DeCategory { get; }
+        public OnderdeelCategory DeCategory { get; }
 
-        public OnderdeelDTO(string naam, int prijs, string FileAdress, Category category) 
+        public OnderdeelDTO(string titel, int prijs, string FileAdress, OnderdeelCategory category) : base(titel, prijs, FileAdress)
         {
-            //Hoe zet ik hier de base bij?
-            //Moet kleding ook een DTO hebben?
             this.DeCategory = category;
         }
     }

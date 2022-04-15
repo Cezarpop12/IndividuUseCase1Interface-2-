@@ -8,7 +8,11 @@ namespace InterfaceLib
 {
     public interface IOnderdeelContainer
     {
-        public void VoegReviewToe(ReviewDTO review);
-        public void VerwijderReview(ReviewDTO review);
+        public void VoegOnderdeelToe(GebruikerDTO gebruiker, OnderdeelDTO onderdeel);
+        //public void VerwijderOnderdeel(OnderdeelDTO onderdeel);
+        public List<OnderdeelDTO> GetAllOnderdelenVanGebr(string alias);
+        public List<OnderdeelDTO> GetAllOnderdelen();
+        public OnderdeelDTO GetOnderdeel(string titel);
+        public bool IsOnderdeel(string titel);
     }
 }

@@ -12,11 +12,11 @@ namespace InterfaceLib
         public GebruikerDTO Gebruiker { get; }
         public string StukTekst { get; }
 
-        public ReviewDTO(string stuktekst, GebruikerDTO gebruiker)
+        public ReviewDTO(string stuktekst, GebruikerDTO gebruiker, DateTime datumtijd)
         {
             this.StukTekst = stuktekst;
             this.Gebruiker = gebruiker;
-            this.DatumTijd = DateTime.Now;
+            this.DatumTijd = datumtijd;
         }
     }
 }

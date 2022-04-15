@@ -5,34 +5,40 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IndividuUseCase1Interface
+namespace BusnLogicLaag
 {
     public class Gebruiker
     {
-        public string Wachtwoord { get; }
-        public string Gerbuikersnaam { get; }
-        public string Alias { get; }
-        public List<OutfitDTO> Outfits { get; } = new List<OutfitDTO>();
-        public List<OnderdeelDTO> Onderdelen { get; } = new List<OnderdeelDTO>();
-        //Hier geen DTO's toch?
+        public string Gerbuikersnaam { get; set; }
+        public string Alias { get; set; }
+        public List<Outfit> Outfits { get; set; } = new List<Outfit>();
+        public List<Onderdeel> Onderdelen { get; set; } = new List<Onderdeel>();
 
-        public Gebruiker(string gerbuikersnaam, string wachtwoord, string alias)
+        public Gebruiker(string gerbuikersnaam, string alias)
         {
-            this.Gerbuikersnaam = gerbuikersnaam;
-            this.Wachtwoord = wachtwoord;
-            this.Alias = alias;
+            Gerbuikersnaam = gerbuikersnaam;
+            Alias = alias;
         }
+
+        /// <summary>
+        /// Van een dto maak je een domein.
+        /// </summary>
 
         public Gebruiker(GebruikerDTO dto)
         {
             this.Gerbuikersnaam = dto.Gerbuikersnaam;
-            this.Wachtwoord = dto.Wachtwoord;
             this.Alias = dto.Alias;
+        }
+        
+        public GebruikerDTO GetDTO()
+        {
+            GebruikerDTO dto = new GebruikerDTO(Gerbuikersnaam, Alias);
+            return dto;
         }
 
         public override string ToString()
         {
-            return $"{this.Alias}";
+            return $"{Alias}";
         }
     }
 }

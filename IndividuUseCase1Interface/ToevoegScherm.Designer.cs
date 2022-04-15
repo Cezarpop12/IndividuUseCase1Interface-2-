@@ -75,7 +75,6 @@ namespace IndividuUseCase1Interface
             this.VoegOutfitToe.TabIndex = 3;
             this.VoegOutfitToe.Text = "Voeg toe";
             this.VoegOutfitToe.UseVisualStyleBackColor = true;
-            this.VoegOutfitToe.Click += new System.EventHandler(this.VoegOutfitToe_Click);
             // 
             // VoegOnderdeelToe
             // 
@@ -85,7 +84,6 @@ namespace IndividuUseCase1Interface
             this.VoegOnderdeelToe.TabIndex = 4;
             this.VoegOnderdeelToe.Text = "Voeg toe";
             this.VoegOnderdeelToe.UseVisualStyleBackColor = true;
-            this.VoegOnderdeelToe.Click += new System.EventHandler(this.VoegOnderdeelToe_Click);
             // 
             // label2
             // 
@@ -116,7 +114,6 @@ namespace IndividuUseCase1Interface
             this.KiesOutift.TabIndex = 7;
             this.KiesOutift.Text = "➕";
             this.KiesOutift.UseVisualStyleBackColor = true;
-            this.KiesOutift.Click += new System.EventHandler(this.KiesOutift_Click);
             // 
             // KiesOnderdeel
             // 
@@ -126,19 +123,17 @@ namespace IndividuUseCase1Interface
             this.KiesOnderdeel.TabIndex = 8;
             this.KiesOnderdeel.Text = "➕";
             this.KiesOnderdeel.UseVisualStyleBackColor = true;
-            this.KiesOnderdeel.Click += new System.EventHandler(this.KiesOnderdeel_Click);
             // 
             // btnTerugNaarHome
             // 
             this.btnTerugNaarHome.BackColor = System.Drawing.SystemColors.ControlDark;
             this.btnTerugNaarHome.Font = new System.Drawing.Font("Microsoft Sans Serif", 25.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTerugNaarHome.Location = new System.Drawing.Point(34, 450);
+            this.btnTerugNaarHome.Location = new System.Drawing.Point(29, 443);
             this.btnTerugNaarHome.Name = "btnTerugNaarHome";
             this.btnTerugNaarHome.Size = new System.Drawing.Size(66, 60);
             this.btnTerugNaarHome.TabIndex = 9;
             this.btnTerugNaarHome.Text = "⇦";
             this.btnTerugNaarHome.UseVisualStyleBackColor = false;
-            this.btnTerugNaarHome.Click += new System.EventHandler(this.button1_Click);
             // 
             // pbOnderdeel
             // 
@@ -205,7 +200,7 @@ namespace IndividuUseCase1Interface
             // 
             // tbPrijs
             // 
-            this.tbPrijs.Location = new System.Drawing.Point(133, 351);
+            this.tbPrijs.Location = new System.Drawing.Point(133, 355);
             this.tbPrijs.Name = "tbPrijs";
             this.tbPrijs.Size = new System.Drawing.Size(100, 22);
             this.tbPrijs.TabIndex = 14;
@@ -288,7 +283,7 @@ namespace IndividuUseCase1Interface
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(827, 522);
+            this.ClientSize = new System.Drawing.Size(827, 532);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.cbOnderdeel);
             this.Controls.Add(this.label8);
@@ -314,7 +309,6 @@ namespace IndividuUseCase1Interface
             this.Controls.Add(this.pbOutfit);
             this.Name = "ToevoegScherm";
             this.Text = "ToevoegScherm";
-            this.Load += new System.EventHandler(this.ToevoegScherm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pbOnderdeel)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbOutfit)).EndInit();
             this.ResumeLayout(false);

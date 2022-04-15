@@ -6,20 +6,20 @@ using System.Threading.Tasks;
 
 namespace InterfaceLib
 {
-    public class OutfitDTO
+    public class OutfitDTO : KledingDTO
     {
-        public enum Category
+        public enum OutfitCategory
         {
-            Chic,
-            Casual,
             Trendy,
-            OldSchool
+            Chic,
+            Oldschool,
+            Casual
         }
 
         public List<ReviewDTO> Reviews { get; } = new List<ReviewDTO>();
-        public Category DeCategory { get; }
+        public OutfitCategory DeCategory { get; }
 
-        public OutfitDTO(string naam, int prijs, string FileAdress, Category category)
+        public OutfitDTO(string titel, int prijs, string FileAdress, OutfitCategory category) : base(titel, prijs, FileAdress)
         {
             this.DeCategory = category;
         }

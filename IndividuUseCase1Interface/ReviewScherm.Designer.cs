@@ -50,7 +50,6 @@
             this.lbxReviews.Name = "lbxReviews";
             this.lbxReviews.Size = new System.Drawing.Size(357, 372);
             this.lbxReviews.TabIndex = 0;
-            this.lbxReviews.SelectedIndexChanged += new System.EventHandler(this.lbxReviews_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -92,7 +91,6 @@
             this.btnReviewPlaatsen.TabIndex = 4;
             this.btnReviewPlaatsen.Text = "Plaatsen";
             this.btnReviewPlaatsen.UseVisualStyleBackColor = false;
-            this.btnReviewPlaatsen.Click += new System.EventHandler(this.btnReviewPlaatsen_Click);
             // 
             // tbxReviewSchrijven
             // 
@@ -142,7 +140,6 @@
             this.Controls.Add(this.lbxReviews);
             this.Name = "ReviewScherm";
             this.Text = "ReviewScherm";
-            this.Load += new System.EventHandler(this.ReviewScherm_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

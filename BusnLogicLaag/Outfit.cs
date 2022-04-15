@@ -7,30 +7,38 @@ using System.Threading.Tasks;
 
 namespace BusnLogicLaag
 {
-    public class Outfit : Kleding 
+    public class Outfit : Kleding
     {
-        public enum Category
+        public enum OutfitCategory
         {
-            Chic,
-            Casual,
             Trendy,
-            OldSchool
+            Chic,
+            Oldschool,
+            Casual
         }
-        public List<ReviewDTO> Reviews { get; } = new List<ReviewDTO>();
-        public Category DeCategory { get; }
 
-        public Outfit(string naam, int prijs, string FileAdress, Category category) : base(naam, prijs, FileAdress)
+        public List<Review> Reviews { get; set; } = new List<Review>();
+        public OutfitCategory DeCategory { get; }
+
+        public Outfit(string titel, int prijs, string FileAdress, OutfitCategory category) : base(titel, prijs, FileAdress)
         {
-            this.DeCategory = category;
+            DeCategory = category;
         }
-        public Outfit(OutfitDTO dto)
+
+        public Outfit(OutfitDTO dto) : base(dto.Titel, dto.Prijs, dto.FileAdress)
         {
-            this.DeCategory = dto.DeCategory;
+            DeCategory = (Outfit.OutfitCategory)dto.DeCategory;
+        }
+
+        internal OutfitDTO GetDTO()
+        {
+             OutfitDTO dto = new OutfitDTO(Titel, Prijs, FileAdress, (OutfitDTO.OutfitCategory)DeCategory);
+             return dto;
         }
 
         public override string ToString()
         {
-            return base.ToString() + $"\nCategory: {this.DeCategory}";
+            return base.ToString() + $"\nCategory: {DeCategory}";
         }
     }
 }

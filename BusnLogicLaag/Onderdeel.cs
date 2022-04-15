@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 using InterfaceLib;
 
 
-namespace IndividuUseCase1Interface
+namespace BusnLogicLaag
 {
     public class Onderdeel : Kleding
     {
-        public enum Category
+        public enum OnderdeelCategory
         {
             Broek,
             Shirt,
@@ -19,24 +19,28 @@ namespace IndividuUseCase1Interface
             Jurk
         }
 
-        public List<ReviewDTO> Reviews { get; } = new List<ReviewDTO>();
-        //hier ook dto???
-        public Category DeCategory { get; }
+        public List<Review> Reviews { get; set; } = new List<Review>();
+        public OnderdeelCategory DeCategory { get; }
 
-        public Onderdeel(string naam, int prijs, string FileAdress, Category category) : base(naam, prijs, FileAdress)
+        public Onderdeel(string titel, int prijs, string FileAdress, OnderdeelCategory category) : base(titel, prijs, FileAdress)
         {
-            this.DeCategory = category;
+            DeCategory = category;
         }
-
-        public Onderdeel(OnderdeelDTO dto)
+        
+        public Onderdeel(OnderdeelDTO dto) : base(dto.Titel, dto.Prijs, dto.FileAdress)
         {
-            this.DeCategory = dto.DeCategory;
-            //weer een namespace probleem
+            DeCategory = (Onderdeel.OnderdeelCategory)dto.DeCategory;
+        }        
+
+        internal OnderdeelDTO GetDTO()
+        {
+            OnderdeelDTO dto = new OnderdeelDTO(Titel, Prijs, FileAdress, (OnderdeelDTO.OnderdeelCategory)DeCategory);
+            return dto;
         }
 
         public override string ToString()
         {
-            return base.ToString() + $"\nCategory: {this.DeCategory}";
+            return base.ToString() + $"\nCategory: {DeCategory}";
         }
     }
 }

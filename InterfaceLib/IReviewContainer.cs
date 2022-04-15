@@ -8,6 +8,11 @@ namespace InterfaceLib
 {
     public interface IReviewContainer
     {
-        public bool MaxWoordenCheck(string beschrijving);
+        public void VoegReviewToeOutfit(ReviewDTO review, GebruikerDTO gebruiker, string titel);
+        public void VoegReviewToeOnderdeel(ReviewDTO review, GebruikerDTO gebruiker, string titel);
+        //public void VerwijderReview(ReviewDTO review);
+        public List<ReviewDTO> GetAllReviewsVanGebr(string alias);
+        public List<ReviewDTO> GetAllReviews();
+        public GebruikerDTO GetGebruiker(string naam);
     }
 }

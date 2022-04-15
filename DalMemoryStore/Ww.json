@@ -1,0 +1,5 @@
+{
+  "DatabaseConfig": {
+    "ConnectionString": "Server=mssqlstud.fhict.local;Database=dbi470121;User Id=dbi470121;TrustServerCertificate=True;Password=Cezar2002;"
+  }
+}

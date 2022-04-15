@@ -8,11 +8,9 @@ namespace InterfaceLib
 {
     public interface IGebruikerContainer
     {
-        public void VoegOutfitToe(OutfitDTO outfit);
-        public void VerwijderOutfit(OutfitDTO outfit);
-        public void VoegOnderdeelToe(OnderdeelDTO onderdeel);
-        public void VerwijderOnderdeel(OnderdeelDTO onderdeel);
-        public List<OutfitDTO> OutfitsPerCategory(OutfitDTO.Category category);
-        public List<OnderdeelDTO> OnderdeelPerCategory(OnderdeelDTO.Category category);
+        public void CreateGebr(GebruikerDTO gebruiker, string wachtwoord);
+        public GebruikerDTO ZoekGebrOpGebrnaamEnWW(string gebrnaam, string wachtwoord);
+        public GebruikerDTO GetGebruiker(string alias);
+
     }
 }
