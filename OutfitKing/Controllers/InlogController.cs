@@ -114,7 +114,7 @@ namespace OutfitKing.Controllers
             }
             else
             {
-                gebrContainer.CreateGebr(new Gebruiker(gebruiker.Gerbuikersnaam, gebruiker.Alias), gebruiker.Wachtwoord);
+                gebrContainer.CreateGebr(new Gebruiker(gebruiker.ID, gebruiker.Gerbuikersnaam, gebruiker.Alias), gebruiker.Wachtwoord);
                 return RedirectToAction("Index", "Home", gebruiker);
             }
         }

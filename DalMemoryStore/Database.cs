@@ -46,15 +46,18 @@ namespace DALMSSQLSERVER
                 CloseConnection();
                 return check;
             }
-            catch (SqlException ex)
+            catch (InvalidOperationException ex)
             {
-                throw new TemporaryExceptions("Fout met de verbinding");
+                throw new TemporaryExceptions(ex);
             }
-            catch (Exception ex) //Toegang tot de exceptie class
+            catch (IOException ex)
+            {
+                throw new TemporaryExceptions(ex);
+            }
+            catch (Exception ex)
             {
                 throw new PermanentExceptions("Iets gaat hier fout!");
             }
-
         }
 
         public bool BestaandeTitleNaamOnder(string titel)
@@ -74,11 +77,15 @@ namespace DALMSSQLSERVER
                 CloseConnection();
                 return check;
             }
-            catch (SqlException ex)
+            catch (InvalidOperationException ex)
             {
-                throw new TemporaryExceptions("Fout met de verbinding");
+                throw new TemporaryExceptions(ex);
             }
-            catch (Exception ex) //Toegang tot de exceptie class
+            catch (IOException ex)
+            {
+                throw new TemporaryExceptions(ex);
+            }
+            catch (Exception ex)
             {
                 throw new PermanentExceptions("Iets gaat hier fout!");
             }
@@ -102,11 +109,15 @@ namespace DALMSSQLSERVER
                 CloseConnection();
                 return 0;
             }
-            catch (SqlException ex)
+            catch (InvalidOperationException ex)
             {
-                throw new TemporaryExceptions("Fout met de verbinding");
+                throw new TemporaryExceptions(ex);
             }
-            catch (Exception ex) //Toegang tot de exceptie class
+            catch (IOException ex)
+            {
+                throw new TemporaryExceptions(ex);
+            }
+            catch (Exception ex)
             {
                 throw new PermanentExceptions("Iets gaat hier fout!");
             }
@@ -138,7 +149,7 @@ namespace DALMSSQLSERVER
             {
                 throw new TemporaryExceptions(ex);
             }
-            catch (Exception ex) //Toegang tot de exceptie class
+            catch (Exception ex)
             {
                 throw new PermanentExceptions("Iets gaat hier fout!");
             }
@@ -162,11 +173,15 @@ namespace DALMSSQLSERVER
                 CloseConnection();
                 return 0;
             }
-            catch (SqlException ex)
+            catch (InvalidOperationException ex)
             {
-                throw new TemporaryExceptions("Fout met de verbinding");
+                throw new TemporaryExceptions(ex);
             }
-            catch (Exception ex) //Toegang tot de exceptie class
+            catch (IOException ex)
+            {
+                throw new TemporaryExceptions(ex);
+            }
+            catch (Exception ex)
             {
                 throw new PermanentExceptions("Iets gaat hier fout!");
             }
@@ -190,11 +205,15 @@ namespace DALMSSQLSERVER
                 CloseConnection();
                 return 0;
             }
-            catch (SqlException ex)
+            catch (InvalidOperationException ex)
             {
-                throw new TemporaryExceptions("Fout met de verbinding");
+                throw new TemporaryExceptions(ex);
             }
-            catch (Exception ex) //Toegang tot de exceptie class
+            catch (IOException ex)
+            {
+                throw new TemporaryExceptions(ex);
+            }
+            catch (Exception ex)
             {
                 throw new PermanentExceptions("Iets gaat hier fout!");
             }
