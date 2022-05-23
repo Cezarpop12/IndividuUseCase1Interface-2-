@@ -14,81 +14,175 @@ namespace DALMSSQLSERVER
         ///Voeg de waardes in OutfitTabel, specificeer welk gebruikerID de outfit toevoegd dmv de alias
         /// </summary>
 
-        public void VoegOnderdeelToe(GebruikerDTO gebruiker, OnderdeelDTO onderdeel)
+        public void VoegOnderdeelToe(int GebrID, OnderdeelDTO onderdeel)
         {
-            OpenConnection();
-            if (!BestaandeTitleNaamOnder(onderdeel.Titel))
+            try
             {
                 OpenConnection();
-                string query = @"INSERT INTO Onderdeel VALUES((SELECT GebrID FROM Gebruiker WHERE Alias = @alias), @titel, @prijs, @category, @path)";
-                SqlCommand command = new SqlCommand(query, this.connection);
-                command.Parameters.AddWithValue("@alias", gebruiker.Alias);
-                command.Parameters.AddWithValue("@titel", onderdeel.Titel);
-                command.Parameters.AddWithValue("@prijs", onderdeel.Prijs);
-                command.Parameters.AddWithValue("@category", onderdeel.DeCategory.ToString());
-                command.Parameters.AddWithValue("@path", onderdeel.FileAdress);
-                command.ExecuteNonQuery();
+                if (!BestaandeTitleNaamOnder(onderdeel.Titel))
+                {
+                    OpenConnection();
+                    string query = @"INSERT INTO Onderdeel VALUES(@id, @titel, @prijs, @category, @path)";
+                    SqlCommand command = new SqlCommand(query, this.connection);
+                    command.Parameters.AddWithValue("@id", GebrID);
+                    command.Parameters.AddWithValue("@titel", onderdeel.Titel);
+                    command.Parameters.AddWithValue("@prijs", onderdeel.Prijs);
+                    command.Parameters.AddWithValue("@category", onderdeel.DeCategory.ToString());
+                    command.Parameters.AddWithValue("@path", onderdeel.FileAdress);
+                    command.ExecuteNonQuery();
+                }
+                CloseConnection();
             }
-            CloseConnection();
+            catch (SqlException ex)
+            {
+                throw new TemporaryExceptions("Fout met de verbinding");
+            }
+            catch (Exception ex) //Toegang tot de exceptie class
+            {
+                throw new PermanentExceptions("Iets gaat hier fout!");
+            }
         }
         
-        public List<OnderdeelDTO> GetAllOnderdelenVanGebr(string alias)
+        public List<OnderdeelDTO> GetAllOnderdelenVanGebr(int GebrID)
         {
-            List<OnderdeelDTO> Onderdelen = new List<OnderdeelDTO>();
-            OpenConnection();
-            SqlCommand command = new SqlCommand(@"SELECT * FROM Onderdeel WHERE GebrID = @id", this.connection);
-            command.Parameters.AddWithValue("@id", GetUserID(alias));
-            SqlDataReader reader = command.ExecuteReader();
-            if (reader.HasRows)
+            try
             {
-                while (reader.Read())
+                List<OnderdeelDTO> Onderdelen = new List<OnderdeelDTO>();
+                OpenConnection();
+                SqlCommand command = new SqlCommand(@"SELECT * FROM Onderdeel WHERE GebrID = @id", this.connection);
+                command.Parameters.AddWithValue("@id", GebrID);
+                SqlDataReader reader = command.ExecuteReader();
+                if (reader.HasRows)
                 {
-                    Onderdelen.Add(new OnderdeelDTO(
-                    reader["Titel"].ToString(),
-                    Convert.ToInt32(reader["Prijs"]),
-                    reader["FileAdress"].ToString(),
-                    (OnderdeelDTO.OnderdeelCategory)Enum.Parse(typeof(OnderdeelDTO.OnderdeelCategory), reader["Categorie"].ToString())));
+                    while (reader.Read())
+                    {
+                        Onderdelen.Add(new OnderdeelDTO(
+                        Convert.ToInt32(reader["ID"].ToString()),
+                        reader["Titel"].ToString(),
+                        Convert.ToInt32(reader["Prijs"]),
+                        (OnderdeelDTO.OnderdeelCategory)Enum.Parse(typeof(OnderdeelDTO.OnderdeelCategory), 
+                        reader["Categorie"].ToString()),
+                        reader["FileAdress"].ToString()));
+                    }
                 }
+                CloseConnection();
+                return Onderdelen;
             }
-            CloseConnection();
-            return Onderdelen;
+            catch (SqlException ex)
+            {
+                throw new TemporaryExceptions("Fout met de verbinding");
+            }
+            catch (Exception ex) //Toegang tot de exceptie class
+            {
+                throw new PermanentExceptions("Iets gaat hier fout!");
+            }
         }
 
         public List<OnderdeelDTO> GetAllOnderdelen()
         {
-            List<OnderdeelDTO> Onderdelen = new List<OnderdeelDTO>();
-            OpenConnection();
-            SqlCommand command = new SqlCommand(@"SELECT * FROM Onderdeel", this.connection);
-            SqlDataReader reader = command.ExecuteReader();
-            if (reader.HasRows)
+            try
             {
-                while (reader.Read())
+                List<OnderdeelDTO> Onderdelen = new List<OnderdeelDTO>();
+                OpenConnection();
+                SqlCommand command = new SqlCommand(@"SELECT * FROM Onderdeel", this.connection);
+                SqlDataReader reader = command.ExecuteReader();
+                if (reader.HasRows)
                 {
-                    Onderdelen.Add(new OnderdeelDTO(
-                    reader["Titel"].ToString(),
-                    Convert.ToInt32(reader["Prijs"]),
-                    reader["FileAdress"].ToString(),
-                    (OnderdeelDTO.OnderdeelCategory)Enum.Parse(typeof(OnderdeelDTO.OnderdeelCategory), reader["Categorie"].ToString())));
+                    while (reader.Read())
+                    {
+                        Onderdelen.Add(new OnderdeelDTO(
+                        Convert.ToInt32(reader["ID"].ToString()),
+                        reader["Titel"].ToString(),
+                        Convert.ToInt32(reader["Prijs"]),
+                        (OnderdeelDTO.OnderdeelCategory)Enum.Parse(typeof(OnderdeelDTO.OnderdeelCategory),
+                        reader["Categorie"].ToString()),
+                        reader["FileAdress"].ToString()));
+                    }
                 }
+                CloseConnection();
+                return Onderdelen;
             }
-            CloseConnection();
-            return Onderdelen;
+            catch (SqlException ex)
+            {
+                throw new TemporaryExceptions("Fout met de verbinding");
+            }
+            catch (Exception ex) //Toegang tot de exceptie class
+            {
+                throw new PermanentExceptions("Iets gaat hier fout!");
+            }
+        }
+
+        public void DeleteOnderdeel(OnderdeelDTO onderdeel) //fixen
+        {
+            try
+            {
+                OpenConnection();
+                SqlCommand command = new SqlCommand(@"DELETE FROM Onderdeel WHERE ID = @id", this.connection);
+                command.Parameters.AddWithValue("@id", onderdeel.ID);
+                command.ExecuteNonQuery();
+                CloseConnection();
+            }
+            catch (SqlException ex)
+            {
+                throw new TemporaryExceptions("Fout met de verbinding");
+            }
+            catch (Exception ex) //Toegang tot de exceptie class
+            {
+                throw new PermanentExceptions("Iets gaat hier fout!");
+            }
         }
         
+        public void UpdateOnderdeel(OnderdeelDTO onderdeel) //fixen
+        {
+            try
+            {
+                OpenConnection();
+                SqlCommand command = new SqlCommand(@"UPDATE Onderdeel SET Prijs = @prijs, Categorie = @categorie WHERE ID = @id", this.connection);
+                command.Parameters.AddWithValue("@id", onderdeel.ID);
+                command.Parameters.AddWithValue("@prijs", onderdeel.Prijs);
+                command.Parameters.AddWithValue("@categorie", onderdeel.DeCategory);
+                command.ExecuteNonQuery();
+                CloseConnection();
+            }
+            catch (SqlException ex)
+            {
+                throw new TemporaryExceptions("Fout met de verbinding");
+            }
+            catch (Exception ex) //Toegang tot de exceptie class
+            {
+                throw new PermanentExceptions("Iets gaat hier fout!");
+            }
+        }
+
         public bool IsOnderdeel(string titel)
         {
-            bool check = false;
-            OpenConnection();
-            string query = @"SELECT * FROM Onderdeel WHERE Titel = @titel";
-            SqlCommand command = new SqlCommand(query, this.connection);
-            command.Parameters.AddWithValue("@titel", titel);
-            SqlDataReader reader = command.ExecuteReader();
-            if (reader.HasRows)
+            try
             {
-                check = true;
+                bool check = false;
+                OpenConnection();
+                string query = @"SELECT * FROM Onderdeel WHERE Titel = @titel";
+                SqlCommand command = new SqlCommand(query, this.connection);
+                command.Parameters.AddWithValue("@titel", titel);
+                SqlDataReader reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    check = true;
+                }
+                CloseConnection();
+                return check;
             }
-            CloseConnection();
-            return check;
+            catch (SqlException ex)
+            {
+                throw new TemporaryExceptions("Fout met de verbinding");
+            }
+            catch (Exception ex) //Toegang tot de exceptie class
+            {
+                throw new PermanentExceptions("Iets gaat hier fout!");
+            }
+            catch (Exception ex) //Toegang tot de exceptie class
+            {
+                throw new PermanentExceptions("Iets gaat hier fout!");
+            }
         }
 
         /// <summary>
@@ -97,25 +191,36 @@ namespace DALMSSQLSERVER
 
         public OnderdeelDTO GetOnderdeel(string titel)
         {
-            OnderdeelDTO onderdeel = null;
-            //Recap
-            OpenConnection();
-            SqlCommand command = new SqlCommand(@"SELECT * FROM Onderdeel WHERE Titel = @titel", this.connection);
-            command.Parameters.AddWithValue("@titel", titel);
-            SqlDataReader reader = command.ExecuteReader();
-            if (reader.HasRows)
+            try
             {
-                while (reader.Read())
+                OnderdeelDTO onderdeel = null;
+                OpenConnection();
+                SqlCommand command = new SqlCommand(@"SELECT * FROM Onderdeel WHERE Titel = @titel", this.connection);
+                command.Parameters.AddWithValue("@titel", titel);
+                SqlDataReader reader = command.ExecuteReader();
+                if (reader.HasRows)
                 {
-                    onderdeel = new OnderdeelDTO(
-                    reader["Titel"].ToString(),
-                    Convert.ToInt32(reader["Prijs"]),
-                    reader["FileAdress"].ToString(),
-                    (OnderdeelDTO.OnderdeelCategory)Enum.Parse(typeof(OnderdeelDTO.OnderdeelCategory), reader["Categorie"].ToString()));
+                    while (reader.Read())
+                    {
+                        onderdeel = new OnderdeelDTO(
+                        Convert.ToInt32(reader["ID"].ToString()),
+                        reader["Titel"].ToString(),
+                        Convert.ToInt32(reader["Prijs"]),
+                        (OnderdeelDTO.OnderdeelCategory)Enum.Parse(typeof(OnderdeelDTO.OnderdeelCategory), reader["Categorie"].ToString()),
+                        reader["FileAdress"].ToString());
+                    }
                 }
+                CloseConnection();
+                return onderdeel;
             }
-            CloseConnection();
-            return onderdeel;
+            catch (SqlException ex)
+            {
+                throw new TemporaryExceptions("Fout met de verbinding");
+            }
+            catch (Exception ex) //Toegang tot de exceptie class
+            {
+                throw new PermanentExceptions("Iets gaat hier fout!");
+            }
         }
     }
 

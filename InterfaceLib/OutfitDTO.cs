@@ -16,12 +16,14 @@ namespace InterfaceLib
             Casual
         }
 
+        public int ID { get; set; }
         public List<ReviewDTO> Reviews { get; } = new List<ReviewDTO>();
-        public OutfitCategory DeCategory { get; }
+        public OutfitCategory DeCategory { get; set; }
 
-        public OutfitDTO(string titel, int prijs, string FileAdress, OutfitCategory category) : base(titel, prijs, FileAdress)
+        public OutfitDTO(int id, string titel, int prijs, OutfitCategory category, string fileAdress) : base(titel, prijs, fileAdress)
         {
-            this.DeCategory = category;
+            DeCategory = category;
+            this.ID = id;
         }
     }
 }

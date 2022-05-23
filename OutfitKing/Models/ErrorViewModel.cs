@@ -6,7 +6,6 @@ namespace OutfitKing.Models
         /// Models zijn DTO's
         /// </summary>
         public string? RequestId { get; set; }
-
         public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
     }
 }

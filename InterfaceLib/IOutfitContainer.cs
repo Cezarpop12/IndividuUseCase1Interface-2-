@@ -8,11 +8,12 @@ namespace InterfaceLib
 {
     public interface IOutfitContainer
     {
-        public void VoegOutfitToe(GebruikerDTO gebruiker, OutfitDTO outfit);
-        //public void VerwijderOutfit(OutfitDTO outfit);
-        public List<OutfitDTO> GetAllOutfitsVanGebr(string alias);
+        public void VoegOutfitToe(int GebrID, OutfitDTO outfit);
+        public List<OutfitDTO> GetAllOutfitsVanGebr(int GebrID);
         public List<OutfitDTO> GetAllOutfits();
         public OutfitDTO GetOutfit(string titel);
+        public void DeleteOutfit(OutfitDTO outfit);
+        public void UpdateOutfit(OutfitDTO outfit);
         public bool IsOutfit(string titel);
     }
 }

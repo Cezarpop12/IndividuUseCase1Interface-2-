@@ -1,0 +1,49 @@
+﻿@model GebruikerVM
+@{
+    ViewData["Title"] = "Registratie";
+}
+
+@if (Model.Retry)
+{
+  <div class = "row">
+    <p style="color:red">
+      Uw gebruikersnaam en/of alias bestaat al!
+     </p>
+   </div>
+}
+
+<form class="vh-100">
+  <div class="container py-5 h-100">
+    <div class="row d-flex align-items-center justify-content-center h-100">
+      <div class="col-md-8 col-lg-7 col-xl-6">
+       <img src="https://www.drupal.org/files/project-images/reg_confirm_email_with_button_0.png"
+        class="img-fluid" alt="Phone image">
+      </div>
+     <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
+   </form>
+  
+<form method ="post">
+  <div class="form-outline mb-4">
+    <label asp-for="Alias">Alias</label>
+    <input asp-for="Alias" class="form-control" />
+    <span asp-validation-for="Alias" style="color:red"></span>
+   </div>
+  <div class="form-outline mb-4">  
+    <label asp-for="Gerbuikersnaam">Gebruikersnaam</label>
+    <input asp-for="Gerbuikersnaam" class="form-control" /> 
+    <span asp-validation-for="Gerbuikersnaam" style="color:red"></span>
+   </div>
+  <div class="form-outline mb-4">  
+    <label asp-for="Wachtwoord">Wachtwoord</label>
+    <input asp-for="Wachtwoord" type="password" class="form-control" /> 
+    <span asp-validation-for="Wachtwoord" style="color:red"></span>
+   </div>
+              
+     <input type="submit" value="Maak account aan" style="margin-bottom:120px" class="btn btn-primary" />             
+    </form>
+   </div>
+  </div>
+ </div>
+</section>
+
+

@@ -17,12 +17,14 @@ namespace InterfaceLib
             Jurk
         }
 
+        public int ID { get; set; }
         public List<ReviewDTO> Reviews { get; } = new List<ReviewDTO>();
         public OnderdeelCategory DeCategory { get; }
 
-        public OnderdeelDTO(string titel, int prijs, string FileAdress, OnderdeelCategory category) : base(titel, prijs, FileAdress)
+        public OnderdeelDTO(int id, string titel, int prijs, OnderdeelCategory category, string fileAdress) : base(titel, prijs, fileAdress)
         {
             this.DeCategory = category;
+            this.ID = id;
         }
     }
 }

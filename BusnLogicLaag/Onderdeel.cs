@@ -8,6 +8,10 @@ using InterfaceLib;
 
 namespace BusnLogicLaag
 {
+    /// <summary>
+    /// Onderdeel heeft unieke categorien, ook heeft deze een ID
+    /// Bij een onderdeel horen ook bepaalde reviews
+    /// </summary>
     public class Onderdeel : Kleding
     {
         public enum OnderdeelCategory
@@ -19,22 +23,25 @@ namespace BusnLogicLaag
             Jurk
         }
 
+        public int ID { get; set; }
         public List<Review> Reviews { get; set; } = new List<Review>();
         public OnderdeelCategory DeCategory { get; }
 
-        public Onderdeel(string titel, int prijs, string FileAdress, OnderdeelCategory category) : base(titel, prijs, FileAdress)
+        public Onderdeel(int id, string titel, int prijs, OnderdeelCategory category, string fileAdress) : base(titel, prijs, fileAdress)
         {
             DeCategory = category;
+            this.ID = id;
         }
         
         public Onderdeel(OnderdeelDTO dto) : base(dto.Titel, dto.Prijs, dto.FileAdress)
         {
             DeCategory = (Onderdeel.OnderdeelCategory)dto.DeCategory;
+            this.ID = dto.ID;
         }        
 
         internal OnderdeelDTO GetDTO()
         {
-            OnderdeelDTO dto = new OnderdeelDTO(Titel, Prijs, FileAdress, (OnderdeelDTO.OnderdeelCategory)DeCategory);
+            OnderdeelDTO dto = new OnderdeelDTO(ID, Titel, Prijs, (OnderdeelDTO.OnderdeelCategory)DeCategory, FileAdress);
             return dto;
         }
 

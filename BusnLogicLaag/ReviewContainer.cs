@@ -15,14 +15,14 @@ namespace BusnLogicLaag
         {
             this.Container = container;
         }
-        
+
         public void VoegReviewToeOutfit(Review review, Gebruiker gebruiker, string titel)
         {
             ReviewDTO reviewdto = review.GetDTO();
             GebruikerDTO gebrdto = gebruiker.GetDTO();
             Container.VoegReviewToeOutfit(reviewdto, gebrdto, titel);
         }
-        
+
         public void VoegReviewToeOnderdeel(Review review, Gebruiker gebruiker, string titel)
         {
             ReviewDTO reviewdto = review.GetDTO();
@@ -30,9 +30,10 @@ namespace BusnLogicLaag
             Container.VoegReviewToeOnderdeel(reviewdto, gebrdto, titel);
         }
 
-        public List<Review> GetAllReviewsVanGebr(string alias)
+        public List<Review> GetAllReviewsVanGebr(Gebruiker gebruiker)
         {
-            List<ReviewDTO> reviewdtos = Container.GetAllReviewsVanGebr(alias);
+            GebruikerDTO dto = gebruiker.GetDTO();
+            List<ReviewDTO> reviewdtos = Container.GetAllReviewsVanGebr(dto);
             List<Review> reviews = new List<Review>();
             foreach (ReviewDTO reviewdto in reviewdtos)
             {
@@ -40,25 +41,15 @@ namespace BusnLogicLaag
             }
             return reviews;
         }
-        
-        public List<Review> GetAllReviews()
+        public void DeleteReview(Review review)
         {
-            List<ReviewDTO> reviewdtos = Container.GetAllReviews();
-            List<Review> reviews = new List<Review>();
-            foreach (ReviewDTO reviewdto in reviewdtos)
-            {
-                reviews.Add(new Review(reviewdto));
-            }
-            return reviews;
+            ReviewDTO dto = review.GetDTO();
+            Container.DeleteReview(dto);
         }
-
-
-       //Voor later.
-        
-        //public void VerwijderReview(Review review)
-        //{
-        //    ReviewDTO dto = review.GetDTO();
-        //    Container.VerwijderReview(dto);
-        //}
-    }
+        public void UpdateReview(Review review)
+        {
+            ReviewDTO reviewdto = review.GetDTO();
+            Container.UpdateReview(reviewdto);
+        }
+    }        
 }

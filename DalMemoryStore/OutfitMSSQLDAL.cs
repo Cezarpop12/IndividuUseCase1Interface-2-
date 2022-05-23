@@ -15,81 +15,169 @@ namespace DALMSSQLSERVER
         /// Voeg de waardes in OutfitTabel, specificeer welk gebruikerID de outfit toevoegd dmv de alias
         /// </summary>
 
-        public void VoegOutfitToe(GebruikerDTO gebruiker, OutfitDTO outfit)
+        public void VoegOutfitToe(int GebrID, OutfitDTO outfit)
         {
-            OpenConnection();
-            if (!BestaandeTitleNaamOut(outfit.Titel))
+            try
             {
                 OpenConnection();
-                string query = @"INSERT INTO Outfit VALUES((SELECT GebrID FROM Gebruiker WHERE Alias = @alias), @titel, @prijs, @category, @path)";
-                SqlCommand command = new SqlCommand(query, this.connection);
-                command.Parameters.AddWithValue("@alias", gebruiker.Alias);
-                command.Parameters.AddWithValue("@titel", outfit.Titel);
-                command.Parameters.AddWithValue("@prijs", outfit.Prijs);
-                command.Parameters.AddWithValue("@category", outfit.DeCategory.ToString());
-                command.Parameters.AddWithValue("@path", outfit.FileAdress);
-                command.ExecuteNonQuery();
+                if (!BestaandeTitleNaamOut(outfit.Titel))
+                {
+                    OpenConnection();
+                    string query = @"INSERT INTO Outfit VALUES(@id, @titel, @prijs, @category, @path)";
+                    SqlCommand command = new SqlCommand(query, this.connection);
+                    command.Parameters.AddWithValue("@id", GebrID);
+                    command.Parameters.AddWithValue("@titel", outfit.Titel);
+                    command.Parameters.AddWithValue("@prijs", outfit.Prijs);
+                    command.Parameters.AddWithValue("@category", outfit.DeCategory.ToString());
+                    command.Parameters.AddWithValue("@path", outfit.FileAdress);
+                    command.ExecuteNonQuery();
+                }
+                CloseConnection();
             }
-            CloseConnection();
+            catch (SqlException ex)
+            {
+                throw new TemporaryExceptions("Fout met de verbinding");
+            }
+            catch (Exception ex) //Toegang tot de exceptie class
+            {
+                throw new PermanentExceptions("Iets gaat hier fout!");
+            }
         }
 
-        public List<OutfitDTO> GetAllOutfitsVanGebr(string alias)
+        public List<OutfitDTO> GetAllOutfitsVanGebr(int GebrID)
         {
-            List<OutfitDTO> Outfits = new List<OutfitDTO>();
-            OpenConnection();
-            SqlCommand command = new SqlCommand(@"SELECT * FROM Outfit WHERE GebrID = @id", this.connection);
-            command.Parameters.AddWithValue("@id", GetUserID(alias));
-            SqlDataReader reader = command.ExecuteReader();
-            if (reader.HasRows)
+            try
             {
-                while (reader.Read())
+                List<OutfitDTO> Outfits = new List<OutfitDTO>();
+                OpenConnection();
+                SqlCommand command = new SqlCommand(@"SELECT * FROM Outfit WHERE GebrID = @id", this.connection);
+                command.Parameters.AddWithValue("@id", GebrID);
+                SqlDataReader reader = command.ExecuteReader();
+                if (reader.HasRows)
                 {
-                    Outfits.Add(new OutfitDTO(
-                    reader["Titel"].ToString(),
-                    Convert.ToInt32(reader["Prijs"]),
-                    reader["FileAdress"].ToString(),
-                    (OutfitDTO.OutfitCategory)Enum.Parse(typeof(OutfitDTO.OutfitCategory), reader["Categorie"].ToString())));
+                    while (reader.Read())
+                    {
+                        Outfits.Add(new OutfitDTO(
+                        Convert.ToInt32(reader["ID"].ToString()),
+                        reader["Titel"].ToString(),
+                        Convert.ToInt32(reader["Prijs"]),
+                        (OutfitDTO.OutfitCategory)Enum.Parse(typeof(OutfitDTO.OutfitCategory), reader["Categorie"].ToString()),
+                        reader["FileAdress"].ToString()));
+                    }
                 }
+                CloseConnection();
+                return Outfits;
             }
-            CloseConnection();
-            return Outfits;
+            catch (SqlException ex)
+            {
+                throw new TemporaryExceptions("Fout met de verbinding");
+            }
+            catch (Exception ex) //Toegang tot de exceptie class
+            {
+                throw new PermanentExceptions("Iets gaat hier fout!");
+            }
         }
         
         public List<OutfitDTO> GetAllOutfits()
         {
-            List<OutfitDTO> Outfits = new List<OutfitDTO>();
-            OpenConnection();
-            SqlCommand command = new SqlCommand(@"SELECT * FROM Outfit", this.connection);
-            SqlDataReader reader = command.ExecuteReader();
-            if (reader.HasRows)
+            try
             {
-                while (reader.Read())
+                List<OutfitDTO> Outfits = new List<OutfitDTO>();
+                OpenConnection();
+                SqlCommand command = new SqlCommand(@"SELECT * FROM Outfit", this.connection);
+                SqlDataReader reader = command.ExecuteReader();
+                if (reader.HasRows)
                 {
-                    Outfits.Add(new OutfitDTO(
-                    reader["Titel"].ToString(),
-                    Convert.ToInt32(reader["Prijs"]),
-                    reader["FileAdress"].ToString(),
-                    (OutfitDTO.OutfitCategory)Enum.Parse(typeof(OutfitDTO.OutfitCategory), reader["Categorie"].ToString())));
+                    while (reader.Read())
+                    {
+                        Outfits.Add(new OutfitDTO(
+                        Convert.ToInt32(reader["ID"].ToString()),
+                        reader["Titel"].ToString(),
+                        Convert.ToInt32(reader["Prijs"]),
+                        (OutfitDTO.OutfitCategory)Enum.Parse(typeof(OutfitDTO.OutfitCategory), reader["Categorie"].ToString()),
+                        reader["FileAdress"].ToString()));
+                    }
                 }
+                CloseConnection();
+                return Outfits;
             }
-            CloseConnection();
-            return Outfits;
+            catch (SqlException ex)
+            {
+                throw new TemporaryExceptions("Fout met de verbinding");
+            }
+            catch (Exception ex) //Toegang tot de exceptie class
+            {
+                throw new PermanentExceptions("Iets gaat hier fout!");
+            }
+        }
+
+        public void DeleteOutfit(OutfitDTO outfit) //fixen
+        {
+            try
+            {
+                OpenConnection();
+                SqlCommand command = new SqlCommand(@"DELETE FROM Outfit WHERE ID = @id", this.connection);
+                command.Parameters.AddWithValue("@id", outfit.ID);
+                command.ExecuteNonQuery();
+                CloseConnection();
+            }
+            catch (SqlException ex)
+            {
+                throw new TemporaryExceptions("Fout met de verbinding");
+            }
+            catch (Exception ex) //Toegang tot de exceptie class
+            {
+                throw new PermanentExceptions("Iets gaat hier fout!");
+            }
         }
         
+        public void UpdateOutfit(OutfitDTO outfit) //fixen
+        {
+            try
+            {
+                OpenConnection();
+                SqlCommand command = new SqlCommand(@"UPDATE Outfit SET Prijs = @prijs, Categorie = @categorie WHERE ID = @id", this.connection);
+                command.Parameters.AddWithValue("@titel", outfit.ID);
+                command.Parameters.AddWithValue("@prijs", outfit.Prijs);
+                command.Parameters.AddWithValue("@categorie", outfit.DeCategory);
+                command.ExecuteNonQuery();
+                CloseConnection();
+            }
+            catch (SqlException ex)
+            {
+                throw new TemporaryExceptions("Fout met de verbinding");
+            }
+            catch (Exception ex) //Toegang tot de exceptie class
+            {
+                throw new PermanentExceptions("Iets gaat hier fout!");
+            }
+        }
+
         public bool IsOutfit(string titel)
         {
-            bool check = false;
-            OpenConnection();
-            string query = @"SELECT * FROM Outfit WHERE Titel = @titel";
-            SqlCommand command = new SqlCommand(query, this.connection);
-            command.Parameters.AddWithValue("@titel", titel);
-            SqlDataReader reader = command.ExecuteReader();
-            if (reader.HasRows)
+            try
             {
-                check = true;
+                bool check = false;
+                OpenConnection();
+                string query = @"SELECT * FROM Outfit WHERE Titel = @titel";
+                SqlCommand command = new SqlCommand(query, this.connection);
+                command.Parameters.AddWithValue("@titel", titel);
+                SqlDataReader reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    check = true;
+                }
+                CloseConnection();
+                return check;
             }
-            CloseConnection();
-            return check;
+            catch (SqlException ex)
+            {
+                throw new TemporaryExceptions("Fout met de verbinding");
+            }
+            catch (Exception ex) //Toegang tot de exceptie class
+            {
+                throw new PermanentExceptions("Iets gaat hier fout!");
+            }
         }
 
         /// <summary>
@@ -98,26 +186,37 @@ namespace DALMSSQLSERVER
 
         public OutfitDTO GetOutfit(string titel)
         {
-            OutfitDTO outfit = null;
-            //Recap
-            OpenConnection();
-            SqlCommand command = new SqlCommand(@"SELECT * FROM Outfit WHERE Titel = @titel", this.connection);
-            command.Parameters.AddWithValue("@titel", titel);
-            //Je zoekt outfit op titel omdat deze uniek is
-            SqlDataReader reader = command.ExecuteReader();
-            if (reader.HasRows)
+            try
             {
-                while (reader.Read())
+                OutfitDTO outfit = null;
+                OpenConnection();
+                SqlCommand command = new SqlCommand(@"SELECT * FROM Outfit WHERE Titel = @titel", this.connection);
+                command.Parameters.AddWithValue("@titel", titel);
+                //Je zoekt outfit op titel omdat deze uniek is
+                SqlDataReader reader = command.ExecuteReader();
+                if (reader.HasRows)
                 {
-                    outfit = new OutfitDTO(
-                    reader["Titel"].ToString(),
-                    Convert.ToInt32(reader["Prijs"]),
-                    reader["FileAdress"].ToString(),
-                    (OutfitDTO.OutfitCategory)Enum.Parse(typeof(OutfitDTO.OutfitCategory), reader["Categorie"].ToString()));
+                    while (reader.Read())
+                    {
+                        outfit = new OutfitDTO(
+                        Convert.ToInt32(reader["ID"].ToString()),
+                        reader["Titel"].ToString(),
+                        Convert.ToInt32(reader["Prijs"]),
+                        (OutfitDTO.OutfitCategory)Enum.Parse(typeof(OutfitDTO.OutfitCategory), reader["Categorie"].ToString()),
+                        reader["FileAdress"].ToString());
+                    }
                 }
+                CloseConnection();
+                return outfit;
             }
-            CloseConnection();
-            return outfit;
+            catch (SqlException ex)
+            {
+                throw new TemporaryExceptions("Fout met de verbinding");
+            }
+            catch (Exception ex) //Toegang tot de exceptie class
+            {
+                throw new PermanentExceptions("Iets gaat hier fout!");
+            }
         }        
     }
 }

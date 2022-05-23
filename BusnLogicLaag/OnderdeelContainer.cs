@@ -16,16 +16,15 @@ namespace BusnLogicLaag
             this.Container = container;
         }
 
-        public void VoegOnderdeelToe(Gebruiker gebruiker, Onderdeel onderdeel)
+        public void VoegOnderdeelToe(int GebrID, Onderdeel onderdeel)
         {
-            GebruikerDTO gebrdto = gebruiker.GetDTO();
             OnderdeelDTO onderdeeldto = onderdeel.GetDTO();
-            Container.VoegOnderdeelToe(gebrdto, onderdeeldto);
+            Container.VoegOnderdeelToe(GebrID, onderdeeldto);
         }
         
-        public List<Onderdeel> GetAllOnderdelenVanGebr(string alias)
+        public List<Onderdeel> GetAllOnderdelenVanGebr(int GebrID)
         {
-            List<OnderdeelDTO> onderdeeldtos = Container.GetAllOnderdelenVanGebr(alias);
+            List<OnderdeelDTO> onderdeeldtos = Container.GetAllOnderdelenVanGebr(GebrID);
             List<Onderdeel> onderdelen = new List<Onderdeel>();
             foreach (OnderdeelDTO onderdeeldto in onderdeeldtos)
             {
@@ -34,16 +33,6 @@ namespace BusnLogicLaag
             return onderdelen;
         }
 
-        public bool IsOnderdeel(string titel)
-        {
-            return Container.IsOnderdeel(titel);
-        }
-
-       /// <summary>
-       /// Voor later.
-       /// </summary>
-       /// <returns></returns>
-       
         public List<Onderdeel> GetAllOnderdelen()
         {
             List<OnderdeelDTO> onderdeeldtos = Container.GetAllOnderdelen();
@@ -55,10 +44,23 @@ namespace BusnLogicLaag
             return onderdelen;
         }
 
-        /// <summary>
-        /// Voor later.
-        /// </summary>
-        /// <returns></returns>
+
+        public bool IsOnderdeel(string titel)
+        {
+            return Container.IsOnderdeel(titel);
+        }
+
+        public void DeleteOnderdeel(Onderdeel onderdeel)
+        {
+            OnderdeelDTO dto = onderdeel.GetDTO();
+            Container.DeleteOnderdeel(dto);
+        }
+
+        public void UpdateOnderdeel(Onderdeel onderdeel)
+        {
+            OnderdeelDTO onderdeeldto = onderdeel.GetDTO();
+            Container.UpdateOnderdeel(onderdeeldto);
+        }
 
         public Onderdeel GetOnderdeel(string titel)
         {

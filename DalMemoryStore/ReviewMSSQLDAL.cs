@@ -12,82 +12,133 @@ namespace DALMSSQLSERVER
     {
         public void VoegReviewToeOutfit(ReviewDTO review, GebruikerDTO gebruiker, string titel)
         {
-            OpenConnection();
-            if (GetOutfitID(titel) > 0)
+            try
             {
                 OpenConnection();
-                string query = "INSERT INTO Review (GebrID, OutfitID, StukTekst, Datum) VALUES((SELECT GebrID FROM Gebruiker WHERE Alias = @alias),(SELECT ID FROM Outfit WHERE ID = @id), @stuktekst, @datumtijd)";
-                SqlCommand command = new SqlCommand(query, this.connection);
-                command.Parameters.AddWithValue("@alias", gebruiker.Alias);
-                command.Parameters.AddWithValue("@id", GetOutfitID(titel));
-                command.Parameters.AddWithValue("@stuktekst", review.StukTekst);
-                command.Parameters.AddWithValue("@datumtijd", review.DatumTijd);
-                command.ExecuteNonQuery();
-                CloseConnection();
+                if (GetOutfitID(titel) > 0)
+                {
+                    OpenConnection();
+                    string query = "INSERT INTO Review (GebrID, OutfitID, StukTekst, Datum) VALUES((SELECT GebrID FROM Gebruiker WHERE Alias = @alias),(SELECT ID FROM Outfit WHERE ID = @id), @stuktekst, @datumtijd)";
+                    SqlCommand command = new SqlCommand(query, this.connection);
+                    command.Parameters.AddWithValue("@alias", gebruiker.Alias);
+                    command.Parameters.AddWithValue("@id", GetOutfitID(titel));
+                    command.Parameters.AddWithValue("@stuktekst", review.StukTekst);
+                    command.Parameters.AddWithValue("@datumtijd", review.DatumTijd);
+                    command.ExecuteNonQuery();
+                    CloseConnection();
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw new TemporaryExceptions("Fout met de verbinding");
+            }
+            catch (Exception ex) //Toegang tot de exceptie class
+            {
+                throw new PermanentExceptions("Iets gaat hier fout!");
             }
         }
         
         public void VoegReviewToeOnderdeel(ReviewDTO review, GebruikerDTO gebruiker, string titel)
         {
-            OpenConnection();
-            if (GetOnderdeelID(titel) > 0)
+            try
             {
                 OpenConnection();
-                string query = "INSERT INTO Review (GebrID, KledingstukID, StukTekst, Datum) VALUES((SELECT GebrID FROM Gebruiker WHERE Alias = @alias),(SELECT ID FROM Onderdeel WHERE ID = @id), @stuktekst, @datumtijd)";
-                SqlCommand command = new SqlCommand(query, this.connection);
-                command.Parameters.AddWithValue("@alias", gebruiker.Alias);
-                command.Parameters.AddWithValue("@id", GetOnderdeelID(titel));
+                if (GetOnderdeelID(titel) > 0)
+                {
+                    OpenConnection();
+                    string query = "INSERT INTO Review (GebrID, KledingstukID, StukTekst, Datum) VALUES((SELECT GebrID FROM Gebruiker WHERE Alias = @alias),(SELECT ID FROM Onderdeel WHERE ID = @id), @stuktekst, @datumtijd)";
+                    SqlCommand command = new SqlCommand(query, this.connection);
+                    command.Parameters.AddWithValue("@alias", gebruiker.Alias);
+                    command.Parameters.AddWithValue("@id", GetOnderdeelID(titel));
+                    command.Parameters.AddWithValue("@stuktekst", review.StukTekst);
+                    command.Parameters.AddWithValue("@datumtijd", review.DatumTijd);
+                    command.ExecuteNonQuery();
+                    CloseConnection();
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw new TemporaryExceptions("Fout met de verbinding");
+            }
+            catch (Exception ex) //Toegang tot de exceptie class
+            {
+                throw new PermanentExceptions("Iets gaat hier fout!");
+            }
+        }
+
+        public List<ReviewDTO> GetAllReviewsVanGebr(GebruikerDTO gebruiker)
+        {
+            try
+            {
+                List<ReviewDTO> Reviews = new List<ReviewDTO>();
+                OpenConnection();
+                SqlCommand command = new SqlCommand(@"SELECT * FROM Review WHERE GebrID = @id", this.connection);
+                command.Parameters.AddWithValue("@id", gebruiker.ID);
+                SqlDataReader reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        Reviews.Add(new ReviewDTO(
+                            Convert.ToInt32(reader["Id"].ToString()),
+                            reader["StukTekst"].ToString(),
+                            reader["Titel"].ToString(),
+                            GetGebruiker(gebruiker.Alias), //misschien "Alias" tussen quotes en zonder gebruiker.
+                            Convert.ToDateTime(reader["Datum"])));
+                    }
+                }
+                CloseConnection();
+                return Reviews;
+            }
+            catch (SqlException ex)
+            {
+                throw new TemporaryExceptions("Fout met de verbinding");
+            }
+            catch (Exception ex) //Toegang tot de exceptie class
+            {
+                throw new PermanentExceptions("Iets gaat hier fout!");
+            }
+        }
+
+        public void DeleteReview(ReviewDTO review)
+        {
+            try
+            { 
+            OpenConnection();
+            SqlCommand command = new SqlCommand(@"DELETE FROM Review WHERE ID = @id", this.connection);
+            command.Parameters.AddWithValue("@id", review.ID);
+            command.ExecuteNonQuery();
+            CloseConnection();
+            }
+            catch (SqlException ex)
+            {
+                throw new TemporaryExceptions("Fout met de verbinding");
+            }
+            catch (Exception ex) //Toegang tot de exceptie class
+            {
+                throw new PermanentExceptions("Iets gaat hier fout!");
+            }                
+        }
+
+        public void UpdateReview(ReviewDTO review)
+        {
+            try
+            {
+                OpenConnection();
+                SqlCommand command = new SqlCommand(@"UPDATE Review SET StukTekst = @stuktekst WHERE ID = @id", this.connection);
                 command.Parameters.AddWithValue("@stuktekst", review.StukTekst);
-                command.Parameters.AddWithValue("@datumtijd", review.DatumTijd);
+                command.Parameters.AddWithValue("@id", review.ID);
                 command.ExecuteNonQuery();
                 CloseConnection();
             }
-        }
-
-        public List<ReviewDTO> GetAllReviewsVanGebr(string alias)
-        {
-            List<ReviewDTO> Reviews = new List<ReviewDTO>();
-            OpenConnection();
-            SqlCommand command = new SqlCommand(@"SELECT * FROM Review WHERE GebrID = @id", this.connection);
-            command.Parameters.AddWithValue("@id", GetUserID(alias));
-            SqlDataReader reader = command.ExecuteReader();
-            if (reader.HasRows)
+            catch (SqlException ex)
             {
-                while (reader.Read())
-                {
-                    Reviews.Add(new ReviewDTO(
-                        reader["StukTekst"].ToString(),
-                        GetGebruiker(alias),
-                        Convert.ToDateTime(reader["Datum"])));
-                }
+                throw new TemporaryExceptions("Fout met de verbinding");
             }
-            CloseConnection();
-            return Reviews;
-        }
-        
-        /// <summary>
-        /// Een methode om alle reviews te tonen en een om van een specifieke gebr te tonen.
-        /// </summary>
-        /// <returns></returns>
-
-        public List<ReviewDTO> GetAllReviews()
-        {
-            List<ReviewDTO> Reviews = new List<ReviewDTO>();
-            OpenConnection();
-            SqlCommand command = new SqlCommand(@"SELECT * FROM Review", this.connection);
-            SqlDataReader reader = command.ExecuteReader();
-            if (reader.HasRows)
+            catch (Exception ex) //Toegang tot de exceptie class
             {
-                while (reader.Read())
-                {
-                    Reviews.Add(new ReviewDTO(
-                        reader["StukTekst"].ToString(),
-                        GetGebruiker("Alias"),
-                        Convert.ToDateTime(reader["Datum"])));
-                }
+                throw new PermanentExceptions("Iets gaat hier fout!");
             }
-            CloseConnection();
-            return Reviews;
         }
 
         /// <summary>
@@ -96,21 +147,33 @@ namespace DALMSSQLSERVER
 
         public GebruikerDTO GetGebruiker(string naam)
         {
-            OpenConnection();
-            SqlCommand command = new SqlCommand(@"SELECT * FROM Gebruiker WHERE GebrID = @id", this.connection);
-            command.Parameters.AddWithValue("@id", GetUserID(naam));
-            SqlDataReader reader = command.ExecuteReader();
-            if (reader.HasRows)
-            {   
-                while (reader.Read())
+            try
+            {
+                OpenConnection();
+                SqlCommand command = new SqlCommand(@"SELECT * FROM Gebruiker WHERE GebrID = @id", this.connection);
+                command.Parameters.AddWithValue("@id", GetUserID(naam));
+                SqlDataReader reader = command.ExecuteReader();
+                if (reader.HasRows)
                 {
-                    return new GebruikerDTO(
-                        reader["Gebruikersnaam"].ToString(),
-                        reader["Alias"].ToString());
+                    while (reader.Read())
+                    {
+                        return new GebruikerDTO(
+                            Convert.ToInt32(reader["ID"].ToString()),
+                            reader["Gebruikersnaam"].ToString(),
+                            reader["Alias"].ToString());
+                    }
                 }
+                CloseConnection();
+                return null;
             }
-            CloseConnection();
-            return null;
+            catch (SqlException ex)
+            {
+                throw new TemporaryExceptions("Fout met de verbinding");
+            }
+            catch (Exception ex) //Toegang tot de exceptie class
+            {
+                throw new PermanentExceptions("Iets gaat hier fout!");
+            }
         }
     }
 }

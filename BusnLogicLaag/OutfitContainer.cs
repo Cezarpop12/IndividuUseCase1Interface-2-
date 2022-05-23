@@ -16,16 +16,15 @@ namespace BusnLogicLaag
             this.Container = container;
         }
 
-        public void VoegOutfitToe(Gebruiker gebruiker, Outfit outfit)
+        public void VoegOutfitToe(int GebrID, Outfit outfit)
         {
-            GebruikerDTO gebrdto = gebruiker.GetDTO();            
             OutfitDTO outfitdto = outfit.GetDTO();
-            Container.VoegOutfitToe(gebrdto, outfitdto);
+            Container.VoegOutfitToe(GebrID, outfitdto);
         }
-        
-        public List<Outfit> GetAllOutfitsVanGebr(string alias)
+
+        public List<Outfit> GetAllOutfitsVanGebr(int GebrID)
         {
-            List<OutfitDTO> outfitdtos = Container.GetAllOutfitsVanGebr(alias);
+            List<OutfitDTO> outfitdtos = Container.GetAllOutfitsVanGebr(GebrID);
             List<Outfit> outfits = new List<Outfit>();
             foreach (OutfitDTO outfitdto in outfitdtos)
             {
@@ -39,13 +38,18 @@ namespace BusnLogicLaag
             return Container.IsOutfit(titel);
         }
 
+        public void DeleteOutfit(Outfit outfit)
+        {
+            OutfitDTO dto = outfit.GetDTO();
+            Container.DeleteOutfit(dto);
+        }
 
+        public void UpdateOutfit(Outfit outfit)
+        {
+            OutfitDTO outfitdto = outfit.GetDTO();
+            Container.UpdateOutfit(outfitdto);
+        }
 
-        /// <summary>
-        /// Voor later.
-        /// </summary>
-        /// <returns></returns>
-        
         public List<Outfit> GetAllOutfits()
         {
             List<OutfitDTO> outfitdtos = Container.GetAllOutfits();
@@ -57,23 +61,11 @@ namespace BusnLogicLaag
             return outfits; 
         }
 
-
-
-       /// <summary>
-       /// Voor later.
-       /// </summary>
-
         public Outfit GetOutfit(string titel)
         {
             OutfitDTO outfitdto = Container.GetOutfit(titel);
             Outfit outfit = new Outfit(outfitdto);
             return outfit;
         }
-
-        //public void VerwijderOutfit(Outfit outfit)
-        //{
-        //    OutfitDTO dto = outfit.GetDTO();
-        //    Container.VerwijderOutfit(dto);
-        //}
     }
 }

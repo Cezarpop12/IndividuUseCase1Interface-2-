@@ -7,6 +7,10 @@ using System.Threading.Tasks;
 
 namespace BusnLogicLaag
 {
+    /// <summary>
+    /// Outfit heeft unieke categorien
+    /// Outfit heeft ook een ID en bij een outfit kunnen meerdere reviews horen
+    /// </summary>
     public class Outfit : Kleding
     {
         public enum OutfitCategory
@@ -17,22 +21,25 @@ namespace BusnLogicLaag
             Casual
         }
 
+        public int ID { get; set; }
         public List<Review> Reviews { get; set; } = new List<Review>();
-        public OutfitCategory DeCategory { get; }
+        public OutfitCategory DeCategory { get; set; }
 
-        public Outfit(string titel, int prijs, string FileAdress, OutfitCategory category) : base(titel, prijs, FileAdress)
+        public Outfit(int id, string titel, int prijs, OutfitCategory category, string fileAdress) : base(titel, prijs, fileAdress)
         {
             DeCategory = category;
+            this.ID = id;
         }
 
         public Outfit(OutfitDTO dto) : base(dto.Titel, dto.Prijs, dto.FileAdress)
         {
             DeCategory = (Outfit.OutfitCategory)dto.DeCategory;
+            ID = dto.ID;
         }
 
         internal OutfitDTO GetDTO()
         {
-             OutfitDTO dto = new OutfitDTO(Titel, Prijs, FileAdress, (OutfitDTO.OutfitCategory)DeCategory);
+             OutfitDTO dto = new OutfitDTO(ID, Titel, Prijs, (OutfitDTO.OutfitCategory)DeCategory, FileAdress);
              return dto;
         }
 

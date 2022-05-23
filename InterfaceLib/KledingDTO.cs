@@ -11,12 +11,12 @@ namespace InterfaceLib
         public int Prijs { get; set; }
         public string Titel { get; set; }
         public string FileAdress { get; set; }
-        
-        public KledingDTO(string titel, int prijs, string FileAdress)
+
+        public KledingDTO(string titel, int prijs, string fileAdress)
         {
             this.Titel = titel;
             this.Prijs = prijs;
-            this.FileAdress = FileAdress;
+            this.FileAdress = fileAdress;
         }
 
     }

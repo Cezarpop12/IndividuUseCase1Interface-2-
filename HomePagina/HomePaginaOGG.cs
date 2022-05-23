@@ -17,7 +17,6 @@ namespace HomePagina
         /// <summary>
         /// Haal alle outfits die zijn toegevoegd aan de lijst in de form "Toevoegscherm"  weer opniew op.
         /// </summary>
-        
         public GebruikerContainer gebrContainer = new GebruikerContainer(new GebruikerMSSQLDAL());
         public OutfitContainer outfitContainer = new OutfitContainer(new OutfitMSSQLDAL());
         public OnderdeelContainer oonderdeelContainer = new OnderdeelContainer(new OnderdeelMSSQLDAL());
@@ -26,10 +25,10 @@ namespace HomePagina
         public HomePaginaOGG()
         {
             InitializeComponent();
-            //gebrContainer.CreateGebr(gebruiker = new Gebruiker("Cezar008", "Agent009"), "Welkom1234");
+            //gebrContainer.CreateGebr(new Gebruiker("Cezar008", "Agent009"), "Welkom1234");
             gebruiker = gebrContainer.ZoekGebrOpGebrnaamEnWW("Cezar008", "Welkom1234");
-            gebruiker.Outfits = outfitContainer.GetAllOutfitsVanGebr(gebruiker.Alias);
-            gebruiker.Onderdelen = oonderdeelContainer.GetAllOnderdelenVanGebr(gebruiker.Alias);
+            gebruiker.Outfits = outfitContainer.GetAllOutfitsVanGebr(gebruiker.ID);
+            gebruiker.Onderdelen = oonderdeelContainer.GetAllOnderdelenVanGebr(gebruiker.ID);
         }
 
         /// <summary>

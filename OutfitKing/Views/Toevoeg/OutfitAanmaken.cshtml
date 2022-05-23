@@ -1,0 +1,82 @@
+﻿@model OutfitKing.Models.OutfitVM
+
+@{
+    ViewData["Title"] = "OutfitAanmaken";
+}
+
+<h1>Voeg een outfit toe</h1>
+
+<html>
+<head>
+<style>
+div.inset {border-style: inset;}
+div.outset {border-style: outset;}
+.btn-primary {
+  background-color: mediumspringgreen;
+  text-decoration-line: none;
+  border: none;
+  color: white;
+  padding: 12px 16px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 20px;
+}
+.btn-primary:hover {
+  background-color: limegreen;
+  border-color: limegreen;
+}
+</style>
+</head>
+<body> 
+
+<div class="row">
+   <div class="col-md-4">
+      <form asp-action="OutfitAanmaken" enctype="multipart/form-data">
+     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+   <div class="form-group">
+     <label asp-for="Titel"></label>
+      <div class="outset">
+     <input asp-for="Titel" class="form-control" />
+     <span asp-validation-for="Titel" style="color:red"></span>
+     </div>
+   <div class="form-group">
+     <label asp-for="Prijs"></label>
+      <div class="outset">
+     <input asp-for="Prijs" class="form-control" />
+     <span asp-validation-for="Prijs" style="color:red"></span>
+     </div>
+   <div class="form-group">
+     <label asp-for="Category"></label> 
+      <div class="outset">
+       <select asp-for="Category" class="form-control" asp-items="Html.GetEnumSelectList<OutfitVM.OutfitCategory>()"></select>
+     <span asp-validation-for="Category" style="color:red"></span>
+     </div>
+   <div class="form-group">
+     <label asp-for="Afbeelding"></label>
+      <div class="outset">
+     <input asp-for="Afbeelding" class="form-control"
+     onchange="document.getElementById('OutfitPreview').src = window.URL.createObjectURL(this.files[0])">
+     <span asp-validation-for="Afbeelding" style="color:red"></span>
+     </div>
+
+   <img id="OutfitPreview" src="" alt="Preview" width="150"
+     height="150" style="margin-top:20px; margin-right:250px;" />
+
+   <div class="form-group">
+   <input type="submit" <button style="margin-top: 2em" value="Toevoegen!" class="btn btn-primary" />
+   </div>
+    </form>
+   </div>
+  </div>
+ </body>
+
+@section Scripts{
+  @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+   <script type="text/javascript">
+    $(".custom-file-input").on("change", function () {
+     var fileName = $(this).val().split("\\").pop();
+    $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+   });
+  </script>
+ }
+

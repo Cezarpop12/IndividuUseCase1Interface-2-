@@ -77,28 +77,45 @@ namespace HomePagina
 
             private void VoegOutfitToe_Click(object sender, EventArgs e)
             {
+            int id = 0;
             OutfitCategorien();
             bool parseResult = int.TryParse(tbPrijs.Text, out int prijs);
-            if (tbNaam.Text != "" && parseResult && cbOutfits.SelectedItem != null && FileName != "")
-              {
-                outfitContainer.VoegOutfitToe(((HomePaginaOGG)this.Owner).gebruiker, new Outfit(tbNaam.Text, prijs, FileName, type));
-                ((HomePaginaOGG)this.Owner).gebruiker.Outfits = outfitContainer.GetAllOutfitsVanGebr("Agent009");
-                ((HomePaginaOGG)this.Owner).VoegOutfitPbToe();
-                MessageBox.Show("Outfit toegevoegd");
-              }
+            try
+            {
+                if (tbNaam.Text != "" && parseResult && cbOutfits.SelectedItem != null && FileName != "")
+                {
+                    outfitContainer.VoegOutfitToe(((HomePaginaOGG)this.Owner).gebruiker.ID, new Outfit(id, tbNaam.Text, prijs, type, FileName));
+                    ((HomePaginaOGG)this.Owner).gebruiker.Outfits = outfitContainer.GetAllOutfitsVanGebr(((HomePaginaOGG)this.Owner).gebruiker.ID);
+                    ((HomePaginaOGG)this.Owner).VoegOutfitPbToe();
+                    MessageBox.Show("Outfit toegevoegd");
+                }
             }
+            catch 
+            {
+                throw new Exception("Vul alle velden in/Voeg foto toe");
+            }
+        }
+            
 
         private void VoegOnderdeelToe_Click(object sender, EventArgs e)
             {
-                OnderdeelCategorien();
-                bool parseResult = int.TryParse(tbPrijsO.Text, out int prijs);
+            int id = 0;
+            OnderdeelCategorien();
+            bool parseResult = int.TryParse(tbPrijsO.Text, out int prijs);
+            try
+            {              
                 if (tbNaamO.Text != "" && parseResult && cbOnderdeel.SelectedItem != null && FileNameO != "")
                 {
-                    onderdeelContainer.VoegOnderdeelToe(((HomePaginaOGG)this.Owner).gebruiker, new Onderdeel(tbNaamO.Text, prijs, FileNameO, typeO));
-                ((HomePaginaOGG)this.Owner).gebruiker.Onderdelen = onderdeelContainer.GetAllOnderdelenVanGebr("Agent009");
+                    onderdeelContainer.VoegOnderdeelToe(((HomePaginaOGG)this.Owner).gebruiker.ID, new Onderdeel(id, tbNaamO.Text, prijs, typeO, FileNameO));
+                ((HomePaginaOGG)this.Owner).gebruiker.Onderdelen = onderdeelContainer.GetAllOnderdelenVanGebr(((HomePaginaOGG)this.Owner).gebruiker.ID);
                 ((HomePaginaOGG)this.Owner).VoegPlaatjeAanPbOnderdeel();
                     MessageBox.Show("Onderdeel toegevoegd");
                 }
             }
+            catch
+            {
+                throw new Exception("Vul alle velden in/Voeg foto toe");
+            }
+        }
     }
 }
