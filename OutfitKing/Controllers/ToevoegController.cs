@@ -41,7 +41,7 @@ namespace OutfitKing.Controllers
             else
             {
                 string FileNaam = UploadFile(outfit);
-                outfitContainer.VoegOutfitToe(ID.Value, new Outfit(outfit.ID, outfit.Titel, outfit.Prijs, (Outfit.OutfitCategory)outfit.Category, FileNaam));
+                outfitContainer.VoegOutfitToe(ID.Value, new Outfit( outfit.Titel, outfit.Prijs, (Outfit.OutfitCategory)outfit.Category, FileNaam));
                 return RedirectToAction("OutfitToevoegen");//miss getoutfit
             }
         }
