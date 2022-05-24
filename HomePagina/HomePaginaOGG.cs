@@ -27,8 +27,8 @@ namespace HomePagina
             InitializeComponent();
             //gebrContainer.CreateGebr(new Gebruiker("Cezar008", "Agent009"), "Welkom1234");
             gebruiker = gebrContainer.ZoekGebrOpGebrnaamEnWW("Cezar008", "Welkom1234");
-            gebruiker.Outfits = outfitContainer.GetAllOutfitsVanGebr(gebruiker.ID);
-            gebruiker.Onderdelen = oonderdeelContainer.GetAllOnderdelenVanGebr(gebruiker.ID);
+            //gebruiker.Outfits = outfitContainer.GetAllOutfitsVanGebr(gebruiker.ID);
+            //gebruiker.Onderdelen = oonderdeelContainer.GetAllOnderdelenVanGebr(gebruiker.ID);
         }
 
         /// <summary>
@@ -56,15 +56,15 @@ namespace HomePagina
         
         public void VoegOutfitPbToe()
         {
-            if (gebruiker.Outfits.Count > 0)
+            //if (gebruiker.Outfits.Count > 0)
             {
                 int index = 0;
-                foreach (var img in gebruiker.Outfits)
+                //foreach (var img in gebruiker.Outfits)
                 {
                     if (index < 4)
                     {
-                        GetRightPictureBox(index).Image = Image.FromFile(gebruiker.Outfits[index].FileAdress);
-                        GetRightPictureBox(index).ImageLocation = gebruiker.Outfits[index].FileAdress;
+                        //GetRightPictureBox(index).Image = Image.FromFile(gebruiker.Outfits[index].FileAdress);
+                        //GetRightPictureBox(index).ImageLocation = gebruiker.Outfits[index].FileAdress;
                         index++;
                     }
                 }
@@ -73,19 +73,19 @@ namespace HomePagina
 
         public void VoegPlaatjeAanPbOnderdeel()
         {
-            if (gebruiker.Onderdelen.Count > 0)
-            {
-                int index = 4;
-                foreach (var img in gebruiker.Onderdelen)
-                {
-                    if (index < 8)
-                    {
-                        GetRightPictureBox(index).Image = Image.FromFile(gebruiker.Onderdelen[index - 4].FileAdress);
-                        GetRightPictureBox(index).ImageLocation = gebruiker.Onderdelen[index - 4].FileAdress;
-                        index++;
-                    }
-                }
-            }
+            //if (gebruiker.Onderdelen.Count > 0)
+            //{
+            //    int index = 4;
+            //    foreach (var img in gebruiker.Onderdelen)
+            //    {
+            //        if (index < 8)
+            //        {
+            //            GetRightPictureBox(index).Image = Image.FromFile(gebruiker.Onderdelen[index - 4].FileAdress);
+            //            GetRightPictureBox(index).ImageLocation = gebruiker.Onderdelen[index - 4].FileAdress;
+            //            index++;
+            //        }
+            //    }
+            //}
         }
 
         public void GetWhiteStars(PictureBox ster)
@@ -153,20 +153,20 @@ namespace HomePagina
 
         private Outfit GetRightOutfit(PictureBox pic)
         {
-            foreach (var outfit in gebruiker.Outfits)
+            //foreach (var outfit in gebruiker.Outfits)
             {
-                if (outfit.FileAdress == pic.ImageLocation)
-                    return outfit;
+                //if (outfit.FileAdress == pic.ImageLocation)
+                //    return outfit;
             }
             return null;
         }
 
         private Onderdeel GetRightOnderdeel(PictureBox pic)
         {
-            foreach (var onderdeel in gebruiker.Onderdelen)
+            //foreach (var onderdeel in gebruiker.Onderdelen)
             {
-                if (onderdeel.FileAdress == pic.ImageLocation)
-                    return onderdeel;
+                //if (onderdeel.FileAdress == pic.ImageLocation)
+                //    return onderdeel;
             }
             return null;
         }
@@ -181,8 +181,8 @@ namespace HomePagina
             if (GetRightOutfit(pic) != null)
                 if (MessageBox.Show(GetRightOutfit(pic).ToString() + "\n\nWil je deze outfit reviewen?", "Outfit Beschrijving", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-                    ReviewSchermOGG rev = new ReviewSchermOGG(gebruiker, Convert.ToInt32(pic.Name.Substring(pic.Name.Length - 1)));
-                    rev.ShowDialog();
+                    //ReviewSchermOGG rev = new ReviewSchermOGG(gebruiker, Convert.ToInt32(pic.Name.Substring(pic.Name.Length - 1)));
+                    //rev.ShowDialog();
                 }
         }
 
@@ -192,8 +192,8 @@ namespace HomePagina
             if (GetRightOnderdeel(pic) != null)
                 if (MessageBox.Show(GetRightOnderdeel(pic).ToString() + "\n\nWil je deze onderdeel reviewen?", "Onderdeel Beschrijving", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-                    ReviewSchermOGG rev = new ReviewSchermOGG(gebruiker, Convert.ToInt32(pic.Name.Substring(pic.Name.Length - 1)));
-                    rev.ShowDialog();
+                    //ReviewSchermOGG rev = new ReviewSchermOGG(gebruiker, Convert.ToInt32(pic.Name.Substring(pic.Name.Length - 1)));
+                    //rev.ShowDialog();
                 }
         }
 

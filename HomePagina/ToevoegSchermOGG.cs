@@ -85,7 +85,7 @@ namespace HomePagina
                 if (tbNaam.Text != "" && parseResult && cbOutfits.SelectedItem != null && FileName != "")
                 {
                     outfitContainer.VoegOutfitToe(((HomePaginaOGG)this.Owner).gebruiker.ID, new Outfit(id, tbNaam.Text, prijs, type, FileName));
-                    ((HomePaginaOGG)this.Owner).gebruiker.Outfits = outfitContainer.GetAllOutfitsVanGebr(((HomePaginaOGG)this.Owner).gebruiker.ID);
+                    ////((HomePaginaOGG)this.Owner).gebruiker.Outfits = outfitContainer.GetAllOutfitsVanGebr(((HomePaginaOGG)this.Owner).gebruiker.ID);
                     ((HomePaginaOGG)this.Owner).VoegOutfitPbToe();
                     MessageBox.Show("Outfit toegevoegd");
                 }
@@ -107,7 +107,7 @@ namespace HomePagina
                 if (tbNaamO.Text != "" && parseResult && cbOnderdeel.SelectedItem != null && FileNameO != "")
                 {
                     onderdeelContainer.VoegOnderdeelToe(((HomePaginaOGG)this.Owner).gebruiker.ID, new Onderdeel(id, tbNaamO.Text, prijs, typeO, FileNameO));
-                ((HomePaginaOGG)this.Owner).gebruiker.Onderdelen = onderdeelContainer.GetAllOnderdelenVanGebr(((HomePaginaOGG)this.Owner).gebruiker.ID);
+                //((HomePaginaOGG)this.Owner).gebruiker.Onderdelen = onderdeelContainer.GetAllOnderdelenVanGebr(((HomePaginaOGG)this.Owner).gebruiker.ID);
                 ((HomePaginaOGG)this.Owner).VoegPlaatjeAanPbOnderdeel();
                     MessageBox.Show("Onderdeel toegevoegd");
                 }

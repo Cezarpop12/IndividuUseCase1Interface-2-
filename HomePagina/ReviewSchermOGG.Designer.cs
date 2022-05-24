@@ -61,7 +61,7 @@
             this.lbxReviews.Name = "lbxReviews";
             this.lbxReviews.Size = new System.Drawing.Size(321, 224);
             this.lbxReviews.TabIndex = 4;
-            this.lbxReviews.SelectedIndexChanged += new System.EventHandler(this.lbxReviews_SelectedIndexChanged);
+            //this.lbxReviews.SelectedIndexChanged += new System.EventHandler(this.lbxReviews_SelectedIndexChanged);
             // 
             // btnReviewPlaatsen
             // 
@@ -71,7 +71,7 @@
             this.btnReviewPlaatsen.TabIndex = 5;
             this.btnReviewPlaatsen.Text = "Plaatsen";
             this.btnReviewPlaatsen.UseVisualStyleBackColor = true;
-            this.btnReviewPlaatsen.Click += new System.EventHandler(this.btnReviewPlaatsen_Click);
+            //this.btnReviewPlaatsen.Click += new System.EventHandler(this.btnReviewPlaatsen_Click);
             // 
             // tbxNaamVanReviewer
             // 
