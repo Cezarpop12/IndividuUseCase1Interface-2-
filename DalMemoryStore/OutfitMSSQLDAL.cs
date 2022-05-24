@@ -12,9 +12,12 @@ namespace DALMSSQLSERVER
     {
 
         /// <summary>
-        /// Voeg de waardes in OutfitTabel, specificeer welk gebruikerID de outfit toevoegd dmv de alias
+        /// Er wordt een outfit toegevoegd met de meegegeven GebrID
         /// </summary>
-
+        /// <param name="GebrID">De gebruikersID die meegegeven wordt</param>
+        /// <param name="outfit">De outfit die meegegeven wordt</param>
+        /// <exception cref="TemporaryExceptions">TemporaryExceptions">Bij verbindingsproblemen met de database</exception>
+        /// <exception cref="PermanentExceptions">PermanentExceptions">Bij fouten in het programma(dus bijv querys verkeerd opgesteld door de programeur)</exception>
         public void VoegOutfitToe(int GebrID, OutfitDTO outfit)
         {
             try
@@ -48,6 +51,13 @@ namespace DALMSSQLSERVER
             }
         }
 
+        /// <summary>
+        /// Alle outfits worden opgehaald met een bepaalde GebrID
+        /// </summary>
+        /// <param name="GebrID">De gebruikersID die meegegeven wordt</param>
+        /// <returns>Return een lijst van outfits</returns>
+        /// <exception cref="TemporaryExceptions">TemporaryExceptions">Bij verbindingsproblemen met de database</exception>
+        /// <exception cref="PermanentExceptions">PermanentExceptions">Bij fouten in het programma(dus bijv querys verkeerd opgesteld door de programeur)</exception>
         public List<OutfitDTO> GetAllOutfitsVanGebr(int GebrID)
         {
             try
@@ -75,6 +85,11 @@ namespace DALMSSQLSERVER
             }
         }
 
+        /// <summary>
+        /// Reader leest of er een outfit is in de db
+        /// </summary>
+        /// <param name="reader">de reader</param>
+        /// <returns>Return een lijst van outfits</returns>
         private List<OutfitDTO> LeesOutfits(SqlDataReader reader)
         {
             List<OutfitDTO> Outfits = new List<OutfitDTO>();
@@ -93,6 +108,12 @@ namespace DALMSSQLSERVER
             return Outfits;
         }
 
+        /// <summary>
+        /// Alle outfits worden opgehaald 
+        /// </summary>
+        /// <returns>Return een lijst van outfits</returns>
+        /// <exception cref="TemporaryExceptions">TemporaryExceptions">Bij verbindingsproblemen met de database</exception>
+        /// <exception cref="PermanentExceptions">PermanentExceptions">Bij fouten in het programma(dus bijv querys verkeerd opgesteld door de programeur)</exception>
         public List<OutfitDTO> GetAllOutfits()
         {
             try
@@ -119,6 +140,12 @@ namespace DALMSSQLSERVER
             }
         }
 
+        /// <summary>
+        /// Outfit wordt verwijderd met een bepaalde ID
+        /// </summary>
+        /// <param name="outfit">De outfit die meegegeven wordt</param>
+        /// <exception cref="TemporaryExceptions">TemporaryExceptions">Bij verbindingsproblemen met de database</exception>
+        /// <exception cref="PermanentExceptions">PermanentExceptions">Bij fouten in het programma(dus bijv querys verkeerd opgesteld door de programeur)</exception>
         public void DeleteOutfit(OutfitDTO outfit) //fixen
         {
             try
@@ -143,6 +170,12 @@ namespace DALMSSQLSERVER
             }
         }
 
+        /// <summary>
+        /// Outfit wordt geupdatet met een bepaalde GebrID
+        /// </summary>
+        /// <param name="outfit">De outfit die meegegeven wordt</param>
+        /// <exception cref="TemporaryExceptions">TemporaryExceptions">Bij verbindingsproblemen met de database</exception>
+        /// <exception cref="PermanentExceptions">PermanentExceptions">Bij fouten in het programma(dus bijv querys verkeerd opgesteld door de programeur)</exception>
         public void UpdateOutfit(OutfitDTO outfit) //fixen
         {
             try
@@ -169,6 +202,13 @@ namespace DALMSSQLSERVER
             }
         }
 
+        /// <summary>
+        /// Checken of er een outfit bestaat met de opgegeven Titel
+        /// </summary>
+        /// <param name="titel">De titel die meegegeven wordt</param>
+        /// <returns>Een true of false (Wel een outfit of niet)</returns>
+        /// <exception cref="TemporaryExceptions">TemporaryExceptions">Bij verbindingsproblemen met de database</exception>
+        /// <exception cref="PermanentExceptions">PermanentExceptions">Bij fouten in het programma(dus bijv querys verkeerd opgesteld door de programeur)</exception>
         public bool IsOutfit(string titel)
         {
             try
@@ -201,9 +241,12 @@ namespace DALMSSQLSERVER
         }
 
         /// <summary>
-        /// GetOutfit ga ik later gebruiken voor filteren bijv, zoeken op naam etc.
+        /// Outfit wordt opgehaald met een bepaalde titel
         /// </summary>
-
+        /// <param name="titel">De titel die meegegeven wordt</param>
+        /// <returns>Return een outfit</returns>
+        /// <exception cref="TemporaryExceptions">TemporaryExceptions">Bij verbindingsproblemen met de database</exception>
+        /// <exception cref="PermanentExceptions">PermanentExceptions">Bij fouten in het programma(dus bijv querys verkeerd opgesteld door de programeur)</exception>
         public OutfitDTO GetOutfit(string titel)
         {
             try

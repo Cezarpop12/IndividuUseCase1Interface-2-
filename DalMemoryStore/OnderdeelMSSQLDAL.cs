@@ -11,9 +11,12 @@ namespace DALMSSQLSERVER
     public class OnderdeelMSSQLDAL : Database, IOnderdeelContainer
     {
         /// <summary>
-        ///Voeg de waardes in OutfitTabel, specificeer welk gebruikerID de outfit toevoegd dmv de alias
+        /// Er wordt een onderdeel toegevoegd met de meegegeven GebrID
         /// </summary>
-
+        /// <param name="GebrID">De gebruikersID die meegegeven wordt</param>
+        /// <param name="onderdeel">De onderdeel die meegegeven wordt</param>
+        /// <exception cref="TemporaryExceptions">TemporaryExceptions">Bij verbindingsproblemen met de database</exception>
+        /// <exception cref="PermanentExceptions">PermanentExceptions">Bij fouten in het programma(dus bijv querys verkeerd opgesteld door de programeur)</exception>
         public void VoegOnderdeelToe(int GebrID, OnderdeelDTO onderdeel)
         {
             try
@@ -47,6 +50,13 @@ namespace DALMSSQLSERVER
             }
         }
 
+        /// <summary>
+        /// Alle onderdelen worden opgehaald met een bepaalde GebrID
+        /// </summary>
+        /// <param name="GebrID">De gebruikersID die meegegeven wordt</param>
+        /// <returns>Return een lijst van onderdelen</returns>
+        /// <exception cref="TemporaryExceptions">TemporaryExceptions">Bij verbindingsproblemen met de database</exception>
+        /// <exception cref="PermanentExceptions">PermanentExceptions">Bij fouten in het programma(dus bijv querys verkeerd opgesteld door de programeur)</exception>
         public List<OnderdeelDTO> GetAllOnderdelenVanGebr(int GebrID)
         {
             try
@@ -86,6 +96,12 @@ namespace DALMSSQLSERVER
             }
         }
 
+        /// <summary>
+        /// Alle onderdelen worden opgehaald 
+        /// </summary>
+        /// <returns>Return een lijst van onderdelen</returns>
+        /// <exception cref="TemporaryExceptions">TemporaryExceptions">Bij verbindingsproblemen met de database</exception>
+        /// <exception cref="PermanentExceptions">PermanentExceptions">Bij fouten in het programma(dus bijv querys verkeerd opgesteld door de programeur)</exception>
         public List<OnderdeelDTO> GetAllOnderdelen()
         {
             try
@@ -124,7 +140,13 @@ namespace DALMSSQLSERVER
             }
         }
 
-        public void DeleteOnderdeel(OnderdeelDTO onderdeel) //fixen
+        /// <summary>
+        /// Onderdeel wordt verwijderd met een bepaalde ID
+        /// </summary>
+        /// <param name="onderdeel">De onderdeel die meegegeven wordt</param>
+        /// <exception cref="TemporaryExceptions">TemporaryExceptions">Bij verbindingsproblemen met de database</exception>
+        /// <exception cref="PermanentExceptions">PermanentExceptions">Bij fouten in het programma(dus bijv querys verkeerd opgesteld door de programeur)</exception>
+        public void DeleteOnderdeel(OnderdeelDTO onderdeel) //fixen voor hoe die in asp geimplimenteerd word
         {
             try
             {
@@ -148,6 +170,12 @@ namespace DALMSSQLSERVER
             }
         }
 
+        /// <summary>
+        /// Onderdeel wordt geupdatet met een bepaalde GebrID
+        /// </summary>
+        /// <param name="onderdeel">De onderdeel die meegegeven wordt</param>
+        /// <exception cref="TemporaryExceptions">TemporaryExceptions">Bij verbindingsproblemen met de database</exception>
+        /// <exception cref="PermanentExceptions">PermanentExceptions">Bij fouten in het programma(dus bijv querys verkeerd opgesteld door de programeur)</exception>
         public void UpdateOnderdeel(OnderdeelDTO onderdeel) //fixen
         {
             try
@@ -174,6 +202,13 @@ namespace DALMSSQLSERVER
             }
         }
 
+        /// <summary>
+        /// Checken of er een onderdeel bestaat met de opgegeven Titel
+        /// </summary>
+        /// <param name="titel">De titel die meegegeven wordt</param>
+        /// <returns>Een true of false (Wel een onderdeel of niet)</returns>
+        /// <exception cref="TemporaryExceptions">TemporaryExceptions">Bij verbindingsproblemen met de database</exception>
+        /// <exception cref="PermanentExceptions">PermanentExceptions">Bij fouten in het programma(dus bijv querys verkeerd opgesteld door de programeur)</exception>
         public bool IsOnderdeel(string titel)
         {
             try
@@ -206,9 +241,12 @@ namespace DALMSSQLSERVER
         }
 
         /// <summary>
-        /// GetOnderdeel ga ik later gebruiken voor filteren bijv, zoeken op naam etc.
+        /// Onderdeel wordt opgehaald met een bepaalde titel
         /// </summary>
-
+        /// <param name="titel">De titel die meegegeven wordt</param>
+        /// <returns>Return een onderdeel</returns>
+        /// <exception cref="TemporaryExceptions">TemporaryExceptions">Bij verbindingsproblemen met de database</exception>
+        /// <exception cref="PermanentExceptions">PermanentExceptions">Bij fouten in het programma(dus bijv querys verkeerd opgesteld door de programeur)</exception>
         public OnderdeelDTO GetOnderdeel(string titel)
         {
             try

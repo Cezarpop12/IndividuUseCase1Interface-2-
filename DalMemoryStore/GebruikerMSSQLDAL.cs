@@ -11,11 +11,10 @@ namespace DALMSSQLSERVER
 {
     public class GebruikerMSSQLDAL : Database, IGebruikerContainer
     {
-
         /// <summary>
         /// Gebruiker wordt toegevoeg met de meegegeven ww
         /// </summary>
-        /// <param name="gebruiker">Gebrgegevens die ingevuld zijn</param>
+        /// <param name="gebruiker">Gebrnaam die ingevuld is</param>
         /// <param name="wachtwoord">ww wordt gehasht en opgeslagen in db</param>
         /// <exception cref="TemporaryExceptions">Bij verbindingsproblemen met de database</exception>
         /// <exception cref="PermanentExceptions">Bij fouten in het programma(dus bijv querys verkeerd opgesteld door de programeur)</exception>

@@ -7,34 +7,32 @@ namespace OutfitKing.Controllers
 {
     public class HomeController : Controller
     {
-        /// <summary>
-        /// Controllers zijn classes die luisteren naar de url die je intikt
-        /// </summary>
-        
         private readonly ILogger<HomeController> _logger;
-
-        /// <summary>
-        /// (ILogger<HomeController> logger) = dependency injection. 
-        /// Een object hangt af van een ander object. Je geeft het object de objecten mee die hij nodig heeft
-        /// https://www.tutorialspoint.com/explain-dependency-injection-in-chash
-        /// </summary>
 
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
         }
 
+        /// <summary>
+        /// De homepagina wordt getoond
+        /// </summary>
+        /// <returns>Return de view van de Homepagina</returns>
         public IActionResult Index()
         {
             return View();
         }
 
+        /// <summary>
+        /// De privacy pagina wordt getoond
+        /// </summary>
+        /// <returns>Return de view van Privacy</returns>
         public IActionResult Privacy()
         {
             return View();
         }
 
-        public IActionResult Toevoegen()
+        public IActionResult KledingToevoegen()
         {
             int? ID = HttpContext.Session.GetInt32("ID");
             if (ID != null)

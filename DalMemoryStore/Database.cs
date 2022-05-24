@@ -29,6 +29,13 @@ namespace DALMSSQLSERVER
             connection.Close();
         }
 
+        /// <summary>
+        /// Er wordt gecheckt of een titel al bestaat voor een outfit
+        /// </summary>
+        /// <param name="titel">De titel die wordt meegegeven</param>
+        /// <returns>Een true of false (outfit gevonden of niet)</returns>
+        /// <exception cref="TemporaryExceptions">Bij verbindingsproblemen met de database</exception>
+        /// <exception cref="PermanentExceptions">Bij fouten in het programma(dus bijv querys verkeerd opgesteld door de programeur)</exception>
         public bool BestaandeTitleNaamOut(string titel)
         {
             try
@@ -60,6 +67,13 @@ namespace DALMSSQLSERVER
             }
         }
 
+        /// <summary>
+        /// Er wordt gecheckt of een titel al bestaat voor een onderdeel
+        /// </summary>
+        /// <param name="titel">De titel die wordt meegegeven</param>
+        /// <returns>Een true of false (onderdeel gevonden of niet)</returns>
+        /// <exception cref="TemporaryExceptions">Bij verbindingsproblemen met de database</exception>
+        /// <exception cref="PermanentExceptions">Bij fouten in het programma(dus bijv querys verkeerd opgesteld door de programeur)</exception>
         public bool BestaandeTitleNaamOnder(string titel)
         {
             try
@@ -91,6 +105,13 @@ namespace DALMSSQLSERVER
             }
         }
 
+        /// <summary>
+        /// Er wordt een ID opgehaald uit de gebruiker tabel
+        /// </summary>
+        /// <param name="alias">De alias die wordt meegegeven</param>
+        /// <returns>Een gebrID of een waarde van 0</returns>
+        /// <exception cref="TemporaryExceptions">Bij verbindingsproblemen met de database</exception>
+        /// <exception cref="PermanentExceptions">Bij fouten in het programma(dus bijv querys verkeerd opgesteld door de programeur)</exception>
         public int GetUserID(string alias)
         {
             try
@@ -123,6 +144,13 @@ namespace DALMSSQLSERVER
             }
         }
 
+        /// <summary>
+        /// Er wordt een ID opgehaald uit de Outfit tabel
+        /// </summary>
+        /// <param name="titel">De titel die wordt meegegeven</param>
+        /// <returns>Een ID of een waarde van 0</returns>
+        /// <exception cref="TemporaryExceptions">Bij verbindingsproblemen met de database</exception>
+        /// <exception cref="PermanentExceptions">Bij fouten in het programma(dus bijv querys verkeerd opgesteld door de programeur)</exception>
         public int GetOutfitID(string titel)
         {
             try
@@ -155,6 +183,13 @@ namespace DALMSSQLSERVER
             }
         }
 
+        /// <summary>
+        /// Er wordt een ID opgehaald uit de Onderdeel tabel
+        /// </summary>
+        /// <param name="titel">De titel die wordt meegegeven</param>
+        /// <returns>Een ID of een waarde van 0</returns>
+        /// <exception cref="TemporaryExceptions">Bij verbindingsproblemen met de database</exception>
+        /// <exception cref="PermanentExceptions">Bij fouten in het programma(dus bijv querys verkeerd opgesteld door de programeur)</exception>
         public int GetOnderdeelID(string titel)
         {
             try
@@ -187,6 +222,13 @@ namespace DALMSSQLSERVER
             }
         }
 
+        /// <summary>
+        /// Er wordt een ID opgehaald uit de Review tabel
+        /// </summary>
+        /// <param name="titel">De titel die wordt meegegeven</param>
+        /// <returns>Een ID of een waarde van 0</returns>
+        /// <exception cref="TemporaryExceptions">Bij verbindingsproblemen met de database</exception>
+        /// <exception cref="PermanentExceptions">Bij fouten in het programma(dus bijv querys verkeerd opgesteld door de programeur)</exception>
         public int GetReviewID(string titel)
         {
             try

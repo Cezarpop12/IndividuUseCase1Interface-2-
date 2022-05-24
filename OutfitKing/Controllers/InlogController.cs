@@ -6,15 +6,8 @@ using OutfitKing.Models;
 
 namespace OutfitKing.Controllers
 {
-    /// <summary>
-    /// Deze controller heeft verantw van inloggen, als de gebr is ingelogd activeer de sessie.
-    /// </summary>
     public class InlogController : Controller
     {
-        /// <summary>
-        /// url = https/:localhost/{controller}/{action}/{id} ('pattern' in program.cs)
-        /// </summary>
-
         private readonly ILogger<InlogController> _logger;
         public GebruikerContainer gebrContainer = new GebruikerContainer(new GebruikerMSSQLDAL());
 
@@ -22,10 +15,6 @@ namespace OutfitKing.Controllers
         {
             _logger = logger;
         }
-
-        /// <summary>
-        /// IActionresult is een interface en actionresult is een implimentatie daarvan
-        /// </summary>
 
         public ActionResult Index() 
         {

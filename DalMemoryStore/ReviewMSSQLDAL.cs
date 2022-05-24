@@ -10,6 +10,14 @@ namespace DALMSSQLSERVER
 {
     public class ReviewMSSQLDAL : Database, IReviewContainer
     {
+        /// <summary>
+        /// Review wordt toegevoeg aan outfit met de meegegeven alias en titel
+        /// </summary>
+        /// <param name="review">Review die wordt meegegeven</param>
+        /// <param name="gebruiker">gebruiker die wordt meegegeven</param>
+        /// <param name="titel">Titel die wordt meegegeven</param>
+        /// <exception cref="TemporaryExceptions">Bij verbindingsproblemen met de database</exception>
+        /// <exception cref="PermanentExceptions">Bij fouten in het programma(dus bijv querys verkeerd opgesteld door de programeur)</exception>
         public void VoegReviewToeOutfit(ReviewDTO review, GebruikerDTO gebruiker, string titel)
         {
             try
@@ -42,6 +50,14 @@ namespace DALMSSQLSERVER
             }
         }
 
+        /// <summary>
+        /// Review wordt toegevoeg aan onderdeel met de meegegeven alias en titel
+        /// </summary>
+        /// <param name="review">Review die wordt meegegeven</param>
+        /// <param name="gebruiker">gebruiker die wordt meegegeven</param>
+        /// <param name="titel">Titel die wordt meegegeven</param>
+        /// <exception cref="TemporaryExceptions">Bij verbindingsproblemen met de database</exception>
+        /// <exception cref="PermanentExceptions">Bij fouten in het programma(dus bijv querys verkeerd opgesteld door de programeur)</exception> programeur)</exception>
         public void VoegReviewToeOnderdeel(ReviewDTO review, GebruikerDTO gebruiker, string titel)
         {
             try
@@ -74,6 +90,13 @@ namespace DALMSSQLSERVER
             }
         }
 
+        /// <summary>
+        /// Alle reviews van een bepaalde gebr worden opgehaald
+        /// </summary>
+        /// <param name="gebruiker">Gebruiker die wordt meegegeven</param>
+        /// <returns>Return een lijst van reviews</returns>
+        /// <exception cref="TemporaryExceptions">Bij verbindingsproblemen met de database</exception>
+        /// <exception cref="PermanentExceptions">Bij fouten in het programma(dus bijv querys verkeerd opgesteld door de programeur)</exception>
         public List<ReviewDTO> GetAllReviewsVanGebr(GebruikerDTO gebruiker)
         {
             try
@@ -112,6 +135,12 @@ namespace DALMSSQLSERVER
             }
         }
 
+        /// <summary>
+        /// Een review wordt verwijderd
+        /// </summary>
+        /// <param name="review">Review die wordt meegegeven</param>
+        /// <exception cref="TemporaryExceptions">Bij verbindingsproblemen met de database</exception>
+        /// <exception cref="PermanentExceptions">Bij fouten in het programma(dus bijv querys verkeerd opgesteld door de programeur)</exception>
         public void DeleteReview(ReviewDTO review)
         {
             try
@@ -136,6 +165,12 @@ namespace DALMSSQLSERVER
             }
         }
 
+        /// <summary>
+        /// Een review wordt geupdatet
+        /// </summary>
+        /// <param name="review">Review die wordt meegegeven</param>
+        /// <exception cref="TemporaryExceptions">Bij verbindingsproblemen met de database</exception>
+        /// <exception cref="PermanentExceptions">Bij fouten in het programma(dus bijv querys verkeerd opgesteld door de programeur)</exception>
         public void UpdateReview(ReviewDTO review)
         {
             try
