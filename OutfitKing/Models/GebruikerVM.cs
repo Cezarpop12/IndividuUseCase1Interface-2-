@@ -3,13 +3,7 @@
 namespace OutfitKing.Models
 {
     public class GebruikerVM
-    {
-        /// <summary>
-        /// Datatype + "?" = een waarde kan null zijn (handig bij bijv gebruik van database)
-        /// -
-        /// Models bevatten data en businesslogic
-        /// </summary>
-
+    { 
         public int ID { get; set; }
         [Required]
         public string? Alias { get; set; }

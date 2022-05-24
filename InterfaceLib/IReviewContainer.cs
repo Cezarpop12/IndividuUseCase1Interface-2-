@@ -14,6 +14,5 @@ namespace InterfaceLib
         public List<ReviewDTO> GetAllReviewsVanGebr(GebruikerDTO gebruiker);
         public void DeleteReview(ReviewDTO review);
         public void UpdateReview(ReviewDTO review);
-        public GebruikerDTO GetGebruiker(string naam);
     }
 }

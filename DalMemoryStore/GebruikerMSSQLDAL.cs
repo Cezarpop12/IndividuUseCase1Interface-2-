@@ -183,6 +183,6 @@ namespace DALMSSQLSERVER
             {
                 throw new PermanentExceptions("Iets gaat hier fout!");
             }
-        }
+        }   
     }
 }

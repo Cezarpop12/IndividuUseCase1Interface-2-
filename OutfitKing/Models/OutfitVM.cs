@@ -21,11 +21,5 @@ namespace OutfitKing.Models
         public OutfitCategory Category { get; set; }
         [Required]
         public IFormFile Afbeelding { get; set; }
-
-        //public OutfitVM()
-        //{
-        //    this.ID = PlusÉénID;
-        //    PlusÉénID++;
-        //}
     }
 }
