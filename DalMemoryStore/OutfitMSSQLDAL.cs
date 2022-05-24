@@ -52,23 +52,12 @@ namespace DALMSSQLSERVER
         {
             try
             {
-                List<OutfitDTO> Outfits = new List<OutfitDTO>();
+                List<OutfitDTO> Outfits; 
                 OpenConnection();
                 SqlCommand command = new SqlCommand(@"SELECT * FROM Outfit WHERE GebrID = @id", this.connection);
                 command.Parameters.AddWithValue("@id", GebrID);
                 SqlDataReader reader = command.ExecuteReader();
-                if (reader.HasRows)
-                {
-                    while (reader.Read())
-                    {
-                        Outfits.Add(new OutfitDTO(
-                        Convert.ToInt32(reader["ID"].ToString()),
-                        reader["Titel"].ToString(),
-                        Convert.ToInt32(reader["Prijs"]),
-                        (OutfitDTO.OutfitCategory)Enum.Parse(typeof(OutfitDTO.OutfitCategory), reader["Categorie"].ToString()),
-                        reader["FileAdress"].ToString()));
-                    }
-                }
+                Outfits = LeesOutfits(reader);
                 CloseConnection();
                 return Outfits;
             }
@@ -85,27 +74,34 @@ namespace DALMSSQLSERVER
                 throw new PermanentExceptions("Iets gaat hier fout!");
             }
         }
-        
+
+        private List<OutfitDTO> LeesOutfits(SqlDataReader reader)
+        {
+            List<OutfitDTO> Outfits = new List<OutfitDTO>();
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    Outfits.Add(new OutfitDTO(
+                    Convert.ToInt32(reader["ID"].ToString()),
+                    reader["Titel"].ToString(),
+                    Convert.ToInt32(reader["Prijs"]),
+                    (OutfitDTO.OutfitCategory)Enum.Parse(typeof(OutfitDTO.OutfitCategory), reader["Categorie"].ToString()),
+                    reader["FileAdress"].ToString()));
+                }
+            }
+            return Outfits;
+        }
+
         public List<OutfitDTO> GetAllOutfits()
         {
             try
             {
-                List<OutfitDTO> Outfits = new List<OutfitDTO>();
+                List<OutfitDTO> Outfits;
                 OpenConnection();
                 SqlCommand command = new SqlCommand(@"SELECT * FROM Outfit", this.connection);
                 SqlDataReader reader = command.ExecuteReader();
-                if (reader.HasRows)
-                {
-                    while (reader.Read())
-                    {
-                        Outfits.Add(new OutfitDTO(
-                        Convert.ToInt32(reader["ID"].ToString()),
-                        reader["Titel"].ToString(),
-                        Convert.ToInt32(reader["Prijs"]),
-                        (OutfitDTO.OutfitCategory)Enum.Parse(typeof(OutfitDTO.OutfitCategory), reader["Categorie"].ToString()),
-                        reader["FileAdress"].ToString()));
-                    }
-                }
+                Outfits = LeesOutfits(reader);
                 CloseConnection();
                 return Outfits;
             }
