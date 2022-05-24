@@ -22,7 +22,6 @@ namespace BusnLogicLaag
         }
 
         public int ID { get; set; }
-        public List<Review> Reviews { get; set; } = new List<Review>();
         public OutfitCategory DeCategory { get; set; }
 
         public Outfit(int id, string titel, int prijs, OutfitCategory category, string fileAdress) : base(titel, prijs, fileAdress)
