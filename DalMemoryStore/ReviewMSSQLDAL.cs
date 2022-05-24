@@ -18,7 +18,7 @@ namespace DALMSSQLSERVER
                 if (GetOutfitID(titel) > 0)
                 {
                     OpenConnection();
-                    string query = "INSERT INTO Review (GebrID, OutfitID, StukTekst, Datum) VALUES((SELECT GebrID FROM Gebruiker WHERE Alias = @alias),(SELECT ID FROM Outfit WHERE ID = @id), @stuktekst, @datumtijd)";
+                    string query = "INSERT INTO Review (GebrID, OutfitID, StukTekst, Datum) VALUES((SELECT GebrID FROM Gebruiker WHERE Alias = @alias), @id, @stuktekst, @datumtijd)";
                     SqlCommand command = new SqlCommand(query, this.connection);
                     command.Parameters.AddWithValue("@alias", gebruiker.Alias);
                     command.Parameters.AddWithValue("@id", GetOutfitID(titel));
@@ -91,7 +91,7 @@ namespace DALMSSQLSERVER
                             Convert.ToInt32(reader["Id"].ToString()),
                             reader["StukTekst"].ToString(),
                             reader["Titel"].ToString(),
-                            GetGebruiker(gebruiker.Alias), //misschien "Alias" tussen quotes en zonder gebruiker.
+                            gebruiker,
                             Convert.ToDateTime(reader["Datum"])));
                     }
                 }
@@ -115,12 +115,12 @@ namespace DALMSSQLSERVER
         public void DeleteReview(ReviewDTO review)
         {
             try
-            { 
-            OpenConnection();
-            SqlCommand command = new SqlCommand(@"DELETE FROM Review WHERE ID = @id", this.connection);
-            command.Parameters.AddWithValue("@id", review.ID);
-            command.ExecuteNonQuery();
-            CloseConnection();
+            {
+                OpenConnection();
+                SqlCommand command = new SqlCommand(@"DELETE FROM Review WHERE ID = @id", this.connection);
+                command.Parameters.AddWithValue("@id", review.ID);
+                command.ExecuteNonQuery();
+                CloseConnection();
             }
             catch (InvalidOperationException ex)
             {
@@ -146,45 +146,6 @@ namespace DALMSSQLSERVER
                 command.Parameters.AddWithValue("@id", review.ID);
                 command.ExecuteNonQuery();
                 CloseConnection();
-            }
-            catch (InvalidOperationException ex)
-            {
-                throw new TemporaryExceptions(ex);
-            }
-            catch (IOException ex)
-            {
-                throw new TemporaryExceptions(ex);
-            }
-            catch (Exception ex)
-            {
-                throw new PermanentExceptions("Iets gaat hier fout!");
-            }
-        }
-
-        /// <summary>
-        /// Pak alles van Gebruiker tabel (retourneer gebruiker) als Gebruiker ID hetzelfde is als de id die je krijgt bij getuserID(naam) .
-        /// </summary>
-
-        public GebruikerDTO GetGebruiker(string naam)
-        {
-            try
-            {
-                OpenConnection();
-                SqlCommand command = new SqlCommand(@"SELECT * FROM Gebruiker WHERE GebrID = @id", this.connection);
-                command.Parameters.AddWithValue("@id", GetUserID(naam));
-                SqlDataReader reader = command.ExecuteReader();
-                if (reader.HasRows)
-                {
-                    while (reader.Read())
-                    {
-                        return new GebruikerDTO(
-                            Convert.ToInt32(reader["ID"].ToString()),
-                            reader["Gebruikersnaam"].ToString(),
-                            reader["Alias"].ToString());
-                    }
-                }
-                CloseConnection();
-                return null;
             }
             catch (InvalidOperationException ex)
             {
