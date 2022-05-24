@@ -1,4 +1,5 @@
-﻿@model IEnumerable<BusnLogicLaag.Outfit>
+﻿@using BusnLogicLaag
+@model List<Outfit>
 
 @{
     ViewData["Title"] = "OutfitToevoegen";
@@ -13,26 +14,26 @@
   <thead>
     <tr>
      <th>
-       @Html.DisplayNameFor(model => model.FileAdress)
+       Plaatje
      </th>
      <th>
-       @Html.DisplayNameFor(model => model.ID)
+       ID
      </th>
      <th>
-       @Html.DisplayNameFor(model => model.DeCategory)
+       Categorie
      </th>
      <th>
-       @Html.DisplayNameFor(model => model.Prijs)
+       Prijs
      </th>
      <th>
-       @Html.DisplayNameFor(model => model.Titel)
+       Titel
      </th>
     <th></th>
    </tr>
   </thead>
  <tbody>
 
-@foreach (var item in Model) {
+@foreach (Outfit item in Model) {
   <tr>
    <td>
     <img src="~/Images/@item.FileAdress" class="rounded" width="70" height="70" asp-append-version="true" />
