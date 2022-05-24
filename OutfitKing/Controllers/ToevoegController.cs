@@ -18,10 +18,9 @@ namespace OutfitKing.Controllers
             Environment = webhostEnvironment;
         }
 
-        public IActionResult OutfitToevoegen()
+        public IActionResult OutfitsTonen()
         {
-   
-            var Outfits = outfitContainer.GetAllOutfits().ToList();
+            List<Outfit> Outfits = outfitContainer.GetAllOutfits();
             return View(Outfits);
         }
 
@@ -41,7 +40,7 @@ namespace OutfitKing.Controllers
             else
             {
                 string FileNaam = UploadFile(outfit);
-                outfitContainer.VoegOutfitToe(ID.Value, new Outfit( outfit.Titel, outfit.Prijs, (Outfit.OutfitCategory)outfit.Category, FileNaam));
+                outfitContainer.VoegOutfitToe(ID.Value, new Outfit(outfit.ID, outfit.Titel, outfit.Prijs, (Outfit.OutfitCategory)outfit.Category, FileNaam));
                 return RedirectToAction("OutfitToevoegen");//miss getoutfit
             }
         }
