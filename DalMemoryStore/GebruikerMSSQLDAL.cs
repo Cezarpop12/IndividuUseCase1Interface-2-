@@ -54,11 +54,12 @@ namespace DALMSSQLSERVER
         /// <returns>Return een gebruiker</returns>
         /// <exception cref="TemporaryExceptions">Bij verbindingsproblemen met de database</exception>
         /// <exception cref="PermanentExceptions">Bij fouten in het programma(dus bijv querys verkeerd opgesteld door de programeur)</exception>
-        public GebruikerDTO ZoekGebrOpGebrnaamEnWW(string gebrnaam, string wachtwoord)
+        public GebruikerDTO? ZoekGebrOpGebrnaamEnWW(string gebrnaam, string wachtwoord)
         {
             try
             {
                 OpenConnection();
+                GebruikerDTO? dto = null;
                 SqlCommand command = new SqlCommand(@"SELECT * FROM Gebruiker WHERE Gebruikersnaam = @gebrnaam", this.connection);
                 command.Parameters.AddWithValue("@gebrnaam", gebrnaam);
                 SqlDataReader reader = command.ExecuteReader();
@@ -70,19 +71,15 @@ namespace DALMSSQLSERVER
                         bool correct = BCrypt.Net.BCrypt.EnhancedVerify(wachtwoord, hash);
                         if (correct)
                         {
-                            return new GebruikerDTO(
-                            Convert.ToInt32(reader["ID"].ToString()),
+                            dto = new GebruikerDTO(
+                            Convert.ToInt32(reader["GebrID"].ToString()),
                             reader["Gebruikersnaam"].ToString(),
                             reader["Alias"].ToString());
-                        }
-                        else
-                        {
-                            return null;
                         }
                     }
                 }
                 CloseConnection();
-                return null;
+                return dto;
             }
             catch (InvalidOperationException ex)
             {
@@ -120,9 +117,9 @@ namespace DALMSSQLSERVER
                     while (reader.Read())
                     {
                         return new GebruikerDTO(
-                            Convert.ToInt32(reader["ID"].ToString()),
-                            reader["Gebruikersnaam"].ToString(),
-                            reader["Alias"].ToString());
+                        Convert.ToInt32(reader["GebrID"].ToString()),
+                        reader["Gebruikersnaam"].ToString(),
+                        reader["Alias"].ToString());
                     }
                 }
                 CloseConnection();

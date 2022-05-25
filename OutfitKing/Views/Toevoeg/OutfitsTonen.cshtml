@@ -51,11 +51,13 @@
     @Html.DisplayFor(modelItem => item.Titel)
    </td>
    <td>
-    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+    <div class="btn-group">
+      <a asp-action="Edit" asp-route-id="@item.ID" class="btn btn-sm btn-info">Aanpassen</a>
+      <a asp-action="Details" asp-route-id="@item.ID" class="btn btn-sm btn-primary m1-1">Bekijken</a>
+      <a asp-action="Delete" asp-route-id="@item.ID" class="btn btn-sm btn-danger m1-1">Aanpassen</a>
+    </div>
    </td>
-   </tr>
+  </tr>
 }
  </tbody>
 </table>

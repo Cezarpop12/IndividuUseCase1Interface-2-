@@ -30,11 +30,21 @@ namespace OutfitKing.Controllers
         /// <returns>Indien onbekend, terug naar dezelfde pagina, bekend = redirect naar de homepage </returns>
         [HttpPost]
         public IActionResult Index(GebruikerVM gebruiker)
-        {       
-            Gebruiker gebr = null;
+        {               
             try
             {
-                gebr = gebrContainer.ZoekGebrOpGebrnaamEnWW(gebruiker.Gerbuikersnaam, gebruiker.Wachtwoord);
+                Gebruiker gebr = gebrContainer.ZoekGebrOpGebrnaamEnWW(gebruiker.Gerbuikersnaam, gebruiker.Wachtwoord);
+                if (gebr != null)
+                {
+                    HttpContext.Session.SetInt32("ID", gebr.ID);
+                    return RedirectToAction("Index", "Home", gebruiker);
+                }
+                else
+                {
+                    GebruikerVM gebrVM = new GebruikerVM();
+                    gebrVM.Retry = true;
+                    return View(gebrVM);
+                }
             }
             catch (TemporaryExceptions ex)
             {
@@ -43,19 +53,7 @@ namespace OutfitKing.Controllers
             catch (PermanentExceptions ex)
             {
                 return Redirect("https://twitter.com/outfitservicestatus");
-            }
-
-            if (gebr != null) 
-            {
-                HttpContext.Session.SetInt32("ID", gebr.ID);
-                return RedirectToAction("Index", "Home", gebruiker);
-            }
-            else
-            {
-                GebruikerVM gebrVM = new GebruikerVM();
-                gebrVM.Retry = true;
-                return View(gebrVM); 
-            }
+            }       
         }
 
         [HttpGet]
