@@ -18,12 +18,29 @@ namespace OutfitKing.Controllers
             Environment = webhostEnvironment;
         }
 
-        public IActionResult OutfitsTonen()
+        public IActionResult OutfitsTonenGebr()
         {
             try
             {
                 int? ID = HttpContext.Session.GetInt32("ID");
                 List<Outfit> Outfits = outfitContainer.GetAllOutfitsVanGebr(ID.Value);
+                return View(Outfits);
+            }
+            catch (TemporaryExceptions ex)
+            {
+                return Content($"Er heeft een fout plaatsgevonden, probeer het in 5 minuten nog eens. " + ex.Message);
+            }
+            catch (PermanentExceptions ex)
+            {
+                return Redirect("https://twitter.com/outfitservicestatus");
+            }
+        }
+
+        public IActionResult AlleOutfitsTonen()
+        {
+            try
+            {
+                List<Outfit> Outfits = outfitContainer.GetAllOutfits();
                 return View(Outfits);
             }
             catch (TemporaryExceptions ex)
@@ -55,7 +72,7 @@ namespace OutfitKing.Controllers
                 {
                     string FileNaam = UploadFile(outfit);
                     outfitContainer.VoegOutfitToe(ID.Value, new Outfit(outfit.ID, outfit.Titel, outfit.Prijs, (Outfit.OutfitCategory)outfit.Category, FileNaam));
-                    return RedirectToAction("OutfitsTonen");
+                    return RedirectToAction("OutfitsTonenGebr");
                 }
             }
             catch (TemporaryExceptions ex)

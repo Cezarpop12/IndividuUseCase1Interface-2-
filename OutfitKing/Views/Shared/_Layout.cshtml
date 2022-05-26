@@ -28,6 +28,7 @@
 <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
 </li>
 
+
 <li class="nav-item dropdown">
 <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Account</a>
 <div class="dropdown-menu">
@@ -36,8 +37,12 @@
   Inloggen
  </a>
   <a asp-controller="Outfit" 
-  asp-action="OutfitsTonen" class="dropdown-item">
-  Kleding bekijken
+  asp-action="OutfitsTonenGebr" class="dropdown-item">
+  Mijn outfits
+ </a>
+  <a asp-controller="Outfit" 
+  asp-action="OutfitsTonenGebr" class="dropdown-item">
+  Mijn onderdelen
  </a>
   <div class="dropdown-divider"></div>
   <a asp-controller="Account" 
@@ -45,11 +50,25 @@
   Uitloggen
  </a>
   </div>
-   </li>
-    </ul>
+ </li>
+
+<li class="nav-item dropdown">
+ <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Kleding</a>
+  <div class="dropdown-menu">
+ <a asp-controller="Outfit" 
+  asp-action="AlleOutfitsTonen" class="dropdown-item">
+  Alle outfits
+ </a>
+  <a asp-controller="Outfit" 
+  asp-action="OutfitsTonen" class="dropdown-item">
+  Alle onderdelen
+ </a>
+</div>
+  </li>
+   </ul>
      <form class="d-flex">
-      <input class="form-control me-sm-2" type="text" placeholder="Search">
-      <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+     <input class="form-control me-sm-2" type="text" placeholder="Search">
+     <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
     </form>
    </div>
   </div>

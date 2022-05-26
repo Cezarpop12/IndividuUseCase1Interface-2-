@@ -2,14 +2,11 @@
 @model List<Outfit>
 
 @{
-    ViewData["Title"] = "OutfitsTonen";
+    ViewData["Title"] = "AlleOutfitsTonen";
 }
 
-<h1>Mijn Outfits</h1>
+<h1>Alle outfits</h1>
 
-<p>
-    <a asp-action="OutfitAanmaken">Nieuw</a>
-</p>
 <table class="table">
   <thead>
     <tr>
@@ -52,9 +49,7 @@
    </td>
    <td>
     <div class="btn-group">
-      <a asp-action="Edit" asp-route-id="@item.ID" class="btn btn-sm btn-info">Aanpassen</a>
-      <a asp-action="Details" asp-route-id="@item.ID" class="btn btn-sm btn-primary m1-1">Bekijken</a>
-      <a asp-action="Delete" asp-route-id="@item.ID" class="btn btn-sm btn-danger m1-1">Aanpassen</a>
+      <a asp-action="Delete" asp-route-id="@item.ID" class="btn btn-sm btn-danger m1-1">Review plaatsen</a>
     </div>
    </td>
   </tr>
