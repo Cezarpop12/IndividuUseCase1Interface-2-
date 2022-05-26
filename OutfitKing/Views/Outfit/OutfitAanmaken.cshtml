@@ -54,7 +54,9 @@ div.outset {border-style: outset;}
         <div class="form-group">
            <label asp-for="Category" class="control-label"></label> 
        <select asp-for="Category" class="form-control text-black" style="background-color:white"
-       asp-items="Html.GetEnumSelectList<OutfitVM.OutfitCategory>()"></select>
+       asp-items="Html.GetEnumSelectList<OutfitVM.OutfitCategory>()">
+           <option value="" selected disabled>-- Selecteer een categorie --</option>
+       </select>
      <span asp-validation-for="Category" style="color:red"></span>
      </div>
   </div>

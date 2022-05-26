@@ -20,7 +20,8 @@ namespace OutfitKing.Controllers
 
         public IActionResult OutfitsTonen()
         {
-            List<Outfit> Outfits = outfitContainer.GetAllOutfits();
+            int? ID = HttpContext.Session.GetInt32("ID");
+            List<Outfit> Outfits = outfitContainer.GetAllOutfitsVanGebr(ID.Value);
             return View(Outfits);
         }
 
@@ -33,15 +34,26 @@ namespace OutfitKing.Controllers
         public IActionResult OutfitAanmaken(OutfitVM outfit)
         {
             int? ID = HttpContext.Session.GetInt32("ID");
-            if (ID == null)
+            try
             {
-                return Content("U bent niet ingelogd");
+                if (ID == null)
+                {
+                    return Content("U bent niet ingelogd");
+                }
+                else
+                {
+                    string FileNaam = UploadFile(outfit);
+                    outfitContainer.VoegOutfitToe(ID.Value, new Outfit(outfit.ID, outfit.Titel, outfit.Prijs, (Outfit.OutfitCategory)outfit.Category, FileNaam));
+                    return RedirectToAction("OutfitsTonen");
+                }
             }
-            else
+            catch (TemporaryExceptions ex)
             {
-                string FileNaam = UploadFile(outfit);
-                outfitContainer.VoegOutfitToe(ID.Value, new Outfit(outfit.ID, outfit.Titel, outfit.Prijs, (Outfit.OutfitCategory)outfit.Category, FileNaam));
-                return RedirectToAction("OutfitsTonen");
+                return Content($"Er heeft een fout plaatsgevonden, probeer het in 5 minuten nog eens. " + ex.Message);
+            }
+            catch (PermanentExceptions ex)
+            {
+                return Redirect("https://twitter.com/outfitservicestatus");
             }
         }
 

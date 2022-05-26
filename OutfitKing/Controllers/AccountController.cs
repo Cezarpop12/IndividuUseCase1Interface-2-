@@ -83,26 +83,25 @@ namespace OutfitKing.Controllers
             try
             {
                 gebr = gebrContainer.ZoekGebrOpGebrnaamOfAlias(gebruiker.Gerbuikersnaam, gebruiker.Alias);
+                if (gebr != null)
+                {
+                    GebruikerVM gebrVM = new GebruikerVM();
+                    gebrVM.Retry = true;
+                    return View(gebrVM);
+                }
+                else
+                {
+                    gebrContainer.CreateGebr(new Gebruiker(gebruiker.ID, gebruiker.Gerbuikersnaam, gebruiker.Alias), gebruiker.Wachtwoord);
+                    return RedirectToAction("Index", "Home", gebruiker);
+                }
             }
             catch (TemporaryExceptions ex)
             {
-                return Content(ex.Message); 
+                return Content(ex.Message);
             }
             catch (PermanentExceptions ex)
             {
                 return Content(ex.Message);
-            }
-                
-            if (gebr != null)
-            {
-                GebruikerVM gebrVM = new GebruikerVM();
-                gebrVM.Retry = true;
-                return View(gebrVM);
-            }
-            else
-            {
-                gebrContainer.CreateGebr(new Gebruiker(gebruiker.ID, gebruiker.Gerbuikersnaam, gebruiker.Alias), gebruiker.Wachtwoord);
-                return RedirectToAction("Index", "Home", gebruiker);
             }
         }
     }
