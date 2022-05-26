@@ -37,7 +37,7 @@ namespace OutfitKing.Controllers
             int? ID = HttpContext.Session.GetInt32("ID");
             if (ID != null)
             {
-                return RedirectToAction("OutfitAanmaken", "Toevoeg");
+                return RedirectToAction("OutfitAanmaken", "Outfit");
             }
             return Content("Log eerst in!");
         }

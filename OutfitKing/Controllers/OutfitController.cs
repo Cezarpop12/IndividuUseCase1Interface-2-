@@ -5,14 +5,14 @@ using OutfitKing.Models;
 
 namespace OutfitKing.Controllers
 {
-    public class ToevoegController : Controller
+    public class OutfitController : Controller
     {
-        private readonly ILogger<ToevoegController> _logger;
+        private readonly ILogger<OutfitController> _logger;
         private readonly IWebHostEnvironment Environment;
         public OutfitContainer outfitContainer = new OutfitContainer(new OutfitMSSQLDAL());
         
 
-        public ToevoegController(ILogger<ToevoegController> logger, IWebHostEnvironment webhostEnvironment)
+        public OutfitController(ILogger<OutfitController> logger, IWebHostEnvironment webhostEnvironment)
         {
             _logger = logger;
             Environment = webhostEnvironment;
@@ -41,7 +41,7 @@ namespace OutfitKing.Controllers
             {
                 string FileNaam = UploadFile(outfit);
                 outfitContainer.VoegOutfitToe(ID.Value, new Outfit(outfit.ID, outfit.Titel, outfit.Prijs, (Outfit.OutfitCategory)outfit.Category, FileNaam));
-                return RedirectToAction("OutfitsTonen");//miss getoutfit
+                return RedirectToAction("OutfitsTonen");
             }
         }
 

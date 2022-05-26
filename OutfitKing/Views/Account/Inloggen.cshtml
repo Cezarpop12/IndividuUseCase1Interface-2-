@@ -34,7 +34,7 @@ margin-bottom: 120px;
       <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
     </form>
           
-<form method ="post" asp-action=Index>
+<form method ="post" asp-action=Inloggen>
   <div class="form-outline mb-4">
      <label asp-for="Gerbuikersnaam">Gebruikersnaam</label>
      <input asp-for="Gerbuikersnaam" class="form-control" />
@@ -53,7 +53,7 @@ margin-bottom: 120px;
      <a href="#!">Wachtwoord vergeten?</a>  
     </div>
      <input type="submit" value="Log In" class="btn btn-primary" />
-       <a asp-controller="Inlog" asp-action="AccountAanmaken" class="btn btn-primary">
+       <a asp-controller="Account" asp-action="AccountAanmaken" class="btn btn-primary">
          Account aanmaken  
        </a>         
     </form>

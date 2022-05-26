@@ -6,17 +6,17 @@ using OutfitKing.Models;
 
 namespace OutfitKing.Controllers
 {
-    public class InlogController : Controller
+    public class AccountController : Controller
     {
-        private readonly ILogger<InlogController> _logger;
+        private readonly ILogger<AccountController> _logger;
         public GebruikerContainer gebrContainer = new GebruikerContainer(new GebruikerMSSQLDAL());
 
-        public InlogController(ILogger<InlogController> logger)
+        public AccountController(ILogger<AccountController> logger)
         {
             _logger = logger;
         }
 
-        public ActionResult Index() 
+        public ActionResult Inloggen() 
         {
             GebruikerVM gebrVM = new GebruikerVM();
             gebrVM.Retry = false;
@@ -29,7 +29,7 @@ namespace OutfitKing.Controllers
         /// <param name="gebruiker">Gebruikersnaam en ww die de gebr heeft ingetikt</param>
         /// <returns>Indien onbekend, terug naar dezelfde pagina, bekend = redirect naar de homepage </returns>
         [HttpPost]
-        public IActionResult Index(GebruikerVM gebruiker)
+        public IActionResult Inloggen(GebruikerVM gebruiker)
         {               
             try
             {
