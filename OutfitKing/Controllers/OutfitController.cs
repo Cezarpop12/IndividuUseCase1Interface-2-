@@ -20,9 +20,20 @@ namespace OutfitKing.Controllers
 
         public IActionResult OutfitsTonen()
         {
-            int? ID = HttpContext.Session.GetInt32("ID");
-            List<Outfit> Outfits = outfitContainer.GetAllOutfitsVanGebr(ID.Value);
-            return View(Outfits);
+            try
+            {
+                int? ID = HttpContext.Session.GetInt32("ID");
+                List<Outfit> Outfits = outfitContainer.GetAllOutfitsVanGebr(ID.Value);
+                return View(Outfits);
+            }
+            catch (TemporaryExceptions ex)
+            {
+                return Content($"Er heeft een fout plaatsgevonden, probeer het in 5 minuten nog eens. " + ex.Message);
+            }
+            catch (PermanentExceptions ex)
+            {
+                return Redirect("https://twitter.com/outfitservicestatus");
+            }
         }
 
         public IActionResult OutfitAanmaken()
