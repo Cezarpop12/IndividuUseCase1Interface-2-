@@ -72,7 +72,7 @@ namespace OutfitKing.Controllers
                 {
                     string FileNaam = UploadFile(onderdeel);
                     onderdeelContainer.VoegOnderdeelToe(ID.Value, new Onderdeel(onderdeel.ID, onderdeel.Titel, onderdeel.Prijs, (Onderdeel.OnderdeelCategory)onderdeel.Category, FileNaam));
-                    return RedirectToAction("OutfitsTonenGebr");
+                    return RedirectToAction("OnderdelenTonenGebr");
                 }
             }
             catch (TemporaryExceptions ex)

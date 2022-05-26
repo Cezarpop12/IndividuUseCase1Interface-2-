@@ -1,14 +1,14 @@
 ﻿@using BusnLogicLaag
-@model List<Outfit>
+@model List<Onderdeel>
 
 @{
-    ViewData["Title"] = "OutfitsTonenGebr";
+    ViewData["Title"] = "OnderdelenTonenGebr";
 }
 
-<h1>Mijn Outfits</h1>
+<h1>Mijn Onderdelen</h1>
 
 <p>
-<a asp-action="OutfitAanmaken">Nieuw</a>
+<a asp-action="OnderdeelAanmaken">Nieuw</a>
 </p>
 <table class="table">
   <thead>
@@ -33,7 +33,7 @@
   </thead>
  <tbody>
 
-@foreach (Outfit item in Model) {
+@foreach (Onderdeel item in Model) {
   <tr>
    <td>
     <img src="~/Images/@item.FileAdress" class="rounded" width="70" height="70" asp-append-version="true" />
@@ -61,3 +61,4 @@
 }
  </tbody>
 </table>
+

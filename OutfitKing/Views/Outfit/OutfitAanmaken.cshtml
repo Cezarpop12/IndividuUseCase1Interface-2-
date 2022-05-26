@@ -28,62 +28,60 @@ div.outset {border-style: outset;}
 <body> 
 
 <div class="col-11 mx-auto pt-3">
-    <div class="card">
-        <div class="card-header bg-primary text-uppercase text-white">
-            <h4>Voeg een outfit toe</h4>
-        </div>
-       <div class="card-body">
-     <form enctype="multipart/form-data" asp-action="OutfitAanmaken">
-         <div class="row">
-             <div class="col-md-7">
-                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                 <div class="form-group">
-                    <label asp-for="Titel" class="control-label"></label>
-                    <input asp-for="Titel" class="form-control text-black" style="background-color:white"/>
-                    <span asp-validation-for="Titel" style="color:red"></span>
-             </div>
-         </div>
-    <div class="col-md-7">
-        <div class="form-group">
-             <label asp-for="Prijs" class="control-label"></label>
-     <input asp-for="Prijs" class="form-control text-black" style="background-color:white"/>
-     <span asp-validation-for="Prijs" style="color:red"></span>
-        </div>
+  <div class="card">
+   <div class="card-header bg-primary text-uppercase text-white">
+      <h4>Voeg een outfit toe</h4>
     </div>
-     <div class="col-md-7">
-        <div class="form-group">
-           <label asp-for="Category" class="control-label"></label> 
-       <select asp-for="Category" class="form-control text-black" style="background-color:white"
-       asp-items="Html.GetEnumSelectList<OutfitVM.OutfitCategory>()">
-           <option value="" selected disabled>-- Selecteer een categorie --</option>
-       </select>
-     <span asp-validation-for="Category" style="color:red"></span>
-     </div>
-  </div>
+   <div class="card-body">
+  <form enctype="multipart/form-data" asp-action="OutfitAanmaken">
+ <div class="row">
 <div class="col-md-7">
-        <div class="form-group">
- <label asp-for="Afbeelding" class="control-label"></label>
+ <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+  <div class="form-group">
+   <label asp-for="Titel" class="control-label"></label>
+    <input asp-for="Titel" class="form-control text-black" style="background-color:white"/>
+     <span asp-validation-for="Titel" style="color:red"></span>
+    </div>
+  </div>
+ <div class="col-md-7">
+<div class="form-group">
+ <label asp-for="Prijs" class="control-label"></label>
+  <input asp-for="Prijs" class="form-control text-black" style="background-color:white"/>
+   <span asp-validation-for="Prijs" style="color:red"></span>
+    </div>
+   </div>
+  <div class="col-md-7">
+  <div class="form-group">
+   <label asp-for="Category" class="control-label"></label> 
+    <select asp-for="Category" class="form-control text-black" style="background-color:white"
+     asp-items="Html.GetEnumSelectList<OutfitVM.OutfitCategory>()">
+    <option value="" selected disabled>-- Selecteer een categorie --</option>
+   </select>
+  <span asp-validation-for="Category" style="color:red"></span>
+ </div>
+</div>
+<div class="col-md-7">
+  <div class="form-group">
+   <label asp-for="Afbeelding" class="control-label"></label>
      <input asp-for="Afbeelding" class="form-control text-white" style="background-color:black"
      onchange="document.getElementById('OutfitPreview').src = window.URL.createObjectURL(this.files[0])">
-     <span asp-validation-for="Afbeelding" style="color:red"></span>  
-     </div>
-     </div>
-
-   <img id="OutfitPreview" src="" alt="Preview" width="150"
-     height="150" style="margin-top:20px; margin-right:250px;" />
-
-   <div class="form-group">
-   <input type="submit" <button style="margin-top: 2em" value="Toevoegen!" class="btn btn-primary" />
-   </div>
-    </form>
-   </div>
+   <span asp-validation-for="Afbeelding" style="color:red"></span>  
   </div>
- </body>
-        </div>
-    </div>
-</div>
+ </div>
 
-      
+<img id="OutfitPreview" src="" alt="Preview" width="150"
+height="150" style="margin-top:20px; margin-right:250px;" />
+
+<div class="form-group">
+ <input type="submit" <button style="margin-top: 2em" value="Toevoegen!" class="btn btn-primary" />
+  </div>
+   </form>
+  </div>
+ </div>
+</body>
+</div>
+</div>
+</div>
 
 @section Scripts{
   @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

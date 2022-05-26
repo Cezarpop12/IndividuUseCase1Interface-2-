@@ -32,12 +32,22 @@ namespace OutfitKing.Controllers
             return View();
         }
 
-        public IActionResult KledingToevoegen()
+        public IActionResult OutfitToevoegen()
         {
             int? ID = HttpContext.Session.GetInt32("ID");
             if (ID != null)
             {
                 return RedirectToAction("OutfitAanmaken", "Outfit");
+            }
+            return Content("Log eerst in!");
+        }
+
+        public IActionResult OnderdeelToevoegen()
+        {
+            int? ID = HttpContext.Session.GetInt32("ID");
+            if (ID != null)
+            {
+                return RedirectToAction("OnderdeelAanmaken", "Onderdeel");
             }
             return Content("Log eerst in!");
         }
