@@ -41,7 +41,7 @@
   <i class="fa fa-plus"></i> Onderdeel Toevoegen</divbutton> 
  </a> 
 
- <a asp-controller="Home" asp-action="Index">
+ <a asp-controller="Home" asp-action="Index"></a>
    <div class="row">
   <div class="col">
    <div class="leftside d-flex justify-content-center align-items-center" style="margin-top:70px">
@@ -52,7 +52,7 @@
        Plaatje
      </th>
      <th>
-       ID
+       Categorie
      </th>
      <th>
        Prijs
@@ -68,65 +68,6 @@
   <tr>
    <td>
     <img src="~/Images/@item.FileAdress" class="rounded" width="70" height="70" asp-append-version="true" />
-   </td>
-   <td>
-    @Html.DisplayFor(modelItem => item.ID)
-   </td>
-   <td>
-    @Html.DisplayFor(modelItem => item.Prijs)
-   </td>
-   <td>
-    @Html.DisplayFor(modelItem => item.Titel)
-   </td>
-   <td>
-    <div class="btn-group">
-      <a asp-action="Edit" asp-route-id="@item.ID" class="btn btn-sm btn-info">Beoordelen</a>
-      <a asp-action="Delete" asp-route-id="@item.ID" class="btn btn-sm btn-danger m1-1">Review plaatsen</a>
-    </div>
-   </td>
-  </tr>
-}
- </tbody>
-</table>
-</a>
-   </div>
-     
-
-
-
-
-<a asp-controller="Home" asp-action="Index">
-  <div class="col">
-   <div class="rightside d-flex justify-content-center align-items-center" style="margin-top:70px">
-        <table class="table">
-       <thead>
-    <tr>
-     <th>
-       Plaatje
-     </th>
-     <th>
-       ID
-     </th>
-     <th>
-       Categorie
-     </th>
-     <th>
-       Prijs
-     </th>
-     <th>
-       Titel
-     </th>
-    <th></th>
-   </tr>
-  </thead>
- <tbody>
-     @foreach (Onderdeel item in Model.Onderdelen) {
-  <tr>
-   <td>
-    <img src="~/Images/@item.FileAdress" class="rounded" width="70" height="70" asp-append-version="true" />
-   </td>
-   <td>
-    @Html.DisplayFor(modelItem => item.ID)
    </td>
    <td>
     @Html.DisplayFor(modelItem => item.DeCategory)
@@ -147,7 +88,58 @@
 }
  </tbody>
 </table>
-</a>
+   </div>
+     
+
+
+
+
+<a asp-controller="Home" asp-action="Index"></a>
+  <div class="col">
+   <div class="rightside d-flex justify-content-center align-items-center" style="margin-top:70px">
+        <table class="table">
+       <thead>
+    <tr>
+     <th>
+       Plaatje
+     </th>
+     <th>
+       Categorie
+     </th>
+     <th>
+       Prijs
+     </th>
+     <th>
+       Titel
+     </th>
+    <th></th>
+   </tr>
+  </thead>
+ <tbody>
+     @foreach (Onderdeel item in Model.Onderdelen) {
+  <tr>
+   <td>
+    <img src="~/Images/@item.FileAdress" class="rounded" width="70" height="70" asp-append-version="true" />
+   </td>
+   <td>
+    @Html.DisplayFor(modelItem => item.DeCategory)
+   </td>
+   <td>
+    @Html.DisplayFor(modelItem => item.Prijs)
+   </td>
+   <td>
+    @Html.DisplayFor(modelItem => item.Titel)
+   </td>
+   <td>
+    <div class="btn-group">
+      <a asp-action="Edit" asp-route-id="@item.ID" class="btn btn-sm btn-info">Beoordelen</a>
+      <a asp-action="Delete" asp-route-id="@item.ID" class="btn btn-sm btn-danger m1-1">Review plaatsen</a>
+    </div>
+   </td>
+  </tr>
+}
+ </tbody>
+</table>
    </div>
   
 </div>

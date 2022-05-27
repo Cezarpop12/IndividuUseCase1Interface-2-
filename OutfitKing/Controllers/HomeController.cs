@@ -24,7 +24,7 @@ namespace OutfitKing.Controllers
         /// <returns>Return de view van de Homepagina</returns>
         public IActionResult Index()
         {
-            OutEnOnderVM vm =new();
+            OutEnOnderVM vm = new OutEnOnderVM();
             vm.Outfits = outfitContainer.GetLast4Outfits();
             vm.Onderdelen = onderdeelContainer.GetLast4Onderdelen();
             return View(vm);
