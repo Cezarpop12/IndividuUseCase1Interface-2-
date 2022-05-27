@@ -24,7 +24,10 @@ namespace OutfitKing.Controllers
         /// <returns>Return de view van de Homepagina</returns>
         public IActionResult Index()
         {
-            return View();
+            OutEnOnderVM vm =new();
+            vm.Outfits = outfitContainer.GetLast4Outfits();
+            vm.Onderdelen = onderdeelContainer.GetLast4Onderdelen();
+            return View(vm);
         }
 
         /// <summary>
@@ -56,12 +59,12 @@ namespace OutfitKing.Controllers
             return Content("Log eerst in!");
         }
 
+        [HttpPost]
         public IActionResult Laatste4OutfitsTonen()
         {
             try
             {
-                List<Outfit> Outfits = outfitContainer.GetLast4Outfits();
-                return View(Outfits);
+                return RedirectToAction("Index", "Home");
             }
             catch (TemporaryExceptions ex)
             {
@@ -73,12 +76,12 @@ namespace OutfitKing.Controllers
             }
         }
 
+        [HttpPost]
         public IActionResult Laatste4OnderdelenTonen()
         {
             try
             {
-                List<Onderdeel> Onderdelen = onderdeelContainer.GetLast4Onderdelen();
-                return View(Onderdelen);
+                return RedirectToAction("Index","Home");
             }
             catch (TemporaryExceptions ex)
             {

@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using BusnLogicLaag;
+using Microsoft.AspNetCore.Http;
+using System.ComponentModel.DataAnnotations;
 
 namespace OutfitKing.Models
 {
@@ -21,5 +23,19 @@ namespace OutfitKing.Models
         public OutfitCategory Category { get; set; }
         [Required]
         public IFormFile Afbeelding { get; set; }
+
+        public OutfitVM()
+        {
+
+        }
+
+        public OutfitVM(Outfit outfit)
+        {
+            this.Prijs = outfit.Prijs;
+            this.Titel = outfit.Titel;
+            this.Category = (OutfitCategory)outfit.DeCategory;
+            //this.Afbeelding = (IFromFile)outfit.FileAdress;
+            this.ID = outfit.ID;
+        }
     }
 }
