@@ -141,6 +141,50 @@ namespace DALMSSQLSERVER
         }
 
         /// <summary>
+        /// Laatste 4 geplaatste onderdelen worden opgehaald
+        /// </summary>
+        /// <returns>Return een lijst van onderdelen</returns>
+        /// <exception cref="TemporaryExceptions">TemporaryExceptions">Bij verbindingsproblemen met de database</exception>
+        /// <exception cref="PermanentExceptions">PermanentExceptions">Bij fouten in het programma(dus bijv querys verkeerd opgesteld door de programeur)</exception>
+        public List<OnderdeelDTO> GetLast4Onderdelen()
+        {
+            try
+            {
+                List<OnderdeelDTO> Onderdelen = new List<OnderdeelDTO>();
+                OpenConnection();
+                SqlCommand command = new SqlCommand(@"SELECT TOP 4 * FROM Onderdeel ORDER BY ID DESC", this.connection);
+                SqlDataReader reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        Onderdelen.Add(new OnderdeelDTO(
+                        Convert.ToInt32(reader["ID"].ToString()),
+                        reader["Titel"].ToString(),
+                        Convert.ToInt32(reader["Prijs"]),
+                        (OnderdeelDTO.OnderdeelCategory)Enum.Parse(typeof(OnderdeelDTO.OnderdeelCategory),
+                        reader["Categorie"].ToString()),
+                        reader["FileAdress"].ToString()));
+                    }
+                }
+                CloseConnection();
+                return Onderdelen;
+            }
+            catch (InvalidOperationException ex)
+            {
+                throw new TemporaryExceptions(ex);
+            }
+            catch (IOException ex)
+            {
+                throw new TemporaryExceptions(ex);
+            }
+            catch (Exception ex)
+            {
+                throw new PermanentExceptions("Iets gaat hier fout!");
+            }
+        }
+
+        /// <summary>
         /// Onderdeel wordt verwijderd met een bepaalde ID
         /// </summary>
         /// <param name="onderdeel">De onderdeel die meegegeven wordt</param>

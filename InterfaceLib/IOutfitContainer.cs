@@ -11,6 +11,7 @@ namespace InterfaceLib
         public void VoegOutfitToe(int GebrID, OutfitDTO outfit);
         public List<OutfitDTO> GetAllOutfitsVanGebr(int GebrID);
         public List<OutfitDTO> GetAllOutfits();
+        public List<OutfitDTO> GetLast4Outfits();
         public OutfitDTO GetOutfit(string titel);
         public void DeleteOutfit(OutfitDTO outfit);
         public void UpdateOutfit(OutfitDTO outfit);

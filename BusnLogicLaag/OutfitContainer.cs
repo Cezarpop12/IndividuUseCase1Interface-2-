@@ -61,6 +61,17 @@ namespace BusnLogicLaag
             return outfits; 
         }
 
+        public List<Outfit> GetLast4Outfits()
+        {
+            List<OutfitDTO> outfitdtos = Container.GetLast4Outfits();
+            List<Outfit> outfits = new List<Outfit>();
+            foreach (OutfitDTO outfitdto in outfitdtos)
+            {
+                outfits.Add(new Outfit(outfitdto));
+            }
+            return outfits;
+        }
+
         public Outfit GetOutfit(string titel)
         {
             OutfitDTO outfitdto = Container.GetOutfit(titel);

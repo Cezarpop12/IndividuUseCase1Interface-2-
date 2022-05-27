@@ -11,7 +11,7 @@ namespace InterfaceLib
         public void VoegOnderdeelToe(int GebrID, OnderdeelDTO onderdeel);
         public List<OnderdeelDTO> GetAllOnderdelenVanGebr(int GebrID);
         public List<OnderdeelDTO> GetAllOnderdelen();
-
+        public List<OnderdeelDTO> GetLast4Onderdelen();
         public OnderdeelDTO GetOnderdeel(string titel);
         public void DeleteOnderdeel(OnderdeelDTO onderdeel);
         public void UpdateOnderdeel(OnderdeelDTO onderdeel);

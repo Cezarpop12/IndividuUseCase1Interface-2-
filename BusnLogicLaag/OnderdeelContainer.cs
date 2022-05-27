@@ -44,6 +44,16 @@ namespace BusnLogicLaag
             return onderdelen;
         }
 
+        public List<Onderdeel> GetLast4Onderdelen()
+        {
+            List<OnderdeelDTO> onderdeeldtos = Container.GetLast4Onderdelen();
+            List<Onderdeel> onderdelen = new List<Onderdeel>();
+            foreach (OnderdeelDTO onderdeeldto in onderdeeldtos)
+            {
+                onderdelen.Add(new Onderdeel(onderdeeldto));
+            }
+            return onderdelen;
+        }
 
         public bool IsOnderdeel(string titel)
         {

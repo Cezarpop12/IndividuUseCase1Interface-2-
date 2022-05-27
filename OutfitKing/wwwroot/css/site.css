@@ -2,6 +2,19 @@ html {
   font-size: 14px;
 }
 
+.leftside, .rightside {
+    height: 40vh;
+    width: 100%;
+}
+
+.leftside {
+    background: red;
+}
+
+.rightside {
+    background: blue;
+}
+
 input, select, textarea {
     max-width: 600px;
 }

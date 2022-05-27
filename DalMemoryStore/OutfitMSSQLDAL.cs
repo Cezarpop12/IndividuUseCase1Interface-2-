@@ -141,6 +141,38 @@ namespace DALMSSQLSERVER
         }
 
         /// <summary>
+        /// De laatste 4 geplaatste outfits worden opgehaald
+        /// </summary>
+        /// <returns>Return een lijst van outfits</returns>
+        /// <exception cref="TemporaryExceptions">TemporaryExceptions">Bij verbindingsproblemen met de database</exception>
+        /// <exception cref="PermanentExceptions">PermanentExceptions">Bij fouten in het programma(dus bijv querys verkeerd opgesteld door de
+        public List<OutfitDTO> GetLast4Outfits()
+        {
+            try
+            {
+                List<OutfitDTO> Outfits;
+                OpenConnection();
+                SqlCommand command = new SqlCommand(@"SELECT TOP 4 * FROM Outfit ORDER BY ID DESC", this.connection);
+                SqlDataReader reader = command.ExecuteReader();
+                Outfits = LeesOutfits(reader);
+                CloseConnection();
+                return Outfits;
+            }
+            catch (InvalidOperationException ex)
+            {
+                throw new TemporaryExceptions(ex);
+            }
+            catch (IOException ex)
+            {
+                throw new TemporaryExceptions(ex);
+            }
+            catch (Exception ex)
+            {
+                throw new PermanentExceptions("Iets gaat hier fout!");
+            }
+        }
+        
+        /// <summary>
         /// Outfit wordt verwijderd met een bepaalde ID
         /// </summary>
         /// <param name="outfit">De outfit die meegegeven wordt</param>
