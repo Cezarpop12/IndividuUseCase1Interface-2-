@@ -11,7 +11,6 @@ namespace OutfitKing.Controllers
         private readonly IWebHostEnvironment Environment;
         public OnderdeelContainer onderdeelContainer = new OnderdeelContainer(new OnderdeelMSSQLDAL());
 
-
         public OnderdeelController(ILogger<OnderdeelController> logger, IWebHostEnvironment webhostEnvironment)
         {
             _logger = logger;
