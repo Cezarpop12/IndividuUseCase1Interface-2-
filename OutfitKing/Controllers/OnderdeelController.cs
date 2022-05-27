@@ -22,8 +22,15 @@ namespace OutfitKing.Controllers
             try
             {
                 int? ID = HttpContext.Session.GetInt32("ID");
-                List<Onderdeel> Onderdelen = onderdeelContainer.GetAllOnderdelenVanGebr(ID.Value);
-                return View(Onderdelen);
+                if (ID != null)
+                {
+                    List<Onderdeel> Onderdelen = onderdeelContainer.GetAllOnderdelenVanGebr(ID.Value);
+                    return View(Onderdelen);
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Home");
+                }
             }
             catch (TemporaryExceptions ex)
             {

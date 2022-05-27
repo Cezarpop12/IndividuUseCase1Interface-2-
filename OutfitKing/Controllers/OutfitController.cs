@@ -23,8 +23,12 @@ namespace OutfitKing.Controllers
             try
             {
                 int? ID = HttpContext.Session.GetInt32("ID");
-                List<Outfit> Outfits = outfitContainer.GetAllOutfitsVanGebr(ID.Value);
-                return View(Outfits);
+                if (ID != null)
+                {
+                    List<Outfit> Outfits = outfitContainer.GetAllOutfitsVanGebr(ID.Value);
+                    return View(Outfits);
+                }
+                return RedirectToAction("Index", "Home");
             }
             catch (TemporaryExceptions ex)
             {

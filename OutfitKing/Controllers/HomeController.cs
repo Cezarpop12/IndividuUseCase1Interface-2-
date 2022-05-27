@@ -59,40 +59,6 @@ namespace OutfitKing.Controllers
             return Content("Log eerst in!");
         }
 
-        [HttpPost]
-        public IActionResult Laatste4OutfitsTonen()
-        {
-            try
-            {
-                return RedirectToAction("Index", "Home");
-            }
-            catch (TemporaryExceptions ex)
-            {
-                return Content($"Er heeft een fout plaatsgevonden, probeer het in 5 minuten nog eens. " + ex.Message);
-            }
-            catch (PermanentExceptions ex)
-            {
-                return Redirect("https://twitter.com/outfitservicestatus");
-            }
-        }
-
-        [HttpPost]
-        public IActionResult Laatste4OnderdelenTonen()
-        {
-            try
-            {
-                return RedirectToAction("Index","Home");
-            }
-            catch (TemporaryExceptions ex)
-            {
-                return Content($"Er heeft een fout plaatsgevonden, probeer het in 5 minuten nog eens. " + ex.Message);
-            }
-            catch (PermanentExceptions ex)
-            {
-                return Redirect("https://twitter.com/outfitservicestatus");
-            }
-        }
-
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
