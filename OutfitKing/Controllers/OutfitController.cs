@@ -89,6 +89,24 @@ namespace OutfitKing.Controllers
             }
         }
 
+        public IActionResult OutfitVerwijderen(int id)
+        {
+            try
+            {
+                Outfit outfit = outfitContainer.GetOutfit(id);
+                outfitContainer.DeleteOutfit(outfit);
+                return RedirectToAction("OutfitsTonenGebr", "Outfit");
+            }
+            catch (TemporaryExceptions ex)
+            {
+                return Content($"Er heeft een fout plaatsgevonden, probeer het in 5 minuten nog eens. " + ex.Message);
+            }
+            catch (PermanentExceptions ex)
+            {
+                return Redirect("https://twitter.com/outfitservicestatus");
+            }
+        }
+
         private string UploadFile(OutfitVM outfit)
         {
             string file = null;

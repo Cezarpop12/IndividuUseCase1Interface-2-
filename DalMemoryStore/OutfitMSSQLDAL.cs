@@ -279,14 +279,14 @@ namespace DALMSSQLSERVER
         /// <returns>Return een outfit</returns>
         /// <exception cref="TemporaryExceptions">TemporaryExceptions">Bij verbindingsproblemen met de database</exception>
         /// <exception cref="PermanentExceptions">PermanentExceptions">Bij fouten in het programma(dus bijv querys verkeerd opgesteld door de programeur)</exception>
-        public OutfitDTO GetOutfit(string titel)
+        public OutfitDTO GetOutfit(int id)
         {
             try
             {
                 OutfitDTO outfit = null;
                 OpenConnection();
-                SqlCommand command = new SqlCommand(@"SELECT * FROM Outfit WHERE Titel = @titel", this.connection);
-                command.Parameters.AddWithValue("@titel", titel);
+                SqlCommand command = new SqlCommand(@"SELECT * FROM Outfit WHERE ID = @id", this.connection);
+                command.Parameters.AddWithValue("@id", id);
                 //Je zoekt outfit op titel omdat deze uniek is
                 SqlDataReader reader = command.ExecuteReader();
                 if (reader.HasRows)

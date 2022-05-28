@@ -72,9 +72,9 @@ namespace BusnLogicLaag
             return outfits;
         }
 
-        public Outfit GetOutfit(string titel)
+        public Outfit GetOutfit(int id)
         {
-            OutfitDTO outfitdto = Container.GetOutfit(titel);
+            OutfitDTO outfitdto = Container.GetOutfit(id);
             Outfit outfit = new Outfit(outfitdto);
             return outfit;
         }

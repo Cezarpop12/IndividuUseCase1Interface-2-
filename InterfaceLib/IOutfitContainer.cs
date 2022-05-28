@@ -12,7 +12,7 @@ namespace InterfaceLib
         public List<OutfitDTO> GetAllOutfitsVanGebr(int GebrID);
         public List<OutfitDTO> GetAllOutfits();
         public List<OutfitDTO> GetLast4Outfits();
-        public OutfitDTO GetOutfit(string titel);
+        public OutfitDTO GetOutfit(int id);
         public void DeleteOutfit(OutfitDTO outfit);
         public void UpdateOutfit(OutfitDTO outfit);
         public bool IsOutfit(string titel);
