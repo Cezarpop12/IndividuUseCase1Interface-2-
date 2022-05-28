@@ -72,9 +72,9 @@ namespace BusnLogicLaag
             Container.UpdateOnderdeel(onderdeeldto);
         }
 
-        public Onderdeel GetOnderdeel(string titel)
+        public Onderdeel GetOnderdeel(int id)
         {
-            OnderdeelDTO onderdeeldto = Container.GetOnderdeel(titel);
+            OnderdeelDTO onderdeeldto = Container.GetOnderdeel(id);
             Onderdeel onderdeel = new Onderdeel(onderdeeldto);
             return onderdeel;
         }

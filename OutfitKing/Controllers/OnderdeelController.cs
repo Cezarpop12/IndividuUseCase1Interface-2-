@@ -91,6 +91,24 @@ namespace OutfitKing.Controllers
             }
         }
 
+        public IActionResult OnderdeelVerwijderen(int id)
+        {
+            try
+            {
+                Onderdeel onderdeel = onderdeelContainer.GetOnderdeel(id);
+                onderdeelContainer.DeleteOnderdeel(onderdeel);
+                return RedirectToAction("OnderdelenTonenGebr", "Onderdeel");
+            }
+            catch (TemporaryExceptions ex)
+            {
+                return Content($"Er heeft een fout plaatsgevonden, probeer het in 5 minuten nog eens. " + ex.Message);
+            }
+            catch (PermanentExceptions ex)
+            {
+                return Redirect("https://twitter.com/outfitservicestatus");
+            }
+        }
+
         private string UploadFile(OnderdeelVM onderdeel)
         {
             string file = null;

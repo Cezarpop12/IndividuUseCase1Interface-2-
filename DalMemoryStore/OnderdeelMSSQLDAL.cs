@@ -291,14 +291,14 @@ namespace DALMSSQLSERVER
         /// <returns>Return een onderdeel</returns>
         /// <exception cref="TemporaryExceptions">TemporaryExceptions">Bij verbindingsproblemen met de database</exception>
         /// <exception cref="PermanentExceptions">PermanentExceptions">Bij fouten in het programma(dus bijv querys verkeerd opgesteld door de programeur)</exception>
-        public OnderdeelDTO GetOnderdeel(string titel)
+        public OnderdeelDTO GetOnderdeel(int id)
         {
             try
             {
                 OnderdeelDTO onderdeel = null;
                 OpenConnection();
-                SqlCommand command = new SqlCommand(@"SELECT * FROM Onderdeel WHERE Titel = @titel", this.connection);
-                command.Parameters.AddWithValue("@titel", titel);
+                SqlCommand command = new SqlCommand(@"SELECT * FROM Onderdeel WHERE ID = @id", this.connection);
+                command.Parameters.AddWithValue("@id", id);
                 SqlDataReader reader = command.ExecuteReader();
                 if (reader.HasRows)
                 {
