@@ -107,6 +107,11 @@ namespace OutfitKing.Controllers
             }
         }
 
+        public IActionResult OutfitRatingGeven()
+        {
+            return View();
+        }
+
         private string UploadFile(OutfitVM outfit)
         {
             string file = null;

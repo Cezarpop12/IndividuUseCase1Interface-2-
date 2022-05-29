@@ -18,8 +18,14 @@ namespace BusnLogicLaag
 
         public void AddRating(int id, int waarde)
         {
-            GebruikerDTO dto = gebruiker.GetDTO();
-            Container.CreateGebr(dto, wachtwoord);
+            Container.AddRating(id, waarde);
+        }
+
+        public Rating GetRating(int id)
+        {
+            RatingDTO dto = Container.GetRating(id);
+            Rating rating = new Rating(dto);
+            return rating;
         }
     }
 }

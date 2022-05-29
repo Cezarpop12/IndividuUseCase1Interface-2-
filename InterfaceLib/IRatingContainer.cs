@@ -9,5 +9,7 @@ namespace InterfaceLib
     public interface IRatingContainer
     {
         public void AddRating(int id, int waarde);
+        public RatingDTO GetRating(int id);
+
     }
 }
