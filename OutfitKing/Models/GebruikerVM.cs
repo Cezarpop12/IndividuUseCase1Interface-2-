@@ -12,9 +12,6 @@ namespace OutfitKing.Models
         [Required]
         public string? Gerbuikersnaam { get; set; }
         public bool Retry { get; set; }
-
-        //public List<Outfit> Outfits { get; set; } = new List<Outfit>();
-        //public List<Onderdeel> Onderdelen { get; set; } = new List<Onderdeel>();
       
         public GebruikerVM(int id, string wachtwoord, string gerbuikersnaam)
         {
