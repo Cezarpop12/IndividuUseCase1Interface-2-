@@ -25,12 +25,13 @@ namespace DALMSSQLSERVER
                 OpenConnection();
                 {
                     OpenConnection();
-                    string query = "INSERT INTO Review (GebrID, OutfitID, StukTekst, Datum) VALUES((SELECT GebrID FROM Gebruiker WHERE Alias = @alias), @id, @stuktekst, @datumtijd)";
+                    string query = "INSERT INTO Review (GebrID, OutfitID, StukTekst, Datum, Titel) VALUES (@gebrID, @outfitID , @stuktekst, @datumtijd, @titel)";
                     SqlCommand command = new SqlCommand(query, this.connection);
-                    command.Parameters.AddWithValue("@alias", gebruiker.Alias);
-                    command.Parameters.AddWithValue("@id", GetOutfitID(titel));
+                    command.Parameters.AddWithValue("@gebrID", gebrID);
+                    command.Parameters.AddWithValue("@outfitID", outfitID);
                     command.Parameters.AddWithValue("@stuktekst", review.StukTekst);
                     command.Parameters.AddWithValue("@datumtijd", review.DatumTijd);
+                    command.Parameters.AddWithValue("@titel", review.Titel);
                     command.ExecuteNonQuery();
                     CloseConnection();
                 }

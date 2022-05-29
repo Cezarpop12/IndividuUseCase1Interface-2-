@@ -23,8 +23,6 @@ namespace DALMSSQLSERVER
             try
             {
                 OpenConnection();
-                if (!BestaandeTitleNaamOut(outfit.Titel))
-                {
                     OpenConnection();
                     string query = @"INSERT INTO Outfit VALUES(@id, @titel, @prijs, @category, @path)";
                     SqlCommand command = new SqlCommand(query, this.connection);
@@ -34,7 +32,6 @@ namespace DALMSSQLSERVER
                     command.Parameters.AddWithValue("@category", outfit.DeCategory.ToString());
                     command.Parameters.AddWithValue("@path", outfit.FileAdress);
                     command.ExecuteNonQuery();
-                }
                 CloseConnection();
             }
             catch (InvalidOperationException ex)

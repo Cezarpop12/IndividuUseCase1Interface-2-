@@ -16,19 +16,12 @@ namespace BusnLogicLaag
             this.Container = container;
         }
 
-        public void VoegReviewToeOutfit(Review review, Gebruiker gebruiker, string titel)
+        public void VoegReviewToeOutfit(int gebrID, int outfitID, Review review)
         {
             ReviewDTO reviewdto = review.GetDTO();
-            GebruikerDTO gebrdto = gebruiker.GetDTO();
-            Container.VoegReviewToeOutfit(reviewdto, gebrdto, titel);
+            Container.VoegReviewToeOutfit(gebrID, outfitID, reviewdto);
         }
 
-        public void VoegReviewToeOnderdeel(Review review, Gebruiker gebruiker, string titel)
-        {
-            ReviewDTO reviewdto = review.GetDTO();
-            GebruikerDTO gebrdto = gebruiker.GetDTO();
-            Container.VoegReviewToeOnderdeel(reviewdto, gebrdto, titel);
-        }
 
         public List<Review> GetAllReviewsVanGebr(int gebrID)
         {

@@ -22,18 +22,15 @@ namespace DALMSSQLSERVER
             try
             {
                 OpenConnection();
-                if (!BestaandeTitleNaamOnder(onderdeel.Titel))
-                {
-                    OpenConnection();
-                    string query = @"INSERT INTO Onderdeel VALUES(@id, @titel, @prijs, @category, @path)";
-                    SqlCommand command = new SqlCommand(query, this.connection);
-                    command.Parameters.AddWithValue("@id", GebrID);
-                    command.Parameters.AddWithValue("@titel", onderdeel.Titel);
-                    command.Parameters.AddWithValue("@prijs", onderdeel.Prijs);
-                    command.Parameters.AddWithValue("@category", onderdeel.DeCategory.ToString());
-                    command.Parameters.AddWithValue("@path", onderdeel.FileAdress);
-                    command.ExecuteNonQuery();
-                }
+                OpenConnection();
+                string query = @"INSERT INTO Onderdeel VALUES(@id, @titel, @prijs, @category, @path)";
+                SqlCommand command = new SqlCommand(query, this.connection);
+                command.Parameters.AddWithValue("@id", GebrID);
+                command.Parameters.AddWithValue("@titel", onderdeel.Titel);
+                command.Parameters.AddWithValue("@prijs", onderdeel.Prijs);
+                command.Parameters.AddWithValue("@category", onderdeel.DeCategory.ToString());
+                command.Parameters.AddWithValue("@path", onderdeel.FileAdress);
+                command.ExecuteNonQuery();
                 CloseConnection();
             }
             catch (InvalidOperationException ex)
