@@ -1,4 +1,4 @@
-﻿
+﻿@model RatingVM
 @{
     ViewData["Title"] = "OutfitRatingGeven";
 }
@@ -7,12 +7,11 @@
 
 <form>
   <div class="mb-3">
-    <label for="exampleInputEmail1" class="form-label">Score</label>
-    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-    <div id="emailHelp" class="form-text">Vul een score in van 1-5</div>
+    <label asp-for="Waarde" class="form-label">Waarde</label>
+    <input asp-for="Waarde" class="form-control" id="Waarde" aria-describedby="Waarde">
+    <span asp-validation-for="Waarde" style="color:red"></span>
+    <div id="Waarde" class="form-text">Vul een score in van 1-5</div>
+    <input type="submit" value="Log In" class="btn btn-primary" />  
   </div>
-   <a asp-controller="Account" asp-action="AccountAanmaken" class="btn btn-primary" style="margin-right:20%">
-         Opslaan
-       </a>   
  </form>
 

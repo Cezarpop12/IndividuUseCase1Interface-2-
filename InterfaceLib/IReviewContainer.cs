@@ -11,7 +11,7 @@ namespace InterfaceLib
         public void VoegReviewToeOutfit(ReviewDTO review, GebruikerDTO gebruiker, string titel);
         public void VoegReviewToeOnderdeel(ReviewDTO review, GebruikerDTO gebruiker, string titel);
         //public void VerwijderReview(ReviewDTO review);
-        public List<ReviewDTO> GetAllReviewsVanGebr(GebruikerDTO gebruiker);
+        public List<ReviewDTO> GetAllReviewsVanGebr(int gebrID);
         public void DeleteReview(ReviewDTO review);
         public void UpdateReview(ReviewDTO review);
     }

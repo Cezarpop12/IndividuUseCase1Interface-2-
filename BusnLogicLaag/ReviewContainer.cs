@@ -30,10 +30,9 @@ namespace BusnLogicLaag
             Container.VoegReviewToeOnderdeel(reviewdto, gebrdto, titel);
         }
 
-        public List<Review> GetAllReviewsVanGebr(Gebruiker gebruiker)
+        public List<Review> GetAllReviewsVanGebr(int gebrID)
         {
-            GebruikerDTO dto = gebruiker.GetDTO();
-            List<ReviewDTO> reviewdtos = Container.GetAllReviewsVanGebr(dto);
+            List<ReviewDTO> reviewdtos = Container.GetAllReviewsVanGebr(gebrID);
             List<Review> reviews = new List<Review>();
             foreach (ReviewDTO reviewdto in reviewdtos)
             {

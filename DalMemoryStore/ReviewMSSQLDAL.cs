@@ -18,12 +18,11 @@ namespace DALMSSQLSERVER
         /// <param name="titel">Titel die wordt meegegeven</param>
         /// <exception cref="TemporaryExceptions">Bij verbindingsproblemen met de database</exception>
         /// <exception cref="PermanentExceptions">Bij fouten in het programma(dus bijv querys verkeerd opgesteld door de programeur)</exception>
-        public void VoegReviewToeOutfit(ReviewDTO review, GebruikerDTO gebruiker, string titel)
+        public void VoegReviewToeOutfit(int gebrID, int outfitID, ReviewDTO review)
         {
             try
             {
                 OpenConnection();
-                if (GetOutfitID(titel) > 0)
                 {
                     OpenConnection();
                     string query = "INSERT INTO Review (GebrID, OutfitID, StukTekst, Datum) VALUES((SELECT GebrID FROM Gebruiker WHERE Alias = @alias), @id, @stuktekst, @datumtijd)";
@@ -97,24 +96,23 @@ namespace DALMSSQLSERVER
         /// <returns>Return een lijst van reviews</returns>
         /// <exception cref="TemporaryExceptions">Bij verbindingsproblemen met de database</exception>
         /// <exception cref="PermanentExceptions">Bij fouten in het programma(dus bijv querys verkeerd opgesteld door de programeur)</exception>
-        public List<ReviewDTO> GetAllReviewsVanGebr(GebruikerDTO gebruiker)
+        public List<ReviewDTO> GetAllReviewsVanGebr(int gebrID)
         {
             try
             {
                 List<ReviewDTO> Reviews = new List<ReviewDTO>();
                 OpenConnection();
                 SqlCommand command = new SqlCommand(@"SELECT * FROM Review WHERE GebrID = @id", this.connection);
-                command.Parameters.AddWithValue("@id", gebruiker.ID);
+                command.Parameters.AddWithValue("@id", gebrID);
                 SqlDataReader reader = command.ExecuteReader();
                 if (reader.HasRows)
                 {
                     while (reader.Read())
                     {
                         Reviews.Add(new ReviewDTO(
-                            Convert.ToInt32(reader["Id"].ToString()),
+                            Convert.ToInt32(reader["ID"].ToString()),
                             reader["StukTekst"].ToString(),
                             reader["Titel"].ToString(),
-                            gebruiker,
                             Convert.ToDateTime(reader["Datum"])));
                     }
                 }
