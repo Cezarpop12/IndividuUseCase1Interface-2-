@@ -1,0 +1,18 @@
+﻿
+@{
+    ViewData["Title"] = "OutfitRatingGeven";
+}
+
+<h1>Geef een rating!</h1>
+
+<form>
+  <div class="mb-3">
+    <label for="exampleInputEmail1" class="form-label">Score</label>
+    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+    <div id="emailHelp" class="form-text">Vul een score in van 1-5</div>
+  </div>
+   <a asp-controller="Account" asp-action="AccountAanmaken" class="btn btn-primary" style="margin-right:20%">
+         Opslaan
+       </a>   
+ </form>
+

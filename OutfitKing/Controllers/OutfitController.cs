@@ -10,7 +10,7 @@ namespace OutfitKing.Controllers
         private readonly ILogger<OutfitController> _logger;
         private readonly IWebHostEnvironment Environment;
         public OutfitContainer outfitContainer = new OutfitContainer(new OutfitMSSQLDAL());
-        
+        public RatingContainer ratingContainer = new RatingContainer(new RatingMSSQLDAL());
 
         public OutfitController(ILogger<OutfitController> logger, IWebHostEnvironment webhostEnvironment)
         {
@@ -107,9 +107,10 @@ namespace OutfitKing.Controllers
             }
         }
 
-        public IActionResult OutfitRatingGeven()
+        public IActionResult OutfitRatingGeven(int id) 
         {
-            return View();
+            Outfit outfit = outfitContainer.GetOutfit(id);
+            return View(id);
         }
 
         private string UploadFile(OutfitVM outfit)
