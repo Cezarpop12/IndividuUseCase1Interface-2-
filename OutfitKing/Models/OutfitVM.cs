@@ -31,7 +31,6 @@ namespace OutfitKing.Models
             Prijs = outfit.Prijs;
             Titel = outfit.Titel;
             Category = (OutfitCategory)outfit.DeCategory;
-
         }
 
         public OutfitVM()

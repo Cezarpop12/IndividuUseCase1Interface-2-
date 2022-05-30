@@ -15,5 +15,9 @@ namespace OutfitKing.Models
             Waarde = rating.Waarde;
         }
 
+        public RatingVM()
+        {
+
+        }
     }
 }
