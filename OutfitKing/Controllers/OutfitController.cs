@@ -11,6 +11,7 @@ namespace OutfitKing.Controllers
         private readonly IWebHostEnvironment Environment;
         public OutfitContainer outfitContainer = new OutfitContainer(new OutfitMSSQLDAL());
         public RatingContainer ratingContainer = new RatingContainer(new RatingMSSQLDAL());
+        public ReviewContainer reviewContainer = new ReviewContainer(new ReviewMSSQLDAL());
 
         public OutfitController(ILogger<OutfitController> logger, IWebHostEnvironment webhostEnvironment)
         {
@@ -118,7 +119,21 @@ namespace OutfitKing.Controllers
         public IActionResult OutfitRatingOpslaan(OutfitVM outfit)
         {
             ratingContainer.AddRating(outfit.ID, outfit.rating.Waarde);
-            return RedirectToAction("AlleOutfitsTonen");
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        public ActionResult OutfitReviewOpslaan(int id)
+        {
+            OutfitVM outfit = new(outfitContainer.GetOutfit(id));
+            return View(outfit);
+        }
+
+        [HttpPost]
+        public IActionResult OutfitReviewOpslaan(OutfitVM outfit)
+        {
+            ratingContainer.AddRating(outfit.ID, outfit.rating.Waarde);
+            return RedirectToAction("Index", "Home");
         }
 
         private string UploadFile(OutfitVM outfit)

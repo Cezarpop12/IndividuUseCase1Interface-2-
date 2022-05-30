@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using BusnLogicLaag;
+using System.ComponentModel.DataAnnotations;
 
 namespace OutfitKing.Models
 {
@@ -11,5 +12,17 @@ namespace OutfitKing.Models
         [Required]
         public string StukTekst { get; set; }
 
+        public ReviewVM(Review review)
+        {
+            this.ID = review.ID;
+            this.Titel = review.Titel;
+            this.DatumTijd = review.DatumTijd;
+            this.StukTekst = review.StukTekst;
+        }
+
+        public ReviewVM()
+        {
+
+        }
     }
 }

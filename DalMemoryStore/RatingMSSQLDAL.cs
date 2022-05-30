@@ -36,6 +36,40 @@ namespace DALMSSQLSERVER
             }
         }
 
+        public RatingDTO GemRatingBijOutfit(int id)
+        {
+            try
+            {
+                OpenConnection();
+                SqlCommand command = new SqlCommand(@"SELECT AVG(Waarde)FROM Rating WHERE OutfitID = @id", this.connection);
+                command.Parameters.AddWithValue("@id", id);
+                SqlDataReader reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        return new RatingDTO(
+                            Convert.ToInt32(reader["ID"].ToString()),
+                            Convert.ToInt32(reader["Waarde"].ToString()));
+                    }
+                }
+                CloseConnection();
+                return null;
+            }
+            catch (InvalidOperationException ex)
+            {
+                throw new TemporaryExceptions(ex);
+            }
+            catch (IOException ex)
+            {
+                throw new TemporaryExceptions(ex);
+            }
+            catch (Exception ex)
+            {
+                throw new PermanentExceptions("Iets gaat hier fout!");
+            }
+        }
+
         public RatingDTO GetRating(int id)
         {
             try
