@@ -23,7 +23,7 @@ namespace OutfitKing.Controllers
                 if (ID != null)
                 {
                     List<Review> Reviews = reviewContainer.GetAllReviewsVanGebr(ID.Value);
-                    return View(Outfits);
+                    return View(Reviews);
                 }
                 return RedirectToAction("Index", "Home");
             }

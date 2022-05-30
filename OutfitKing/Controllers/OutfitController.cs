@@ -107,15 +107,17 @@ namespace OutfitKing.Controllers
             }
         }
 
+        [HttpGet]
         public ActionResult OutfitRatingOpslaan(int id)
         {
-            return View(id);
+            OutfitVM outfit = new(outfitContainer.GetOutfit(id)); 
+            return View(outfit);
         }
 
         [HttpPost]
-        public IActionResult OutfitRatingOpslaan(int id, RatingVM rating)
+        public IActionResult OutfitRatingOpslaan(OutfitVM outfit)
         {
-            ratingContainer.AddRating(id, rating.Waarde);
+            ratingContainer.AddRating(outfit.ID, outfit.rating.Waarde);
             return RedirectToAction("AlleOutfitsTonen");
         }
 

@@ -1,60 +1,46 @@
 ﻿@using BusnLogicLaag
-@model List<Outfit>
+@model List<Review>
 
 @{
-    ViewData["Title"] = "OutfitsTonenGebr";
+    ViewData["Title"] = "ReviewsVanGebr";
 }
 
-<h1>Mijn Outfits</h1>
+<h1>Mijn reviews</h1>
 
-<p>
-<a asp-action="OutfitAanmaken">Nieuw</a>
-</p>
 <table class="table">
   <thead>
     <tr>
      <th>
-       Plaatje
+       Titel
      </th>
      <th>
        ID
      </th>
      <th>
-       Categorie
+       Beschrijving
      </th>
      <th>
-       Prijs
-     </th>
-     <th>
-       Titel
+       Datum
      </th>
     <th></th>
    </tr>
   </thead>
  <tbody>
 
-@foreach (Outfit item in Model) {
+@foreach (Review item in Model) {
   <tr>
-   <td>
-    <img src="~/Images/@item.FileAdress" class="rounded" width="70" height="70" asp-append-version="true" />
-   </td>
-   <td>
-    @Html.DisplayFor(modelItem => item.ID)
-   </td>
-   <td>
-    @Html.DisplayFor(modelItem => item.DeCategory)
-   </td>
-   <td>
-    @Html.DisplayFor(modelItem => item.Prijs)
-   </td>
    <td>
     @Html.DisplayFor(modelItem => item.Titel)
    </td>
    <td>
+    @Html.DisplayFor(modelItem => item.StukTekst)
+   </td>
+   <td>
+    @Html.DisplayFor(modelItem => item.DatumTijd)
+   </td>
+   <td>
     <div class="btn-group">
-      <a asp-action="Edit" asp-route-id="@item.ID" class="btn btn-sm btn-info">Aanpassen</a>
-      <a asp-action="Details" asp-route-id="@item.ID" class="btn btn-sm btn-primary m1-1">Bekijken</a>
-      <a asp-controller="Outfit" asp-action="OutfitVerwijderen" asp-route-id="@item.ID" class="btn btn-sm btn-danger m1-1">Verwijderen</a>
+      <a asp-controller="Review" asp-action="ToonAllReviewsVanGebr" asp-route-id="@item.ID" class="btn btn-sm btn-danger m1-1">Verwijderen</a>
     </div>
    </td>
   </tr>

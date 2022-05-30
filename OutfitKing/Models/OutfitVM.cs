@@ -23,5 +23,20 @@ namespace OutfitKing.Models
         public OutfitCategory Category { get; set; }
         [Required]
         public IFormFile Afbeelding { get; set; }
+        public RatingVM rating { get; set; }
+
+        public OutfitVM(Outfit outfit)
+        {
+            ID = outfit.ID;
+            Prijs = outfit.Prijs;
+            Titel = outfit.Titel;
+            Category = (OutfitCategory)outfit.DeCategory;
+
+        }
+
+        public OutfitVM()
+        {
+         
+        }
     }
 }

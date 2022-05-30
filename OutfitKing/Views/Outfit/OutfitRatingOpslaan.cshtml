@@ -1,0 +1,17 @@
+﻿@model OutfitVM
+@{
+    ViewData["Title"] = "OutfitRatingGeven";
+}
+
+<h1>Geef een rating!</h1>
+
+<form asp-action="OutfitRatingOpslaan">
+  <div class="mb-3">
+    <label asp-for="ratingwaarde" class="form-label">Waarde</label>
+    <input asp-for="ratingwaarde" class="form-control" id="Waarde" aria-describedby="Waarde">
+    <span asp-validation-for="ratingwaarde" style="color:red"></span>
+    <div id="Waarde" class="form-text">Vul een score in van 1-5</div>
+    <input type="submit" value="Save" class="btn btn-primary" />  
+  </div>
+ </form>
+

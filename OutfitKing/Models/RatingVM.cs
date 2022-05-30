@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using BusnLogicLaag;
+using System.ComponentModel.DataAnnotations;
 
 namespace OutfitKing.Models
 {
@@ -7,6 +8,12 @@ namespace OutfitKing.Models
         [Required]
         public int Waarde { get; set; }
         public int ID { get; set; }
+
+        public RatingVM(Rating rating)
+        {
+            ID = rating.ID;
+            Waarde = rating.Waarde;
+        }
 
     }
 }
