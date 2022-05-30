@@ -51,7 +51,7 @@
    <td>
     <div class="btn-group">
       <a asp-controller="Outfit" asp-action="OutfitRatingOpslaan" asp-route-id="@item.ID" class="btn btn-primary">Beoordelen</a>
-      <a asp-action="Delete" asp-route-id="@item.ID" class="btn btn-sm btn-danger m1-1">Review plaatsen</a>
+     <a asp-controller="Outfit" asp-action="OutfitReviewOpslaan" asp-route-id="@item.ID" class="btn btn-primary" style="background-color:purple">Reviewen</a>
     </div>
    </td>
   </tr>
