@@ -125,14 +125,34 @@ namespace OutfitKing.Controllers
         [HttpGet]
         public ActionResult OutfitReviewOpslaan(int id)
         {
-            OutfitVM outfit = new(outfitContainer.GetOutfit(id));
-            return View(outfit);
+            int? ID = HttpContext.Session.GetInt32("ID");
+            try
+            {
+                if (ID == null)
+                {
+                    return Content("U bent niet ingelogd");
+                }
+                else
+                {
+                    OutfitVM outfit = new(outfitContainer.GetOutfit(id));
+                    return View(outfit);
+                }
+            }
+            catch (TemporaryExceptions ex)
+            {
+                return Content($"Er heeft een fout plaatsgevonden, probeer het in 5 minuten nog eens. " + ex.Message);
+            }
+            catch (PermanentExceptions ex)
+            {
+                return Redirect("https://twitter.com/outfitservicestatus");
+            }
         }
 
         [HttpPost]
         public IActionResult OutfitReviewOpslaan(OutfitVM outfit)
         {
-            ratingContainer.AddRating(outfit.ID, outfit.rating.Waarde);
+            int? ID = HttpContext.Session.GetInt32("ID");
+            reviewContainer.VoegReviewToeOutfit(ID.Value, outfit.ID, new Review(outfit.review.ID, outfit.review.Titel, outfit.review.StukTekst, DateTime.Now));
             return RedirectToAction("Index", "Home");
         }
 

@@ -43,5 +43,12 @@ namespace BusnLogicLaag
             ReviewDTO reviewdto = review.GetDTO();
             Container.UpdateReview(reviewdto);
         }
+
+        public Review GetReview(int id)
+        {
+            ReviewDTO reviewdto = Container.GetReview(id);
+            Review review = new Review(reviewdto);
+            return review;
+        }
     }        
 }

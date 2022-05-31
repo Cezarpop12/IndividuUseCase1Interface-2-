@@ -18,7 +18,7 @@ namespace BusnLogicLaag
         public DateTime DatumTijd { get; }
         public string StukTekst { get; set; }
 
-        public Review(int id, string titel, string stuktekst, Gebruiker gebruiker, DateTime datumtijd)
+        public Review(int id, string titel, string stuktekst, DateTime datumtijd)
         {
             Titel = titel;
             StukTekst = stuktekst;

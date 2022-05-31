@@ -14,9 +14,6 @@
        Titel
      </th>
      <th>
-       ID
-     </th>
-     <th>
        Beschrijving
      </th>
      <th>
@@ -40,7 +37,7 @@
    </td>
    <td>
     <div class="btn-group">
-      <a asp-controller="Review" asp-action="ToonAllReviewsVanGebr" asp-route-id="@item.ID" class="btn btn-sm btn-danger m1-1">Verwijderen</a>
+      <a asp-controller="Review" asp-action="ReviewVerwijderen" asp-route-id="@item.ID" class="btn btn-sm btn-danger m1-1">Verwijderen</a>
     </div>
    </td>
   </tr>
