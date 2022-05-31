@@ -156,6 +156,31 @@ namespace OutfitKing.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        [HttpGet]
+        public ActionResult OutfitUpdaten(int id)
+        {
+            try
+            {
+                OutfitVM outfit = new(outfitContainer.GetOutfit(id));
+                return View(outfit);
+            }
+            catch (TemporaryExceptions ex)
+            {
+                return Content($"Er heeft een fout plaatsgevonden, probeer het in 5 minuten nog eens. " + ex.Message);
+            }
+            catch (PermanentExceptions ex)
+            {
+                return Redirect("https://twitter.com/outfitservicestatus");
+            }
+        }
+
+        [HttpPost]
+        public IActionResult OutfitUpdaten(OutfitVM outfit)
+        {
+            outfitContainer.UpdateReview(new Review(review.ID, review.Titel, review.StukTekst, DateTime.Now));
+            return RedirectToAction("Index", "Home");
+        }
+
         private string UploadFile(OutfitVM outfit)
         {
             string file = null;

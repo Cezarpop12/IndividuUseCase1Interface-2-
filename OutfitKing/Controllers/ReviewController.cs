@@ -60,6 +60,7 @@ namespace OutfitKing.Controllers
             }
         }
 
+        [HttpGet]
         public ActionResult ReviewUpdaten(int id)
         {
             try

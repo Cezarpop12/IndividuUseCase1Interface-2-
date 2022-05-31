@@ -205,13 +205,15 @@ namespace DALMSSQLSERVER
         /// <param name="outfit">De outfit die meegegeven wordt</param>
         /// <exception cref="TemporaryExceptions">TemporaryExceptions">Bij verbindingsproblemen met de database</exception>
         /// <exception cref="PermanentExceptions">PermanentExceptions">Bij fouten in het programma(dus bijv querys verkeerd opgesteld door de programeur)</exception>
-        public void UpdateOutfit(OutfitDTO outfit) //fixen
+        public void UpdateOutfit(OutfitDTO outfit) 
         {
             try
             {
                 OpenConnection();
-                SqlCommand command = new SqlCommand(@"UPDATE Outfit SET Prijs = @prijs, Categorie = @categorie WHERE ID = @id", this.connection);
-                command.Parameters.AddWithValue("@titel", outfit.ID);
+                SqlCommand command = new SqlCommand(@"UPDATE Outfit SET Titel = @titel, FileAdress = @fileadress, Prijs = @prijs, Categorie = @categorie WHERE ID = @id", this.connection);
+                command.Parameters.AddWithValue("@id", outfit.ID);
+                command.Parameters.AddWithValue("@titel", outfit.Titel);
+                command.Parameters.AddWithValue("@fileadress", outfit.FileAdress);
                 command.Parameters.AddWithValue("@prijs", outfit.Prijs);
                 command.Parameters.AddWithValue("@categorie", outfit.DeCategory);
                 command.ExecuteNonQuery();
