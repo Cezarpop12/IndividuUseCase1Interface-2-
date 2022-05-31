@@ -177,7 +177,8 @@ namespace OutfitKing.Controllers
         [HttpPost]
         public IActionResult OutfitUpdaten(OutfitVM outfit)
         {
-            outfitContainer.UpdateReview(new Review(review.ID, review.Titel, review.StukTekst, DateTime.Now));
+            string FileNaam = UploadFile(outfit);
+            outfitContainer.UpdateOutfit(new Outfit(outfit.ID, outfit.Titel, outfit.Prijs, (Outfit.OutfitCategory)outfit.Category, FileNaam));
             return RedirectToAction("Index", "Home");
         }
 
