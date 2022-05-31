@@ -135,7 +135,8 @@ namespace DALMSSQLSERVER
             try
             {
                 OpenConnection();
-                SqlCommand command = new SqlCommand(@"UPDATE Review SET StukTekst = @stuktekst WHERE ID = @id", this.connection);
+                SqlCommand command = new SqlCommand(@"UPDATE Review SET StukTekst = @stuktekst, Titel = @titel WHERE ID = @id", this.connection);
+                command.Parameters.AddWithValue("@titel", review.Titel);
                 command.Parameters.AddWithValue("@stuktekst", review.StukTekst);
                 command.Parameters.AddWithValue("@id", review.ID);
                 command.ExecuteNonQuery();

@@ -1,0 +1,33 @@
+﻿
+@model ReviewVM
+
+@{
+    ViewData["Title"] = "OutfitReviewUpdaten";
+}
+
+<div class="col-11 mx-auto pt-3">
+  <div class="card">
+   <div class="card-header bg-primary text-uppercase text-white">
+      <h4>Voeg een review toe</h4>
+    </div>
+   <div class="card-body">
+  <form enctype="multipart/form-data" asp-action="ReviewUpdaten">
+ <div class="row">
+<div class="col-md-7">
+ <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+  <div class="form-group">
+   <label asp-for="Titel" class="control-label"></label>
+    <input asp-for="Titel" class="form-control text-black" style="background-color:white"/>
+     <span asp-validation-for="Titel" style="color:red"></span>
+    </div>
+  </div>
+ <div class="col-md-7">
+<div class="form-group">
+ <label asp-for="StukTekst" class="control-label">Beschrijving</label>
+  <input asp-for="StukTekst" class="form-control text-black" style="background-color:white"/>
+   <span asp-validation-for="StukTekst" style="color:red"></span>
+       <input type="submit" value="Save" class="btn btn-primary" style="margin-top:5%"/>  
+    </div>
+   </div>
+   </form>
+  </div>

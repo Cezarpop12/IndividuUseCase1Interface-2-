@@ -1,6 +1,7 @@
 ﻿using BusnLogicLaag;
 using DALMSSQLSERVER;
 using Microsoft.AspNetCore.Mvc;
+using OutfitKing.Models;
 
 namespace OutfitKing.Controllers
 {
@@ -57,6 +58,30 @@ namespace OutfitKing.Controllers
             {
                 return Redirect("https://twitter.com/outfitservicestatus");
             }
+        }
+
+        public ActionResult ReviewUpdaten(int id)
+        {
+            try
+            {
+                ReviewVM review = new(reviewContainer.GetReview(id));
+                return View(review);
+            }
+            catch (TemporaryExceptions ex)
+            {
+                return Content($"Er heeft een fout plaatsgevonden, probeer het in 5 minuten nog eens. " + ex.Message);
+            }
+            catch (PermanentExceptions ex)
+            {
+                return Redirect("https://twitter.com/outfitservicestatus");
+            }
+        }
+
+        [HttpPost]
+        public IActionResult ReviewUpdaten(ReviewVM review)
+        {
+            reviewContainer.UpdateReview(new Review(review.ID, review.Titel, review.StukTekst, DateTime.Now));
+            return RedirectToAction("Index", "Home");
         }
     }
 }
