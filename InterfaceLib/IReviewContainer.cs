@@ -10,6 +10,8 @@ namespace InterfaceLib
     {
         public void VoegReviewToeOutfit(int gebrID, int outfitID, ReviewDTO review);
         public List<ReviewDTO> GetAllReviewsVanGebr(int gebrID);
+        public List<ReviewDTO> GetAllReviewsVanOutfit(int outfitID);
+
         public void DeleteReview(ReviewDTO review);
         public void UpdateReview(ReviewDTO review);
         public ReviewDTO GetReview(int id);

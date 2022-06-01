@@ -1,0 +1,46 @@
+﻿@model OutfitVM
+
+@{
+    ViewData["Title"] = "ToonAllReviewsVanGebr";
+}
+
+<h1>Reviews</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+     <th>
+       Titel
+     </th>
+     <th>
+       Beschrijving
+     </th>
+     <th>
+       Datum
+     </th>
+     <th>
+       Outfit-ID
+     </th>
+    <th></th>
+   </tr>
+  </thead>
+ <tbody>
+
+@foreach (ReviewVM item in Model.review) {
+  <tr>
+   <td>
+    @Html.DisplayFor(modelItem => item.Titel)
+   </td>
+   <td>
+    @Html.DisplayFor(modelItem => item.StukTekst)
+   </td>
+   <td>
+    @Html.DisplayFor(modelItem => item.DatumTijd)
+   </td>
+    <td>
+    @Html.DisplayFor(modelItem => item.OutfitID)
+   </td>
+  </tr>
+}
+ </tbody>
+</table>

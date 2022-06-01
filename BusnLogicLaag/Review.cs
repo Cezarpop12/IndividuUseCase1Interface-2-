@@ -17,13 +17,16 @@ namespace BusnLogicLaag
         public string Titel { get; set; }
         public DateTime DatumTijd { get; }
         public string StukTekst { get; set; }
+        public int OutfitID { get; set; }
 
-        public Review(int id, string titel, string stuktekst, DateTime datumtijd)
+
+        public Review(int id, int outfitID, string titel, string stuktekst, DateTime datumtijd)
         {
             Titel = titel;
             StukTekst = stuktekst;
             DatumTijd = datumtijd;
-            this.ID = id;
+            ID = id;
+            OutfitID = outfitID;
         }
 
         public Review(ReviewDTO dto)
@@ -32,11 +35,12 @@ namespace BusnLogicLaag
             StukTekst = dto.StukTekst;
             DatumTijd = DateTime.Now;
             ID = dto.ID;
+            OutfitID = dto.OutfitID;
         }
 
         internal ReviewDTO GetDTO()
         {
-            ReviewDTO dto = new ReviewDTO(ID, Titel, StukTekst, DatumTijd);
+            ReviewDTO dto = new ReviewDTO(OutfitID,ID, Titel, StukTekst, DatumTijd);
             return dto;
         }
 

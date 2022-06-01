@@ -62,10 +62,9 @@ namespace OutfitKing.Controllers
         }
 
         [HttpPost]
-        public IActionResult ToonAlleReviewsOutfit(ReviewVM review)
+        public IActionResult ToonAlleReviewsOutfit(OutfitVM outfit)
         {
-            \lsd jgna jgjosajodk
-            reviewContainer.UpdateReview(new Review(review.ID, review.Titel, review.StukTekst, DateTime.Now));
+            reviewContainer.GetAllReviewsVanOutfit(outfit.ID);
             return RedirectToAction("Index", "Home");
         }
 
@@ -108,7 +107,7 @@ namespace OutfitKing.Controllers
         [HttpPost]
         public IActionResult ReviewUpdaten(ReviewVM review)
         {
-            reviewContainer.UpdateReview(new Review(review.ID, review.Titel, review.StukTekst, DateTime.Now));
+            reviewContainer.UpdateReview(new Review(review.ID, review.OutfitID, review.Titel, review.StukTekst, DateTime.Now));
             return RedirectToAction("Index", "Home");
         }
     }

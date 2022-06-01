@@ -22,7 +22,6 @@ namespace BusnLogicLaag
             Container.VoegReviewToeOutfit(gebrID, outfitID, reviewdto);
         }
 
-
         public List<Review> GetAllReviewsVanGebr(int gebrID)
         {
             List<ReviewDTO> reviewdtos = Container.GetAllReviewsVanGebr(gebrID);
@@ -33,6 +32,18 @@ namespace BusnLogicLaag
             }
             return reviews;
         }
+
+        public List<Review> GetAllReviewsVanOutfit(int outfitID)
+        {
+            List<ReviewDTO> reviewdtos = Container.GetAllReviewsVanOutfit(outfitID);
+            List<Review> reviews = new List<Review>();
+            foreach (ReviewDTO reviewdto in reviewdtos)
+            {
+                reviews.Add(new Review(reviewdto));
+            }
+            return reviews;
+        }
+
         public void DeleteReview(Review review)
         {
             ReviewDTO dto = review.GetDTO();

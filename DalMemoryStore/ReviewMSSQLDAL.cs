@@ -71,6 +71,45 @@ namespace DALMSSQLSERVER
                     while (reader.Read())
                     {
                         Reviews.Add(new ReviewDTO(
+                            Convert.ToInt32(reader["OutfitID"].ToString()),
+                            Convert.ToInt32(reader["ID"].ToString()),
+                            reader["StukTekst"].ToString(),
+                            reader["Titel"].ToString(),
+                            Convert.ToDateTime(reader["Datum"])));
+                    }
+                }
+                CloseConnection();
+                return Reviews;
+            }
+            catch (InvalidOperationException ex)
+            {
+                throw new TemporaryExceptions(ex);
+            }
+            catch (IOException ex)
+            {
+                throw new TemporaryExceptions(ex);
+            }
+            catch (Exception ex)
+            {
+                throw new PermanentExceptions("Iets gaat hier fout!");
+            }
+        }
+
+        public List<ReviewDTO> GetAllReviewsVanOutfit(int outfitID)
+        {
+            try
+            {
+                List<ReviewDTO> Reviews = new List<ReviewDTO>();
+                OpenConnection();
+                SqlCommand command = new SqlCommand(@"SELECT * FROM Review WHERE OutfitID = @id", this.connection);
+                command.Parameters.AddWithValue("@id", outfitID);
+                SqlDataReader reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        Reviews.Add(new ReviewDTO(
+                            Convert.ToInt32(reader["OutfitID"].ToString()),
                             Convert.ToInt32(reader["ID"].ToString()),
                             reader["StukTekst"].ToString(),
                             reader["Titel"].ToString(),
@@ -170,6 +209,7 @@ namespace DALMSSQLSERVER
                     while (reader.Read())
                     {
                         review = new ReviewDTO(
+                        Convert.ToInt32(reader["OutfitID"].ToString()),
                         Convert.ToInt32(reader["ID"].ToString()),
                         reader["Titel"].ToString(),
                         reader["StukTekst"].ToString(),
