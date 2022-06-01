@@ -36,7 +36,7 @@ namespace DALMSSQLSERVER
             }
         }
 
-        public RatingDTO GemRatingBijOutfit(int id)
+        public int GemRatingBijOutfit(int id)
         {
             try
             {
@@ -44,17 +44,7 @@ namespace DALMSSQLSERVER
                 SqlCommand command = new SqlCommand(@"SELECT AVG(Waarde)FROM Rating WHERE OutfitID = @id", this.connection);
                 command.Parameters.AddWithValue("@id", id);
                 SqlDataReader reader = command.ExecuteReader();
-                if (reader.HasRows)
-                {
-                    while (reader.Read())
-                    {
-                        return new RatingDTO(
-                            Convert.ToInt32(reader["ID"].ToString()),
-                            Convert.ToInt32(reader["Waarde"].ToString()));
-                    }
-                }
                 CloseConnection();
-                return null;
             }
             catch (InvalidOperationException ex)
             {
@@ -84,6 +74,7 @@ namespace DALMSSQLSERVER
                     {
                         return new RatingDTO(
                             Convert.ToInt32(reader["ID"].ToString()),
+                            Convert.ToInt32(reader["OutfitID"].ToString()),
                             Convert.ToInt32(reader["Waarde"].ToString()));
                     }
                 }

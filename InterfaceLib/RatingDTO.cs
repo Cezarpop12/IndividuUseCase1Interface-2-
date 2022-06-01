@@ -10,11 +10,14 @@ namespace InterfaceLib
     {
         public int Waarde { get; set; }
         public int ID { get; set; }
+        public int OutfitID { get; set; }
 
-        public RatingDTO(int id, int waarde)
+
+        public RatingDTO(int id, int waarde, int outfitID)
         {
             this.ID = id;
             this.Waarde = waarde;
+            OutfitID = outfitID;
         }
     }
 }

@@ -40,7 +40,7 @@ namespace BusnLogicLaag
 
         internal ReviewDTO GetDTO()
         {
-            ReviewDTO dto = new ReviewDTO(OutfitID,ID, Titel, StukTekst, DatumTijd);
+            ReviewDTO dto = new ReviewDTO(OutfitID, ID, Titel, StukTekst, DatumTijd);
             return dto;
         }
 
