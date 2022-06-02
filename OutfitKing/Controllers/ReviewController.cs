@@ -64,7 +64,7 @@ namespace OutfitKing.Controllers
         [HttpPost]
         public IActionResult ToonAlleReviewsOutfit(OutfitVM outfit)
         {
-            reviewContainer.GetAllReviewsVanOutfit(outfit.ID);
+            List<ReviewVM> reviews = reviewContainer.GetAllReviewsVanOutfit(outfit.ID).Select(x => new ReviewVM(x)).ToList();
             return RedirectToAction("Index", "Home");
         }
 

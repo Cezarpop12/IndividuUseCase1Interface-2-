@@ -187,7 +187,7 @@ namespace DALMSSQLSERVER
         /// <param name="onderdeel">De onderdeel die meegegeven wordt</param>
         /// <exception cref="TemporaryExceptions">TemporaryExceptions">Bij verbindingsproblemen met de database</exception>
         /// <exception cref="PermanentExceptions">PermanentExceptions">Bij fouten in het programma(dus bijv querys verkeerd opgesteld door de programeur)</exception>
-        public void DeleteOnderdeel(OnderdeelDTO onderdeel) //fixen voor hoe die in asp geimplimenteerd word
+        public void DeleteOnderdeel(OnderdeelDTO onderdeel) 
         {
             try
             {
@@ -282,9 +282,9 @@ namespace DALMSSQLSERVER
         }
 
         /// <summary>
-        /// Onderdeel wordt opgehaald met een bepaalde titel
+        /// Onderdeel wordt opgehaald met een bepaalde ID
         /// </summary>
-        /// <param name="titel">De titel die meegegeven wordt</param>
+        /// <param name="id">De ID die meegegeven wordt</param>
         /// <returns>Return een onderdeel</returns>
         /// <exception cref="TemporaryExceptions">TemporaryExceptions">Bij verbindingsproblemen met de database</exception>
         /// <exception cref="PermanentExceptions">PermanentExceptions">Bij fouten in het programma(dus bijv querys verkeerd opgesteld door de programeur)</exception>

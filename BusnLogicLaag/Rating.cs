@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 namespace BusnLogicLaag
 {
     /// <summary>
-    /// Een outfit kan een rating hebben 
-    /// Deze rating wordt in sterren gegeven (een int waarde)
+    /// Een outfit kan een rating hebben en hoort bij een bepaalde outfit
+    /// Deze rating wordt in sterren gegeven (een int "Waarde")
     /// </summary>
     public class Rating
     {

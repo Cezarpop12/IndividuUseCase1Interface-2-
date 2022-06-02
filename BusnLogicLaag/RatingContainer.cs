@@ -21,6 +21,11 @@ namespace BusnLogicLaag
             Container.AddRating(id, waarde);
         }
 
+        public int GemRatingBijOutfit(int id)
+        {
+            return Container.GemRatingBijOutfit(id);
+        }
+
         public Rating GetRating(int id)
         {
             RatingDTO dto = Container.GetRating(id);

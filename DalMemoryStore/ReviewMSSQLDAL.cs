@@ -11,11 +11,11 @@ namespace DALMSSQLSERVER
     public class ReviewMSSQLDAL : Database, IReviewContainer
     {
         /// <summary>
-        /// Review wordt toegevoeg aan outfit met de meegegeven alias en titel
+        /// Review wordt toegevoeg aan outfit met de meegegeven gebruiker en outfit
         /// </summary>
         /// <param name="review">Review die wordt meegegeven</param>
-        /// <param name="gebruiker">gebruiker die wordt meegegeven</param>
-        /// <param name="titel">Titel die wordt meegegeven</param>
+        /// <param name="gebrID">gebruikersID die wordt meegegeven</param>
+        /// <param name="outfitID">outfitID die wordt meegegeven</param>
         /// <exception cref="TemporaryExceptions">Bij verbindingsproblemen met de database</exception>
         /// <exception cref="PermanentExceptions">Bij fouten in het programma(dus bijv querys verkeerd opgesteld door de programeur)</exception>
         public void VoegReviewToeOutfit(int gebrID, int outfitID, ReviewDTO review)
@@ -53,7 +53,7 @@ namespace DALMSSQLSERVER
         /// <summary>
         /// Alle reviews van een bepaalde gebr worden opgehaald
         /// </summary>
-        /// <param name="gebruiker">Gebruiker die wordt meegegeven</param>
+        /// <param name="gebrID">GebruikerID die wordt meegegeven</param>
         /// <returns>Return een lijst van reviews</returns>
         /// <exception cref="TemporaryExceptions">Bij verbindingsproblemen met de database</exception>
         /// <exception cref="PermanentExceptions">Bij fouten in het programma(dus bijv querys verkeerd opgesteld door de programeur)</exception>
@@ -95,6 +95,13 @@ namespace DALMSSQLSERVER
             }
         }
 
+        /// <summary>
+        /// Alle reviews van een bepaalde outfit worden opgehaald
+        /// </summary>
+        /// <param name="outfitID">OutfitID die wordt meegegeven</param>
+        /// <returns>Return een lijst van reviews</returns>
+        /// <exception cref="TemporaryExceptions">Bij verbindingsproblemen met de database</exception>
+        /// <exception cref="PermanentExceptions">Bij fouten in het programma(dus bijv querys verkeerd opgesteld door de programeur)</exception>
         public List<ReviewDTO> GetAllReviewsVanOutfit(int outfitID)
         {
             try
@@ -195,6 +202,13 @@ namespace DALMSSQLSERVER
             }
         }
 
+        /// <summary>
+        /// Haal een review op
+        /// </summary>
+        /// <param name="id">ReviewID die wordt meegegeven</param>
+        /// <returns>Return een review</returns>
+        /// <exception cref="TemporaryExceptions">Bij verbindingsproblemen met de database</exception>
+        /// <exception cref="PermanentExceptions">Bij fouten in het programma(dus bijv querys verkeerd opgesteld door de programeur)</exception>
         public ReviewDTO GetReview(int id)
         {
             try

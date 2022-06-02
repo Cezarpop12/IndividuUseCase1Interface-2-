@@ -1,4 +1,4 @@
-﻿@model IEnumerable<OutfitVM>
+﻿@model OutfitVM
 
 @{
     ViewData["Title"] = "ToonAllReviewsVanGebr";
@@ -26,7 +26,7 @@
   </thead>
  <tbody>
 
-@foreach (ReviewVM item in Model.review) {
+@foreach (ReviewVM item in Model.reviews) {
   <tr>
    <td>
     @Html.DisplayFor(modelItem => item.Titel)

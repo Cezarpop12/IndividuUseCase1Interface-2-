@@ -200,7 +200,7 @@ namespace DALMSSQLSERVER
         }
 
         /// <summary>
-        /// Outfit wordt geupdatet met een bepaalde GebrID
+        /// Outfit wordt geupdatet
         /// </summary>
         /// <param name="outfit">De outfit die meegegeven wordt</param>
         /// <exception cref="TemporaryExceptions">TemporaryExceptions">Bij verbindingsproblemen met de database</exception>
@@ -272,9 +272,9 @@ namespace DALMSSQLSERVER
         }
 
         /// <summary>
-        /// Outfit wordt opgehaald met een bepaalde titel
+        /// Outfit wordt opgehaald met een bepaalde ID
         /// </summary>
-        /// <param name="titel">De titel die meegegeven wordt</param>
+        /// <param name="id">De ID die meegegeven wordt</param>
         /// <returns>Return een outfit</returns>
         /// <exception cref="TemporaryExceptions">TemporaryExceptions">Bij verbindingsproblemen met de database</exception>
         /// <exception cref="PermanentExceptions">PermanentExceptions">Bij fouten in het programma(dus bijv querys verkeerd opgesteld door de programeur)</exception>

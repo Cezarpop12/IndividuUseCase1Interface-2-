@@ -26,6 +26,8 @@ namespace OutfitKing.Models
         public RatingVM rating { get; set; }
         public ReviewVM review { get; set; }
 
+        public List<ReviewVM> reviews { get; set; }
+
         public OutfitVM(Outfit outfit)
         {
             ID = outfit.ID;

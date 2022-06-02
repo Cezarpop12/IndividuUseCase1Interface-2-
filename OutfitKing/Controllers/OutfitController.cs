@@ -111,14 +111,15 @@ namespace OutfitKing.Controllers
         [HttpGet]
         public ActionResult OutfitRatingOpslaan(int id)
         {
-            OutfitVM outfit = new(outfitContainer.GetOutfit(id)); 
+            OutfitVM outfit = new(outfitContainer.GetOutfit(id));
             return View(outfit);
         }
 
         [HttpPost]
-        public IActionResult OutfitRatingOpslaan(OutfitVM outfit)
+        public IActionResult OutfitRatingOpslaan(OutfitVM outfit, int GemRating)
         {
             ratingContainer.AddRating(outfit.ID, outfit.rating.Waarde);
+            GemRating = ratingContainer.GemRatingBijOutfit(outfit.ID);
             return RedirectToAction("Index", "Home");
         }
 
