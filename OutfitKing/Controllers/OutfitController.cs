@@ -19,6 +19,10 @@ namespace OutfitKing.Controllers
             Environment = webhostEnvironment;
         }
 
+        /// <summary>
+        /// Geeft een pagina met Outfits van een bepaalde gebruiker
+        /// </summary>
+        /// <returns>Indien bekende gebruiker return pagina met zijn outfits, onbekend = blijf op dezelfde pagina </returns>
         public IActionResult OutfitsTonenGebr()
         {
             try
@@ -41,6 +45,10 @@ namespace OutfitKing.Controllers
             }
         }
 
+        /// <summary>
+        /// Pagina tonen met alle outfits die ooit geplaatst zijn
+        /// </summary>
+        /// <returns>Return een view met een lijst van outfits </returns>
         public IActionResult AlleOutfitsTonen()
         {
             try
@@ -58,13 +66,11 @@ namespace OutfitKing.Controllers
             }
         }
 
+        /// <summary>
+        /// Geeft een outfit aanmaak pagina
+        /// </summary>
+        /// <returns>De view waar een outfit kan worden aangemaakt als ingelogd, anders geef pagina "Niet ingelogd"</returns>
         public IActionResult OutfitAanmaken()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public IActionResult OutfitAanmaken(OutfitVM outfit)
         {
             int? ID = HttpContext.Session.GetInt32("ID");
             try
@@ -75,9 +81,7 @@ namespace OutfitKing.Controllers
                 }
                 else
                 {
-                    string FileNaam = UploadFile(outfit);
-                    outfitContainer.VoegOutfitToe(ID.Value, new Outfit(outfit.ID, outfit.Titel, outfit.Prijs, (Outfit.OutfitCategory)outfit.Category, FileNaam));
-                    return RedirectToAction("OutfitsTonenGebr");
+                    return View();
                 }
             }
             catch (TemporaryExceptions ex)
@@ -90,6 +94,26 @@ namespace OutfitKing.Controllers
             }
         }
 
+        /// <summary>
+        /// Controleert of er een gebruiker is ingelogd en geeft de pagina om outfit aan te maken
+        /// </summary>
+        /// <param name="outfit">outfit die wordt meegegeven</param>
+        /// <returns>Gebruiker kan zijn outfit aanmaken en wordt doorgeleid naar een pagina met zijn outfits</returns>
+        [HttpPost]
+        public IActionResult OutfitAanmaken(OutfitVM outfit)
+        {
+            int? ID = HttpContext.Session.GetInt32("ID");
+            string FileNaam = UploadFile(outfit);
+            outfitContainer.VoegOutfitToe(ID.Value, new Outfit(outfit.ID, outfit.Titel, outfit.Prijs, (Outfit.OutfitCategory)outfit.Category, FileNaam));
+            return RedirectToAction("OutfitsTonenGebr");
+        } 
+           
+
+        /// <summary>
+        /// Verwijderd een outfit
+        /// </summary>
+        /// <param name="id">OutfitID die wordt meegegeven</param>
+        /// <returns>Leidt de gebruiker naar een pagina met zijn outfits </returns>
         public IActionResult OutfitVerwijderen(int id)
         {
             try
@@ -108,6 +132,11 @@ namespace OutfitKing.Controllers
             }
         }
 
+        /// <summary>
+        /// Slaat de ratings op van een outfit
+        /// </summary>
+        /// <param name="id">De ID van de outfit</param>
+        /// <returns>Return een view om ratings in te voeren van een bepaalde outfit</returns>
         [HttpGet]
         public ActionResult OutfitRatingOpslaan(int id)
         {
@@ -115,6 +144,12 @@ namespace OutfitKing.Controllers
             return View(outfit);
         }
 
+        /// <summary>
+        /// Gebruiker kan een waarde invoeren
+        /// </summary>
+        /// <param name="outfit">De outfit die is meegegeven</param>
+        /// <param name="GemRating"></param>
+        /// <returns></returns>
         [HttpPost]
         public IActionResult OutfitRatingOpslaan(OutfitVM outfit, int GemRating)
         {
@@ -123,6 +158,12 @@ namespace OutfitKing.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        /// <summary>
+        /// Geeft de pagina om een review te maken voor een outfit
+        /// </summary>
+        /// <param name="id">De ID van de meegegeven outfit</param>
+        /// <returns>Indien gebruiker is ingelogd een pagina waar hij bij een outfit een review kan plaatsen,
+        /// indien niet ingelogd pagina "U bent niet ingelogd"</returns>
         [HttpGet]
         public ActionResult OutfitReviewOpslaan(int id)
         {
@@ -149,6 +190,11 @@ namespace OutfitKing.Controllers
             }
         }
 
+        /// <summary>
+        /// De gebruiker kan een review schrijven voor een bepaalde outfit
+        /// </summary>
+        /// <param name="outfit">De outfit die word meegegeven</param>
+        /// <returns>Leidt de gebruiker terug naar de homepagina</returns>
         [HttpPost]
         public IActionResult OutfitReviewOpslaan(OutfitVM outfit)
         {
@@ -157,6 +203,11 @@ namespace OutfitKing.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        /// <summary>
+        /// Geeft een pagina waar een gebruiker zijn geplaatste outfit kan updaten
+        /// </summary>
+        /// <param name="id">De outfitID die wordt meegegeven</param>
+        /// <returns>Return de view waar de outfit kan worden geupdatet</returns>
         [HttpGet]
         public ActionResult OutfitUpdaten(int id)
         {
@@ -175,6 +226,11 @@ namespace OutfitKing.Controllers
             }
         }
 
+        /// <summary>
+        /// De gebruiker kan andere waardes invoeren dus updaten van een outfit
+        /// </summary>
+        /// <param name="outfit">De outfit die is meegegeven</param>
+        /// <returns>Leidt de gebruiker terug naar de homepagina</returns>
         [HttpPost]
         public IActionResult OutfitUpdaten(OutfitVM outfit)
         {
@@ -183,6 +239,11 @@ namespace OutfitKing.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        /// <summary>
+        /// Veranderd de afbeelding-format in een string zodat deze kan worden opgeslagen in db
+        /// </summary>
+        /// <param name="outfit">De outfit die meegegeven wordt</param>
+        /// <returns>Een file in de vorm van een string</returns>
         private string UploadFile(OutfitVM outfit)
         {
             string file = null;

@@ -21,7 +21,7 @@ namespace OutfitKing.Controllers
         /// <summary>
         /// De homepagina wordt getoond
         /// </summary>
-        /// <returns>Return de view van de Homepagina</returns>
+        /// <returns>Return de view van de Homepagina met 4 outfits en 4 onderdelen (de laatste)</returns>
         public IActionResult Index()
         {
             OutEnOnderVM vm = new OutEnOnderVM();
@@ -37,26 +37,6 @@ namespace OutfitKing.Controllers
         public IActionResult Privacy()
         {
             return View();
-        }
-
-        public IActionResult OutfitToevoegenRedirect()
-        {
-            int? ID = HttpContext.Session.GetInt32("ID");
-            if (ID != null)
-            {
-                return RedirectToAction("OutfitAanmaken", "Outfit");
-            }
-            return Content("Log eerst in!");
-        }
-
-        public IActionResult OnderdeelToevoegenRedirect()
-        {
-            int? ID = HttpContext.Session.GetInt32("ID");
-            if (ID != null)
-            {
-                return RedirectToAction("OnderdeelAanmaken", "Onderdeel");
-            }
-            return Content("Log eerst in!");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

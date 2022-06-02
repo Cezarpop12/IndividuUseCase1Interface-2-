@@ -16,6 +16,10 @@ namespace OutfitKing.Controllers
             _logger = logger;
         }
 
+        /// <summary>
+        /// geeft een log in view
+        /// </summary>
+        /// <returns>Een view voor user log-in</returns>
         public ActionResult Inloggen() 
         {
             GebruikerVM gebrVM = new GebruikerVM();
@@ -56,6 +60,10 @@ namespace OutfitKing.Controllers
             }       
         }
 
+        /// <summary>
+        /// Logt een gebruiker uit door sessie uit te zetten
+        /// </summary>
+        /// <returns>Indien bekende ID een pagina tonen "Uitgelogd", onbekend = pagina tonen "Geen gebr gevonden" </returns>
         [HttpGet]
         public IActionResult Uitloggen()  
         {
@@ -68,6 +76,10 @@ namespace OutfitKing.Controllers
             return Content("Geen gebruiker gevonden.");
         }
 
+        /// <summary>
+        /// Geeft de view voor account registratie
+        /// </summary>
+        /// <returns>Return pagina waar gebruiker gegevens kan invoeren</returns>
         [HttpGet]
         public ActionResult AccountAanmaken()  
         {
@@ -75,7 +87,12 @@ namespace OutfitKing.Controllers
             gebrVM.Retry = false;
             return View(gebrVM);
         }
-        
+
+        /// <summary>
+        /// Controleert gebrnaam en alias, indien beide nog niet bekend maak account aan
+        /// </summary>
+        /// <param name="gebruiker">Gebruikersnaam, alias en ww die de gebr heeft ingetikt</param>
+        /// <returns>Indien onbekend maak account aan, bekend = blijf op zelfde pagina en probeer opniew </returns>
         [HttpPost]
         public IActionResult AccountAanmaken(GebruikerVM gebruiker)
         {
