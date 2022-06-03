@@ -96,7 +96,7 @@ namespace OutfitKing.Controllers
         }
 
         /// <summary>
-        /// Controleert of er een gebruiker is ingelogd en geeft de pagina om onderdeel aan te maken
+        /// Controleert of er een gebruiker is ingelogd 
         /// </summary>
         /// <param name="onderdeel">Onderdeel die wordt meegegeven</param>
         /// <returns> Gebruiker kan waardes invoeren en wordt geleid naar zijn onderdelen </returns>

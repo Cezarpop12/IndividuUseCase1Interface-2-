@@ -95,7 +95,7 @@ namespace OutfitKing.Controllers
         }
 
         /// <summary>
-        /// Controleert of er een gebruiker is ingelogd en geeft de pagina om outfit aan te maken
+        /// Controleert of er een gebruiker is ingelogd 
         /// </summary>
         /// <param name="outfit">outfit die wordt meegegeven</param>
         /// <returns>Gebruiker kan zijn outfit aanmaken en wordt doorgeleid naar een pagina met zijn outfits</returns>
@@ -108,7 +108,6 @@ namespace OutfitKing.Controllers
             return RedirectToAction("OutfitsTonenGebr");
         } 
            
-
         /// <summary>
         /// Verwijderd een outfit
         /// </summary>
@@ -133,12 +132,12 @@ namespace OutfitKing.Controllers
         }
 
         /// <summary>
-        /// Slaat de ratings op van een outfit
+        /// Geeft de pagina om een rating in te voeren
         /// </summary>
         /// <param name="id">De ID van de outfit</param>
         /// <returns>Return een view om ratings in te voeren van een bepaalde outfit</returns>
         [HttpGet]
-        public ActionResult OutfitRatingOpslaan(int id)
+        public ActionResult OutfitRatingAanmaken(int id)
         {
             OutfitVM outfit = new(outfitContainer.GetOutfit(id));
             return View(outfit);
@@ -151,7 +150,7 @@ namespace OutfitKing.Controllers
         /// <param name="GemRating"></param>
         /// <returns></returns>
         [HttpPost]
-        public IActionResult OutfitRatingOpslaan(OutfitVM outfit, int GemRating)
+        public IActionResult OutfitRatingAanmaken(OutfitVM outfit, int GemRating)
         {
             ratingContainer.AddRating(outfit.ID, outfit.rating.Waarde);
             GemRating = ratingContainer.GemRatingBijOutfit(outfit.ID);
@@ -165,7 +164,7 @@ namespace OutfitKing.Controllers
         /// <returns>Indien gebruiker is ingelogd een pagina waar hij bij een outfit een review kan plaatsen,
         /// indien niet ingelogd pagina "U bent niet ingelogd"</returns>
         [HttpGet]
-        public ActionResult OutfitReviewOpslaan(int id)
+        public ActionResult OutfitReviewAanmaken(int id)
         {
             int? ID = HttpContext.Session.GetInt32("ID");
             try
@@ -196,7 +195,7 @@ namespace OutfitKing.Controllers
         /// <param name="outfit">De outfit die word meegegeven</param>
         /// <returns>Leidt de gebruiker terug naar de homepagina</returns>
         [HttpPost]
-        public IActionResult OutfitReviewOpslaan(OutfitVM outfit)
+        public IActionResult OutfitReviewAanmaken(OutfitVM outfit)
         {
             int? ID = HttpContext.Session.GetInt32("ID");
             reviewContainer.VoegReviewToeOutfit(ID.Value, outfit.ID, new Review(outfit.review.ID, outfit.review.OutfitID, outfit.review.Titel, outfit.review.StukTekst, DateTime.Now)); //Hier geef je nogsteeds outfitID mee zodat die hem in de tabel zet onder kopje "outfitID", ook al krijg je id hierboven 

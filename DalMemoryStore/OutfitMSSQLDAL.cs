@@ -176,7 +176,7 @@ namespace DALMSSQLSERVER
         /// <param name="outfit">De outfit die meegegeven wordt</param>
         /// <exception cref="TemporaryExceptions">TemporaryExceptions">Bij verbindingsproblemen met de database</exception>
         /// <exception cref="PermanentExceptions">PermanentExceptions">Bij fouten in het programma(dus bijv querys verkeerd opgesteld door de programeur)</exception>
-        public void DeleteOutfit(OutfitDTO outfit) //fixen
+        public void DeleteOutfit(OutfitDTO outfit) 
         {
             try
             {

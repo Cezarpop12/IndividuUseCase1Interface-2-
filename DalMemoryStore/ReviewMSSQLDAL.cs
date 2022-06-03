@@ -25,7 +25,7 @@ namespace DALMSSQLSERVER
                 OpenConnection();
                 {
                     OpenConnection();
-                    string query = "INSERT INTO Review (GebrID, OutfitID, StukTekst, Datum, Titel) VALUES (@gebrID, @outfitID , @stuktekst, @datumtijd, @titel)";
+                    string query = "INSERT INTO Review VALUES (@gebrID, @outfitID , @stuktekst, @datumtijd, @titel)";
                     SqlCommand command = new SqlCommand(query, this.connection);
                     command.Parameters.AddWithValue("@gebrID", gebrID);
                     command.Parameters.AddWithValue("@outfitID", outfitID);
@@ -61,24 +61,12 @@ namespace DALMSSQLSERVER
         {
             try
             {
-                List<ReviewDTO> Reviews = new List<ReviewDTO>();
+                List<ReviewDTO> Reviews;
                 OpenConnection();
                 SqlCommand command = new SqlCommand(@"SELECT * FROM Review WHERE GebrID = @id", this.connection);
                 command.Parameters.AddWithValue("@id", gebrID);
                 SqlDataReader reader = command.ExecuteReader();
-                if (reader.HasRows)
-                {
-                    while (reader.Read())
-                    {
-                        Reviews.Add(new ReviewDTO(
-                            Convert.ToInt32(reader["OutfitID"].ToString()),
-                            Convert.ToInt32(reader["ID"].ToString()),
-                            reader["StukTekst"].ToString(),
-                            reader["Titel"].ToString(),
-                            Convert.ToDateTime(reader["Datum"])));
-                    }
-                }
-                CloseConnection();
+                Reviews = LeesReviews(reader); 
                 return Reviews;
             }
             catch (InvalidOperationException ex)
@@ -106,23 +94,12 @@ namespace DALMSSQLSERVER
         {
             try
             {
-                List<ReviewDTO> Reviews = new List<ReviewDTO>();
+                List<ReviewDTO> Reviews;
                 OpenConnection();
                 SqlCommand command = new SqlCommand(@"SELECT * FROM Review WHERE OutfitID = @id", this.connection);
                 command.Parameters.AddWithValue("@id", outfitID);
                 SqlDataReader reader = command.ExecuteReader();
-                if (reader.HasRows)
-                {
-                    while (reader.Read())
-                    {
-                        Reviews.Add(new ReviewDTO(
-                            Convert.ToInt32(reader["OutfitID"].ToString()),
-                            Convert.ToInt32(reader["ID"].ToString()),
-                            reader["StukTekst"].ToString(),
-                            reader["Titel"].ToString(),
-                            Convert.ToDateTime(reader["Datum"])));
-                    }
-                }
+                Reviews = LeesReviews(reader);
                 CloseConnection();
                 return Reviews;
             }
@@ -245,6 +222,29 @@ namespace DALMSSQLSERVER
             {
                 throw new PermanentExceptions("Iets gaat hier fout!");
             }
+        }
+
+        /// <summary>
+        /// Reader leest of er een review is in de db
+        /// </summary>
+        /// <param name="reader">de reader</param>
+        /// <returns>Return een lijst van reviews</returns>
+        private List<ReviewDTO> LeesReviews(SqlDataReader reader)
+        {
+            List<ReviewDTO> reviews = new List<ReviewDTO>();
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    reviews.Add(new ReviewDTO(
+                    Convert.ToInt32(reader["OutfitID"].ToString()),
+                    Convert.ToInt32(reader["ID"].ToString()),
+                    reader["StukTekst"].ToString(),
+                    reader["Titel"].ToString(),
+                    Convert.ToDateTime(reader["Datum"])));
+                }
+            }
+            return reviews;
         }
     }
 }

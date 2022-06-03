@@ -76,11 +76,11 @@ namespace OutfitKing.Controllers
         /// </summary>
         /// <param name="outfit">De outfit die is meegegeven</param>
         /// <returns>    </returns>
-        //[HttpPost]
-        //public IActionResult ToonAlleReviewsOutfit(OutfitVM outfit)
-        //{
-        //    List<ReviewVM> reviews = reviewContainer.GetAllReviewsVanOutfit(outfit.ID).Select(x => new ReviewVM(x)).ToList();
-        //}
+        [HttpPost]
+        public IActionResult ToonAlleReviewsOutfit(OutfitVM outfit)
+        {
+            List<ReviewVM> reviews = reviewContainer.GetAllReviewsVanOutfit(outfit.ID).Select(x => new ReviewVM(x)).ToList();
+        }
 
         /// <summary>
         /// Verwijder een review

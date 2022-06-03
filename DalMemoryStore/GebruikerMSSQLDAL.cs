@@ -24,7 +24,7 @@ namespace DALMSSQLSERVER
             {
                 OpenConnection();
                 string passwordHash = BCrypt.Net.BCrypt.EnhancedHashPassword(wachtwoord, 13);
-                string query = @"INSERT INTO Gebruiker (Alias, Gebruikersnaam, Hash) VALUES(@alias, @gebruikersnaam, @hash)";
+                string query = @"INSERT INTO Gebruiker VALUES(@alias, @gebruikersnaam, @hash)";
                 SqlCommand command = new SqlCommand(query, this.connection);
                 command.Parameters.AddWithValue("@alias", gebruiker.Alias);
                 command.Parameters.AddWithValue("@gebruikersnaam", gebruiker.Gerbuikersnaam);
