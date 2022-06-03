@@ -18,7 +18,6 @@ namespace InterfaceLib
         }
 
         public int ID { get; set; }
-        public List<ReviewDTO> Reviews { get; } = new List<ReviewDTO>();
         public OnderdeelCategory DeCategory { get; }
 
         public OnderdeelDTO(int id, string titel, int prijs, OnderdeelCategory category, string fileAdress) : base(titel, prijs, fileAdress)

@@ -6,11 +6,11 @@ namespace OutfitKing.Models
     { 
         public int ID { get; set; }
         [Required]
-        public string? Alias { get; set; }
+        public string Alias { get; set; }
         [Required]
-        public string? Wachtwoord { get; set; }
+        public string Wachtwoord { get; set; }
         [Required]
-        public string? Gerbuikersnaam { get; set; }
+        public string Gerbuikersnaam { get; set; }
         public bool Retry { get; set; }
       
         public GebruikerVM(int id, string wachtwoord, string gerbuikersnaam)

@@ -190,9 +190,9 @@ namespace DALMSSQLSERVER
         {
             try
             {
-                ReviewDTO review = null;
+                ReviewDTO? review = null;
                 OpenConnection();
-                SqlCommand command = new SqlCommand(@"SELECT * FROM Review WHERE ID = @id", this.connection);
+                SqlCommand command = new SqlCommand(@"SELECT * FROM Review WHERE OutfitID = @id", this.connection);
                 command.Parameters.AddWithValue("@id", id);
                 SqlDataReader reader = command.ExecuteReader();
                 if (reader.HasRows)
@@ -200,8 +200,8 @@ namespace DALMSSQLSERVER
                     while (reader.Read())
                     {
                         review = new ReviewDTO(
-                        Convert.ToInt32(reader["OutfitID"].ToString()),
                         Convert.ToInt32(reader["ID"].ToString()),
+                        Convert.ToInt32(reader["OutfitID"].ToString()),
                         reader["Titel"].ToString(),
                         reader["StukTekst"].ToString(),
                         Convert.ToDateTime(reader["Datum"].ToString()));

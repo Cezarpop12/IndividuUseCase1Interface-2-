@@ -1,5 +1,5 @@
 ﻿@using BusnLogicLaag
-@model List<Review>
+@model List<ReviewVM>
 
 @{
     ViewData["Title"] = "ReviewsVanGebr";
@@ -24,7 +24,7 @@
   </thead>
  <tbody>
 
-@foreach (Review item in Model) {
+@foreach (ReviewVM item in Model) {
   <tr>
    <td>
     @Html.DisplayFor(modelItem => item.Titel)

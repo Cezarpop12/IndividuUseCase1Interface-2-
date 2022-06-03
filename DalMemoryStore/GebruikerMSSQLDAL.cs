@@ -152,7 +152,7 @@ namespace DALMSSQLSERVER
                 while (reader.Read())
                 {
                         gebr = new GebruikerDTO(
-                        Convert.ToInt32(reader["ID"].ToString()),
+                        Convert.ToInt32(reader["GebrID"].ToString()),
                         reader["Gebruikersnaam"].ToString(),
                         reader["Alias"].ToString());
                 }

@@ -1,7 +1,7 @@
 ﻿@model OutfitVM
 
 @{
-    ViewData["Title"] = "OutfitReviewOpslaan";
+    ViewData["Title"] = "ReviewAanmakenOutfit";
 }
 
 <div class="col-11 mx-auto pt-3">
@@ -10,7 +10,7 @@
       <h4>Voeg een review toe</h4>
     </div>
    <div class="card-body">
-  <form enctype="multipart/form-data" asp-action="OutfitReviewAanmaken">
+  <form enctype="multipart/form-data" asp-action="ReviewAanmakenOutfit">
  <div class="row">
 <div class="col-md-7">
  <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -30,3 +30,4 @@
    </div>
    </form>
   </div>
+

@@ -19,6 +19,51 @@ namespace OutfitKing.Controllers
         }
 
         /// <summary>
+        /// Geeft de pagina om een review te maken voor een outfit
+        /// </summary>
+        /// <param name="id">De ID van de meegegeven outfit</param>
+        /// <returns>Indien gebruiker is ingelogd een pagina waar hij bij een outfit een review kan plaatsen,
+        /// indien niet ingelogd pagina "U bent niet ingelogd"</returns>
+        [HttpGet]
+        public ActionResult ReviewAanmakenOutfit(int id)
+        {
+            int? ID = HttpContext.Session.GetInt32("ID");
+            try
+            {
+                if (ID == null)
+                {
+                    return Content("U bent niet ingelogd");
+                }
+                else
+                {
+                    OutfitVM outfit = new(outfitContainer.GetOutfit(id));
+                    return View(outfit);
+                }
+            }
+            catch (TemporaryExceptions ex)
+            {
+                return Content($"Er heeft een fout plaatsgevonden, probeer het in 5 minuten nog eens. " + ex.Message);
+            }
+            catch (PermanentExceptions ex)
+            {
+                return Redirect("https://twitter.com/outfitservicestatus");
+            }
+        }
+
+        /// <summary>
+        /// De gebruiker kan een review schrijven voor een bepaalde outfit
+        /// </summary>
+        /// <param name="outfit">De outfit die word meegegeven</param>
+        /// <returns>Leidt de gebruiker terug naar de homepagina</returns>
+        [HttpPost]
+        public IActionResult ReviewAanmakenOutfit(OutfitVM outfit)
+        {
+            int? ID = HttpContext.Session.GetInt32("ID");
+            reviewContainer.VoegReviewToeOutfit(ID.Value, outfit.ID, new Review(outfit.review.ID, outfit.review.OutfitID, outfit.review.Titel, outfit.review.StukTekst, DateTime.Now)); //Hier geef je nogsteeds outfitID mee zodat die hem in de tabel zet onder kopje "outfitID", ook al krijg je id hierboven 
+            return RedirectToAction("Index", "Home");
+        }
+
+        /// <summary>
         /// Geef een pagina met alle reviews van een gebruiker
         /// </summary>
         /// <returns>Return een view waar de gebruiker zijn reviews kan zien indien gebruiker ingelogd,
@@ -34,7 +79,7 @@ namespace OutfitKing.Controllers
                 }
                 else
                 {
-                    List<Review> Reviews = reviewContainer.GetAllReviewsVanGebr(ID.Value);
+                    List<ReviewVM> Reviews = reviewContainer.GetAllReviewsVanGebr(ID.Value).Select(x => new ReviewVM(x)).ToList();
                     return View(Reviews);
                 }
             }
@@ -59,6 +104,7 @@ namespace OutfitKing.Controllers
             try
             {
                 OutfitVM outfit = new(outfitContainer.GetOutfit(id));
+                outfit.reviews = reviewContainer.GetAllReviewsVanOutfit(outfit.ID).Select(x => new ReviewVM(x)).ToList();
                 return View(outfit);
             }
             catch (TemporaryExceptions ex)
@@ -79,7 +125,8 @@ namespace OutfitKing.Controllers
         [HttpPost]
         public IActionResult ToonAlleReviewsOutfit(OutfitVM outfit)
         {
-            List<ReviewVM> reviews = reviewContainer.GetAllReviewsVanOutfit(outfit.ID).Select(x => new ReviewVM(x)).ToList();
+            outfit.reviews = reviewContainer.GetAllReviewsVanOutfit(outfit.ID).Select(x => new ReviewVM(x)).ToList();
+            return View("ToonAlleReviewsOutfit", outfit);
         }
 
         /// <summary>
