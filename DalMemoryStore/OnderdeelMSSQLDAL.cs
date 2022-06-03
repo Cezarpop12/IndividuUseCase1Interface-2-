@@ -58,24 +58,12 @@ namespace DALMSSQLSERVER
         {
             try
             {
-                List<OnderdeelDTO> Onderdelen = new List<OnderdeelDTO>();
+                List<OnderdeelDTO> Onderdelen;
                 OpenConnection();
                 SqlCommand command = new SqlCommand(@"SELECT * FROM Onderdeel WHERE GebrID = @id", this.connection);
                 command.Parameters.AddWithValue("@id", GebrID);
                 SqlDataReader reader = command.ExecuteReader();
-                if (reader.HasRows)
-                {
-                    while (reader.Read())
-                    {
-                        Onderdelen.Add(new OnderdeelDTO(
-                        Convert.ToInt32(reader["ID"].ToString()),
-                        reader["Titel"].ToString(),
-                        Convert.ToInt32(reader["Prijs"]),
-                        (OnderdeelDTO.OnderdeelCategory)Enum.Parse(typeof(OnderdeelDTO.OnderdeelCategory), 
-                        reader["Categorie"].ToString()),
-                        reader["FileAdress"].ToString()));
-                    }
-                }
+                Onderdelen = LeesOnderdelen(reader);
                 CloseConnection();
                 return Onderdelen;
             }
@@ -103,23 +91,11 @@ namespace DALMSSQLSERVER
         {
             try
             {
-                List<OnderdeelDTO> Onderdelen = new List<OnderdeelDTO>();
+                List<OnderdeelDTO> Onderdelen;
                 OpenConnection();
                 SqlCommand command = new SqlCommand(@"SELECT * FROM Onderdeel", this.connection);
                 SqlDataReader reader = command.ExecuteReader();
-                if (reader.HasRows)
-                {
-                    while (reader.Read())
-                    {
-                        Onderdelen.Add(new OnderdeelDTO(
-                        Convert.ToInt32(reader["ID"].ToString()),
-                        reader["Titel"].ToString(),
-                        Convert.ToInt32(reader["Prijs"]),
-                        (OnderdeelDTO.OnderdeelCategory)Enum.Parse(typeof(OnderdeelDTO.OnderdeelCategory),
-                        reader["Categorie"].ToString()),
-                        reader["FileAdress"].ToString()));
-                    }
-                }
+                Onderdelen = LeesOnderdelen(reader);
                 CloseConnection();
                 return Onderdelen;
             }
@@ -147,23 +123,11 @@ namespace DALMSSQLSERVER
         {
             try
             {
-                List<OnderdeelDTO> Onderdelen = new List<OnderdeelDTO>();
+                List<OnderdeelDTO> Onderdelen;
                 OpenConnection();
                 SqlCommand command = new SqlCommand(@"SELECT TOP 4 * FROM Onderdeel ORDER BY ID DESC", this.connection);
                 SqlDataReader reader = command.ExecuteReader();
-                if (reader.HasRows)
-                {
-                    while (reader.Read())
-                    {
-                        Onderdelen.Add(new OnderdeelDTO(
-                        Convert.ToInt32(reader["ID"].ToString()),
-                        reader["Titel"].ToString(),
-                        Convert.ToInt32(reader["Prijs"]),
-                        (OnderdeelDTO.OnderdeelCategory)Enum.Parse(typeof(OnderdeelDTO.OnderdeelCategory),
-                        reader["Categorie"].ToString()),
-                        reader["FileAdress"].ToString()));
-                    }
-                }
+                Onderdelen = LeesOnderdelen(reader);
                 CloseConnection();
                 return Onderdelen;
             }
@@ -305,7 +269,8 @@ namespace DALMSSQLSERVER
                         Convert.ToInt32(reader["ID"].ToString()),
                         reader["Titel"].ToString(),
                         Convert.ToInt32(reader["Prijs"]),
-                        (OnderdeelDTO.OnderdeelCategory)Enum.Parse(typeof(OnderdeelDTO.OnderdeelCategory), reader["Categorie"].ToString()),
+                        (OnderdeelDTO.OnderdeelCategory)Enum.Parse(typeof(OnderdeelDTO.OnderdeelCategory), 
+                        reader["Categorie"].ToString()),
                         reader["FileAdress"].ToString());
                     }
                 }
@@ -324,6 +289,30 @@ namespace DALMSSQLSERVER
             {
                 throw new PermanentExceptions("Iets gaat hier fout!");
             }
+        }
+
+        /// <summary>
+        /// Reader leest of er een onderdeel is in de db
+        /// </summary>
+        /// <param name="reader">de reader</param>
+        /// <returns>Return een lijst van onderdelen</returns>
+        private List<OnderdeelDTO> LeesOnderdelen(SqlDataReader reader)
+        {
+            List<OnderdeelDTO> Onderdelen = new List<OnderdeelDTO>();
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    Onderdelen.Add(new OnderdeelDTO(
+                    Convert.ToInt32(reader["ID"].ToString()),
+                    reader["Titel"].ToString(),
+                    Convert.ToInt32(reader["Prijs"]),
+                    (OnderdeelDTO.OnderdeelCategory)Enum.Parse(typeof(OnderdeelDTO.OnderdeelCategory),
+                    reader["Categorie"].ToString()),
+                    reader["FileAdress"].ToString()));
+                }
+            }
+            return Onderdelen;
         }
     }
 }

@@ -12,7 +12,6 @@ namespace InterfaceLib
         public int ID { get; set; }
         public int OutfitID { get; set; }
 
-
         public RatingDTO(int id, int waarde, int outfitID)
         {
             this.ID = id;

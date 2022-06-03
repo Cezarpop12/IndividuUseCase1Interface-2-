@@ -139,46 +139,27 @@ namespace DALMSSQLSERVER
             }
         }
 
+
+
         /// <summary>
-        /// Gebruiker opgehaald door alias mee te geven
+        /// Reader leest of er een outfit is in de db
         /// </summary>
-        /// <param name="alias">De alias die wordt meegegeven</param>
-        /// <returns>Return een gebruiker</returns>
-        /// <exception cref="TemporaryExceptions">Bij verbindingsproblemen met de database</exception>
-        /// <exception cref="PermanentExceptions">Bij fouten in het programma(dus bijv querys verkeerd opgesteld door de programeur)</exception>
-        public GebruikerDTO GetGebruiker(string alias)
+        /// <param name="reader">de reader</param>
+        /// <returns>Return een lijst van outfits</returns>
+        private GebruikerDTO LeesGebr(SqlDataReader reader)
         {
-            try
+            GebruikerDTO gebr;
+            if (reader.HasRows)
             {
-                OpenConnection();
-                SqlCommand command = new SqlCommand(@"SELECT * FROM Gebruiker WHERE GebrID = @id", this.connection);
-                command.Parameters.AddWithValue("@id", GetUserID(alias));
-                SqlDataReader reader = command.ExecuteReader();
-                if (reader.HasRows)
+                while (reader.Read())
                 {
-                    while (reader.Read())
-                    {
-                        return new GebruikerDTO(
-                            Convert.ToInt32(reader["ID"].ToString()),
-                            reader["Gebruikersnaam"].ToString(),
-                            reader["Alias"].ToString());
-                    }
+                        gebr = new GebruikerDTO(
+                        Convert.ToInt32(reader["ID"].ToString()),
+                        reader["Gebruikersnaam"].ToString(),
+                        reader["Alias"].ToString());
                 }
-                CloseConnection();
-                return null;
             }
-            catch (InvalidOperationException ex)
-            {
-                throw new TemporaryExceptions(ex);
-            }
-            catch (IOException ex)
-            {
-                throw new TemporaryExceptions(ex);
-            }
-            catch (Exception ex)
-            {
-                throw new PermanentExceptions("Iets gaat hier fout!");
-            }
-        }   
+            return null;
+        }
     }
 }

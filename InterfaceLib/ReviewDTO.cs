@@ -10,7 +10,6 @@ namespace InterfaceLib
     {
         public int ID { get; set; }
         public int OutfitID { get; set; }
-
         public string Titel { get; set; }
         public DateTime DatumTijd { get; }
         public string StukTekst { get; set; }

@@ -98,7 +98,8 @@ namespace DALMSSQLSERVER
                     Convert.ToInt32(reader["ID"].ToString()),
                     reader["Titel"].ToString(),
                     Convert.ToInt32(reader["Prijs"]),
-                    (OutfitDTO.OutfitCategory)Enum.Parse(typeof(OutfitDTO.OutfitCategory), reader["Categorie"].ToString()),
+                    (OutfitDTO.OutfitCategory)Enum.Parse(typeof(OutfitDTO.OutfitCategory), 
+                    reader["Categorie"].ToString()),
                     reader["FileAdress"].ToString()));
                 }
             }

@@ -23,6 +23,5 @@ namespace DALMSSQLSERVER
         {
             return $"{errorMessage} {PermanentErrorMessage}";
         }
-        //To be continued..
     }
 }

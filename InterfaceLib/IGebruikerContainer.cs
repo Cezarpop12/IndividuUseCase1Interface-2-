@@ -11,6 +11,5 @@ namespace InterfaceLib
         public void CreateGebr(GebruikerDTO gebruiker, string wachtwoord);
         public GebruikerDTO ZoekGebrOpGebrnaamEnWW(string gebrnaam, string wachtwoord);
         public GebruikerDTO ZoekGebrOpGebrnaamOfAlias(string gebrnaam, string alias);
-        public GebruikerDTO GetGebruiker(string alias);
     }
 }

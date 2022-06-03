@@ -184,24 +184,6 @@ namespace DALMSSQLSERVER
                 throw new PermanentExceptions("Iets gaat hier fout!");
             }
         }
-
-        /// <summary>
-        /// Reader leest of er een outfit is in de db
-        /// </summary>
-        /// <param name="reader">de reader</param>
-        /// <returns>Return een lijst van outfits</returns>
-        private int LeesID(SqlDataReader reader)
-        {
-            if (reader.HasRows)
-            {
-                while (reader.Read())
-                {
-                    return Convert.ToInt32(reader["ID"]);
-                }
-            }
-            CloseConnection();
-            return 0;
-        }
     }
 }
 

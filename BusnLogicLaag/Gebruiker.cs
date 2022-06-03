@@ -14,8 +14,8 @@ namespace BusnLogicLaag
     public class Gebruiker
     {
         public int ID { get; set; }
-        public string? Gerbuikersnaam { get; set; }
-        public string? Alias { get; set; }
+        public string Gerbuikersnaam { get; set; }
+        public string Alias { get; set; }
 
         public Gebruiker(int id, string gerbuikersnaam, string alias)
         {

@@ -15,7 +15,6 @@ namespace BusnLogicLaag
     {
         public int Waarde { get; set; }
         public int OutfitID { get; set; }
-
         public int ID { get; set; }
 
         public Rating(int id, int waarde, int outfitID)
