@@ -139,8 +139,6 @@ namespace DALMSSQLSERVER
             }
         }
 
-
-
         /// <summary>
         /// Reader leest of er een outfit is in de db
         /// </summary>

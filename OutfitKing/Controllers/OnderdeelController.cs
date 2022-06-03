@@ -108,30 +108,6 @@ namespace OutfitKing.Controllers
             onderdeelContainer.VoegOnderdeelToe(ID.Value, new Onderdeel(onderdeel.ID, onderdeel.Titel, onderdeel.Prijs, (Onderdeel.OnderdeelCategory)onderdeel.Category, FileNaam));
             return RedirectToAction("OnderdelenTonenGebr");
         }  
-           
-
-        /// <summary>
-        /// Verwijderd een onderdeel
-        /// </summary>
-        /// <param name="id">OnderdeelID die wordt meegegeven</param>
-        /// <returns>Leidt de gebruiker naar een pagina met zijn onderdelen </returns>
-        public IActionResult OnderdeelVerwijderen(int id)
-        {
-            try
-            {
-                Onderdeel onderdeel = onderdeelContainer.GetOnderdeel(id);
-                onderdeelContainer.DeleteOnderdeel(onderdeel);
-                return RedirectToAction("OnderdelenTonenGebr", "Onderdeel");
-            }
-            catch (TemporaryExceptions ex)
-            {
-                return Content($"Er heeft een fout plaatsgevonden, probeer het in 5 minuten nog eens. " + ex.Message);
-            }
-            catch (PermanentExceptions ex)
-            {
-                return Redirect("https://twitter.com/outfitservicestatus");
-            }
-        }
 
         /// <summary>
         /// Veranderd de afbeelding-format in een string zodat deze kan worden opgeslagen in db

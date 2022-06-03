@@ -10,8 +10,5 @@ namespace InterfaceLib
     {
         public void AddRating(int id, int waarde);
         public int GemRatingBijOutfit(int id);
-
-        public RatingDTO GetRating(int id);
-
     }
 }

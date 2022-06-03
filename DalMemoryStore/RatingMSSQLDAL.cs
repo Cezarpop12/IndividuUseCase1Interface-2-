@@ -81,47 +81,5 @@ namespace DALMSSQLSERVER
                 throw new PermanentExceptions("Iets gaat hier fout!");
             }
         }
-
-        /// <summary>
-        /// De rating die wordt opgehaald van een bepaalde outfit
-        /// </summary>
-        /// <param name="id">De OutfitID die wordt meegegeven</param>
-        /// <returns>Return een rating of null</returns>
-        /// <exception cref="TemporaryExceptions">Bij verbindingsproblemen met de database</exception>
-        /// <exception cref="PermanentExceptions">Bij fouten in het programma(dus bijv querys verkeerd opgesteld door de programeur)</exception>
-        public RatingDTO GetRating(int id)
-        {
-            try
-            {
-                OpenConnection();
-                SqlCommand command = new SqlCommand(@"SELECT * FROM Rating WHERE OutfitID = @id", this.connection);
-                command.Parameters.AddWithValue("@id", id);
-                SqlDataReader reader = command.ExecuteReader();
-                if (reader.HasRows)
-                {
-                    while (reader.Read())
-                    {
-                        return new RatingDTO(
-                            Convert.ToInt32(reader["ID"].ToString()),
-                            Convert.ToInt32(reader["OutfitID"].ToString()),
-                            Convert.ToInt32(reader["Waarde"].ToString()));
-                    }
-                }
-                CloseConnection();
-                return null;
-            }
-            catch (InvalidOperationException ex)
-            {
-                throw new TemporaryExceptions(ex);
-            }
-            catch (IOException ex)
-            {
-                throw new TemporaryExceptions(ex);
-            }
-            catch (Exception ex)
-            {
-                throw new PermanentExceptions("Iets gaat hier fout!");
-            }
-        }
     }
 }

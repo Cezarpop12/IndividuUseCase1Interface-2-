@@ -15,6 +15,5 @@ namespace InterfaceLib
         public OutfitDTO GetOutfit(int id);
         public void DeleteOutfit(OutfitDTO outfit);
         public void UpdateOutfit(OutfitDTO outfit);
-        public bool IsOutfit(string titel);
     }
 }

@@ -25,12 +25,5 @@ namespace BusnLogicLaag
         {
             return Container.GemRatingBijOutfit(id);
         }
-
-        public Rating GetRating(int id)
-        {
-            RatingDTO dto = Container.GetRating(id);
-            Rating rating = new Rating(dto);
-            return rating;
-        }
     }
 }

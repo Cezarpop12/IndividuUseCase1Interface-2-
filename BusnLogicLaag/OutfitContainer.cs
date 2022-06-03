@@ -33,11 +33,6 @@ namespace BusnLogicLaag
             return outfits;
         }
         
-        public bool IsOutfit(string titel)
-        {
-            return Container.IsOutfit(titel);
-        }
-
         public void DeleteOutfit(Outfit outfit)
         {
             OutfitDTO dto = outfit.GetDTO();

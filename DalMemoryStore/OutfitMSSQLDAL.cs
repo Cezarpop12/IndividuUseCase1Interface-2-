@@ -235,44 +235,6 @@ namespace DALMSSQLSERVER
         }
 
         /// <summary>
-        /// Checken of er een outfit bestaat met de opgegeven Titel
-        /// </summary>
-        /// <param name="titel">De titel die meegegeven wordt</param>
-        /// <returns>Een true of false (Wel een outfit of niet)</returns>
-        /// <exception cref="TemporaryExceptions">TemporaryExceptions">Bij verbindingsproblemen met de database</exception>
-        /// <exception cref="PermanentExceptions">PermanentExceptions">Bij fouten in het programma(dus bijv querys verkeerd opgesteld door de programeur)</exception>
-        public bool IsOutfit(string titel)
-        {
-            try
-            {
-                bool check = false;
-                OpenConnection();
-                string query = @"SELECT * FROM Outfit WHERE Titel = @titel";
-                SqlCommand command = new SqlCommand(query, this.connection);
-                command.Parameters.AddWithValue("@titel", titel);
-                SqlDataReader reader = command.ExecuteReader();
-                if (reader.HasRows)
-                {
-                    check = true;
-                }
-                CloseConnection();
-                return check;
-            }
-            catch (InvalidOperationException ex)
-            {
-                throw new TemporaryExceptions(ex);
-            }
-            catch (IOException ex)
-            {
-                throw new TemporaryExceptions(ex);
-            }
-            catch (Exception ex)
-            {
-                throw new PermanentExceptions("Iets gaat hier fout!");
-            }
-        }
-
-        /// <summary>
         /// Outfit wordt opgehaald met een bepaalde ID
         /// </summary>
         /// <param name="id">De ID die meegegeven wordt</param>

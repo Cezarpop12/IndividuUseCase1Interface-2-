@@ -54,29 +54,5 @@ namespace BusnLogicLaag
             }
             return onderdelen;
         }
-
-        public bool IsOnderdeel(string titel)
-        {
-            return Container.IsOnderdeel(titel);
-        }
-
-        public void DeleteOnderdeel(Onderdeel onderdeel)
-        {
-            OnderdeelDTO dto = onderdeel.GetDTO();
-            Container.DeleteOnderdeel(dto);
-        }
-
-        public void UpdateOnderdeel(Onderdeel onderdeel)
-        {
-            OnderdeelDTO onderdeeldto = onderdeel.GetDTO();
-            Container.UpdateOnderdeel(onderdeeldto);
-        }
-
-        public Onderdeel GetOnderdeel(int id)
-        {
-            OnderdeelDTO onderdeeldto = Container.GetOnderdeel(id);
-            Onderdeel onderdeel = new Onderdeel(onderdeeldto);
-            return onderdeel;
-        }
     }
 }
