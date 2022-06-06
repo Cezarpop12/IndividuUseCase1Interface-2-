@@ -24,10 +24,21 @@ namespace OutfitKing.Controllers
         /// <returns>Return de view van de Homepagina met 4 outfits en 4 onderdelen (de laatste)</returns>
         public IActionResult Index()
         {
-            OutEnOnderVM vm = new OutEnOnderVM();
-            vm.Outfits = outfitContainer.GetLast4Outfits();
-            vm.Onderdelen = onderdeelContainer.GetLast4Onderdelen();
-            return View(vm);
+            try
+            {
+                OutEnOnderVM vm = new OutEnOnderVM();
+                vm.Outfits = outfitContainer.GetLast4Outfits();
+                vm.Onderdelen = onderdeelContainer.GetLast4Onderdelen();
+                return View(vm);
+            }
+            catch (TemporaryExceptions ex)
+            {
+                return Content($"Er heeft een fout plaatsgevonden, probeer het in 5 minuten nog eens. " + ex.Message);
+            }
+            catch (PermanentExceptions ex)
+            {
+                return Redirect("https://twitter.com/outfitservicestatus");
+            }
         }
 
         /// <summary>

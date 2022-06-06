@@ -23,6 +23,5 @@ namespace DALMSSQLSERVER
         {
             return $"{Ex.Message} {TemporaryErrorMessage}";
         }
-        //To be continued..
     }
 }

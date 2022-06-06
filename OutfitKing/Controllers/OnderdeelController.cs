@@ -73,9 +73,9 @@ namespace OutfitKing.Controllers
         /// <returns>De view waar een onderdeel kan worden aangemaakt in het geval ingelogd, anders geef pagina "Niet ingelogd"</returns>
         public IActionResult OnderdeelAanmaken()
         {
-            int? ID = HttpContext.Session.GetInt32("ID");
             try
             {
+                int? ID = HttpContext.Session.GetInt32("ID");
                 if (ID == null)
                 {
                     return Content("U bent niet ingelogd");
@@ -103,10 +103,21 @@ namespace OutfitKing.Controllers
         [HttpPost]
         public IActionResult OnderdeelAanmaken(OnderdeelVM onderdeel)
         {
-            int? ID = HttpContext.Session.GetInt32("ID");
-            string FileNaam = UploadFile(onderdeel);
-            onderdeelContainer.VoegOnderdeelToe(ID.Value, new Onderdeel(onderdeel.ID, onderdeel.Titel, onderdeel.Prijs, (Onderdeel.OnderdeelCategory)onderdeel.Category, FileNaam));
-            return RedirectToAction("OnderdelenTonenGebr");
+            try
+            {
+                int? ID = HttpContext.Session.GetInt32("ID");
+                string FileNaam = UploadFile(onderdeel);
+                onderdeelContainer.VoegOnderdeelToe(ID.Value, new Onderdeel(onderdeel.ID, onderdeel.Titel, onderdeel.Prijs, (Onderdeel.OnderdeelCategory)onderdeel.Category, FileNaam));
+                return RedirectToAction("OnderdelenTonenGebr");
+            }
+            catch (TemporaryExceptions ex)
+            {
+                return Content($"Er heeft een fout plaatsgevonden, probeer het in 5 minuten nog eens. " + ex.Message);
+            }
+            catch (PermanentExceptions ex)
+            {
+                return Redirect("https://twitter.com/outfitservicestatus");
+            }
         }  
 
         /// <summary>

@@ -216,7 +216,7 @@ namespace DALMSSQLSERVER
                 command.Parameters.AddWithValue("@titel", outfit.Titel);
                 command.Parameters.AddWithValue("@fileadress", outfit.FileAdress);
                 command.Parameters.AddWithValue("@prijs", outfit.Prijs);
-                command.Parameters.AddWithValue("@categorie", outfit.DeCategory);
+                command.Parameters.AddWithValue("@categorie", outfit.DeCategory.ToString());
                 command.ExecuteNonQuery();
                 CloseConnection();
             }

@@ -72,9 +72,9 @@ namespace OutfitKing.Controllers
         /// <returns>De view waar een outfit kan worden aangemaakt als ingelogd, anders geef pagina "Niet ingelogd"</returns>
         public IActionResult OutfitAanmaken()
         {
-            int? ID = HttpContext.Session.GetInt32("ID");
             try
             {
+                int? ID = HttpContext.Session.GetInt32("ID");
                 if (ID == null)
                 {
                     return Content("U bent niet ingelogd");
@@ -102,10 +102,21 @@ namespace OutfitKing.Controllers
         [HttpPost]
         public IActionResult OutfitAanmaken(OutfitVM outfit)
         {
-            int? ID = HttpContext.Session.GetInt32("ID");
-            string FileNaam = UploadFile(outfit);
-            outfitContainer.VoegOutfitToe(ID.Value, new Outfit(outfit.ID, outfit.Titel, outfit.Prijs, (Outfit.OutfitCategory)outfit.Category, FileNaam));
-            return RedirectToAction("OutfitsTonenGebr");
+            try
+            {
+                int? ID = HttpContext.Session.GetInt32("ID");
+                string FileNaam = UploadFile(outfit);
+                outfitContainer.VoegOutfitToe(ID.Value, new Outfit(outfit.ID, outfit.Titel, outfit.Prijs, (Outfit.OutfitCategory)outfit.Category, FileNaam));
+                return RedirectToAction("OutfitsTonenGebr");
+            }
+            catch (TemporaryExceptions ex)
+            {
+                return Content($"Er heeft een fout plaatsgevonden, probeer het in 5 minuten nog eens. " + ex.Message);
+            }
+            catch (PermanentExceptions ex)
+            {
+                return Redirect("https://twitter.com/outfitservicestatus");
+            }
         } 
            
         /// <summary>
@@ -139,22 +150,44 @@ namespace OutfitKing.Controllers
         [HttpGet]
         public ActionResult OutfitRatingAanmaken(int id)
         {
-            OutfitVM outfit = new(outfitContainer.GetOutfit(id));
-            return View(outfit);
+            try
+            {
+                OutfitVM outfit = new(outfitContainer.GetOutfit(id));
+                return View(outfit);
+            }
+            catch (TemporaryExceptions ex)
+            {
+                return Content($"Er heeft een fout plaatsgevonden, probeer het in 5 minuten nog eens. " + ex.Message);
+            }
+            catch (PermanentExceptions ex)
+            {
+                return Redirect("https://twitter.com/outfitservicestatus");
+            }
         }
 
         /// <summary>
         /// Gebruiker kan een waarde invoeren
         /// </summary>
         /// <param name="outfit">De outfit die is meegegeven</param>
-        /// <param name="GemRating"></param>
-        /// <returns></returns>
+        /// <param name="GemRating">De gemiddelde rating die wordt opgehaald uit db</param>
+        /// <returns>Return de user naar de homepagina</returns>
         [HttpPost]
         public IActionResult OutfitRatingAanmaken(OutfitVM outfit, int GemRating)
         {
-            ratingContainer.AddRating(outfit.ID, outfit.rating.Waarde);
-            GemRating = ratingContainer.GemRatingBijOutfit(outfit.ID);
-            return RedirectToAction("Index", "Home");
+            try
+            {
+                ratingContainer.AddRating(outfit.ID, outfit.rating.Waarde);
+                GemRating = ratingContainer.GemRatingBijOutfit(outfit.ID);
+                return RedirectToAction("Index", "Home");
+            }
+            catch (TemporaryExceptions ex)
+            {
+                return Content($"Er heeft een fout plaatsgevonden, probeer het in 5 minuten nog eens. " + ex.Message);
+            }
+            catch (PermanentExceptions ex)
+            {
+                return Redirect("https://twitter.com/outfitservicestatus");
+            }
         }
 
         /// <summary>
@@ -188,9 +221,20 @@ namespace OutfitKing.Controllers
         [HttpPost]
         public IActionResult OutfitUpdaten(OutfitVM outfit)
         {
-            string FileNaam = UploadFile(outfit);
-            outfitContainer.UpdateOutfit(new Outfit(outfit.ID, outfit.Titel, outfit.Prijs, (Outfit.OutfitCategory)outfit.Category, FileNaam));
-            return RedirectToAction("Index", "Home");
+            try
+            {
+                string FileNaam = UploadFile(outfit);
+                outfitContainer.UpdateOutfit(new Outfit(outfit.ID, outfit.Titel, outfit.Prijs, (Outfit.OutfitCategory)outfit.Category, FileNaam));
+                return RedirectToAction("Index", "Home");
+            }
+            catch (TemporaryExceptions ex)
+            {
+                return Content($"Er heeft een fout plaatsgevonden, probeer het in 5 minuten nog eens. " + ex.Message);
+            }
+            catch (PermanentExceptions ex)
+            {
+                return Redirect("https://twitter.com/outfitservicestatus");
+            }
         }
 
         /// <summary>

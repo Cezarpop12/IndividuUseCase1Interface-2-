@@ -27,9 +27,9 @@ namespace OutfitKing.Controllers
         [HttpGet]
         public ActionResult ReviewAanmakenOutfit(int id)
         {
-            int? ID = HttpContext.Session.GetInt32("ID");
             try
             {
+                int? ID = HttpContext.Session.GetInt32("ID");
                 if (ID == null)
                 {
                     return Content("U bent niet ingelogd");
@@ -58,9 +58,20 @@ namespace OutfitKing.Controllers
         [HttpPost]
         public IActionResult ReviewAanmakenOutfit(OutfitVM outfit)
         {
-            int? ID = HttpContext.Session.GetInt32("ID");
-            reviewContainer.VoegReviewToeOutfit(ID.Value, outfit.ID, new Review(outfit.review.ID, outfit.review.OutfitID, outfit.review.Titel, outfit.review.StukTekst, DateTime.Now)); //Hier geef je nogsteeds outfitID mee zodat die hem in de tabel zet onder kopje "outfitID", ook al krijg je id hierboven 
-            return RedirectToAction("Index", "Home");
+            try
+            {
+                int? ID = HttpContext.Session.GetInt32("ID");
+                reviewContainer.VoegReviewToeOutfit(ID.Value, outfit.ID, new Review(outfit.review.ID, outfit.review.OutfitID, outfit.review.Titel, outfit.review.StukTekst, DateTime.Now)); //Hier geef je nogsteeds outfitID mee zodat die hem in de tabel zet onder kopje "outfitID", ook al krijg je id hierboven 
+                return RedirectToAction("Index", "Home");
+            }
+            catch (TemporaryExceptions ex)
+            {
+                return Content($"Er heeft een fout plaatsgevonden, probeer het in 5 minuten nog eens. " + ex.Message);
+            }
+            catch (PermanentExceptions ex)
+            {
+                return Redirect("https://twitter.com/outfitservicestatus");
+            }
         }
 
         /// <summary>
@@ -70,9 +81,9 @@ namespace OutfitKing.Controllers
         /// anders geef pagina "U bent niet ingelogd"</returns>
         public IActionResult ToonAllReviewsVanGebr()
         {
-            int? ID = HttpContext.Session.GetInt32("ID");
             try
             {
+                int? ID = HttpContext.Session.GetInt32("ID");
                 if (ID == null)
                 {
                     return Content("U bent niet ingelogd");
@@ -94,7 +105,7 @@ namespace OutfitKing.Controllers
         }
 
         /// <summary>
-        /// Geeft een pagina waar alle review kunnen worden gezien van een outfit
+        /// Geeft een pagina waar alle reviews kunnen worden gezien van een outfit
         /// </summary>
         /// <param name="id">De outfitId die wordt meegegeven</param>
         /// <returns>Een view waar de reviews zichtbaar zijn van een outfit</returns>
@@ -118,15 +129,26 @@ namespace OutfitKing.Controllers
         }
 
         /// <summary>
-        /// Vult de pagina met een lijst van outfits
+        /// Vult de pagina met een lijst van reviews
         /// </summary>
         /// <param name="outfit">De outfit die is meegegeven</param>
-        /// <returns>    </returns>
+        /// <returns>Return de view met alle reviews vd outfit</returns>
         [HttpPost]
         public IActionResult ToonAlleReviewsOutfit(OutfitVM outfit)
         {
-            outfit.reviews = reviewContainer.GetAllReviewsVanOutfit(outfit.ID).Select(x => new ReviewVM(x)).ToList();
-            return View("ToonAlleReviewsOutfit", outfit);
+            try
+            {
+                outfit.reviews = reviewContainer.GetAllReviewsVanOutfit(outfit.ID).Select(x => new ReviewVM(x)).ToList();
+                return View("ToonAlleReviewsOutfit", outfit);
+            }
+            catch (TemporaryExceptions ex)
+            {
+                return Content($"Er heeft een fout plaatsgevonden, probeer het in 5 minuten nog eens. " + ex.Message);
+            }
+            catch (PermanentExceptions ex)
+            {
+                return Redirect("https://twitter.com/outfitservicestatus");
+            }
         }
 
         /// <summary>
@@ -183,8 +205,19 @@ namespace OutfitKing.Controllers
         [HttpPost]
         public IActionResult ReviewUpdaten(ReviewVM review)
         {
-            reviewContainer.UpdateReview(new Review(review.ID, review.OutfitID, review.Titel, review.StukTekst, DateTime.Now));
-            return RedirectToAction("Index", "Home");
+            try
+            {
+                reviewContainer.UpdateReview(new Review(review.ID, review.OutfitID, review.Titel, review.StukTekst, DateTime.Now));
+                return RedirectToAction("Index", "Home");
+            }
+            catch (TemporaryExceptions ex)
+            {
+                return Content($"Er heeft een fout plaatsgevonden, probeer het in 5 minuten nog eens. " + ex.Message);
+            }
+            catch (PermanentExceptions ex)
+            {
+                return Redirect("https://twitter.com/outfitservicestatus");
+            }
         }
     }
 }

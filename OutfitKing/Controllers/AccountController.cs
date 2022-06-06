@@ -22,9 +22,20 @@ namespace OutfitKing.Controllers
         /// <returns>Een view voor user log-in</returns>
         public ActionResult Inloggen() 
         {
-            GebruikerVM gebrVM = new GebruikerVM();
-            gebrVM.Retry = false;
-            return View(gebrVM);
+            try
+            {
+                GebruikerVM gebrVM = new GebruikerVM();
+                gebrVM.Retry = false;
+                return View(gebrVM);
+            }
+            catch (TemporaryExceptions ex)
+            {
+                return Content($"Er heeft een fout plaatsgevonden, probeer het in 5 minuten nog eens. " + ex.Message);
+            }
+            catch (PermanentExceptions ex)
+            {
+                return Redirect("https://twitter.com/outfitservicestatus");
+            }
         }
 
         /// <summary>
@@ -67,13 +78,24 @@ namespace OutfitKing.Controllers
         [HttpGet]
         public IActionResult Uitloggen()  
         {
-            int? ID = HttpContext.Session.GetInt32("ID");
-            if (ID != null)
+            try
             {
-               HttpContext.Session.Clear();
-               return Content("Uitgelogd!");
+                int? ID = HttpContext.Session.GetInt32("ID");
+                if (ID != null)
+                {
+                    HttpContext.Session.Clear();
+                    return Content("Uitgelogd!");
+                }
+                return Content("Geen gebruiker gevonden.");
             }
-            return Content("Geen gebruiker gevonden.");
+            catch (TemporaryExceptions ex)
+            {
+                return Content($"Er heeft een fout plaatsgevonden, probeer het in 5 minuten nog eens. " + ex.Message);
+            }
+            catch (PermanentExceptions ex)
+            {
+                return Redirect("https://twitter.com/outfitservicestatus");
+            }
         }
 
         /// <summary>
@@ -83,9 +105,20 @@ namespace OutfitKing.Controllers
         [HttpGet]
         public ActionResult AccountAanmaken()  
         {
-            GebruikerVM gebrVM = new GebruikerVM();
-            gebrVM.Retry = false;
-            return View(gebrVM);
+            try
+            {
+                GebruikerVM gebrVM = new GebruikerVM();
+                gebrVM.Retry = false;
+                return View(gebrVM);
+            }
+            catch (TemporaryExceptions ex)
+            {
+                return Content($"Er heeft een fout plaatsgevonden, probeer het in 5 minuten nog eens. " + ex.Message);
+            }
+            catch (PermanentExceptions ex)
+            {
+                return Redirect("https://twitter.com/outfitservicestatus");
+            }
         }
 
         /// <summary>
@@ -114,11 +147,11 @@ namespace OutfitKing.Controllers
             }
             catch (TemporaryExceptions ex)
             {
-                return Content(ex.Message);
+                return Content($"Er heeft een fout plaatsgevonden, probeer het in 5 minuten nog eens. " + ex.Message);
             }
             catch (PermanentExceptions ex)
             {
-                return Content(ex.Message);
+                return Redirect("https://twitter.com/outfitservicestatus");
             }
         }
     }

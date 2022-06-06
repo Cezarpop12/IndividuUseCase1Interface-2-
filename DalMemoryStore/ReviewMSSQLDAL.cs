@@ -158,7 +158,7 @@ namespace DALMSSQLSERVER
             try
             {
                 OpenConnection();
-                SqlCommand command = new SqlCommand(@"UPDATE Review SET StukTekst = @stuktekst, Titel = @titel WHERE ID = @id", this.connection);
+                SqlCommand command = new SqlCommand(@"UPDATE Review SET Titel = @titel, StukTekst = @stuktekst WHERE ID = @id", this.connection);
                 command.Parameters.AddWithValue("@titel", review.Titel);
                 command.Parameters.AddWithValue("@stuktekst", review.StukTekst);
                 command.Parameters.AddWithValue("@id", review.ID);
@@ -192,7 +192,7 @@ namespace DALMSSQLSERVER
             {
                 ReviewDTO? review = null;
                 OpenConnection();
-                SqlCommand command = new SqlCommand(@"SELECT * FROM Review WHERE OutfitID = @id", this.connection);
+                SqlCommand command = new SqlCommand(@"SELECT * FROM Review WHERE ID = @id", this.connection);
                 command.Parameters.AddWithValue("@id", id);
                 SqlDataReader reader = command.ExecuteReader();
                 if (reader.HasRows)
@@ -237,8 +237,8 @@ namespace DALMSSQLSERVER
                 while (reader.Read())
                 {
                     reviews.Add(new ReviewDTO(
-                    Convert.ToInt32(reader["OutfitID"].ToString()),
                     Convert.ToInt32(reader["ID"].ToString()),
+                    Convert.ToInt32(reader["OutfitID"].ToString()),
                     reader["StukTekst"].ToString(),
                     reader["Titel"].ToString(),
                     Convert.ToDateTime(reader["Datum"])));

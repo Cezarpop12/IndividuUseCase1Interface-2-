@@ -138,26 +138,5 @@ namespace DALMSSQLSERVER
                 throw new PermanentExceptions("Iets gaat hier fout!");
             }
         }
-
-        /// <summary>
-        /// Reader leest of er een outfit is in de db
-        /// </summary>
-        /// <param name="reader">de reader</param>
-        /// <returns>Return een lijst van outfits</returns>
-        private GebruikerDTO LeesGebr(SqlDataReader reader)
-        {
-            GebruikerDTO gebr;
-            if (reader.HasRows)
-            {
-                while (reader.Read())
-                {
-                        gebr = new GebruikerDTO(
-                        Convert.ToInt32(reader["GebrID"].ToString()),
-                        reader["Gebruikersnaam"].ToString(),
-                        reader["Alias"].ToString());
-                }
-            }
-            return null;
-        }
     }
 }
