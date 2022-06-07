@@ -9,7 +9,7 @@ namespace BusnLogicLaag
 {
     /// <summary>
     /// Een outfit kan een rating hebben en hoort bij een bepaalde outfit
-    /// Deze rating wordt in sterren gegeven (een int "Waarde")
+    /// Deze rating wordt in hele getallen gegeven 
     /// </summary>
     public class Rating
     {

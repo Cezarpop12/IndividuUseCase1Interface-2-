@@ -10,7 +10,6 @@ namespace BusnLogicLaag
 {
     /// <summary>
     /// Onderdeel heeft unieke categorien, ook heeft deze een ID
-    /// Bij een onderdeel horen ook bepaalde reviews
     /// </summary>
     public class Onderdeel : Kleding
     {

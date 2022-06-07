@@ -9,7 +9,6 @@ namespace BusnLogicLaag
 {
     /// <summary>
     /// Outfit heeft unieke categorien
-    /// Outfit heeft ook een ID en bij een outfit kunnen meerdere reviews horen
     /// </summary>
     public class Outfit : Kleding
     {

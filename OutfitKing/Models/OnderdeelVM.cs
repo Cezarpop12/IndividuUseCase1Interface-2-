@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using BusnLogicLaag;
+using System.ComponentModel.DataAnnotations;
 
 namespace OutfitKing.Models
 {
@@ -22,5 +23,18 @@ namespace OutfitKing.Models
         public OnderdeelCategory Category { get; set; }
         [Required]
         public IFormFile Afbeelding { get; set; }
+
+        public OnderdeelVM(Onderdeel onderdeel)
+        {
+            ID = onderdeel.ID;
+            Prijs = onderdeel.Prijs;
+            Titel = onderdeel.Titel;
+            Category = (OnderdeelCategory)onderdeel.DeCategory;
+        }
+
+        public OnderdeelVM()
+        {
+
+        }
     }
 }

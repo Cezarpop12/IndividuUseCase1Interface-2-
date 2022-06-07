@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomePagina", "HomePagina\Ho
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OutfitKing", "OutfitKing\OutfitKing.csproj", "{008A9C62-F6FF-46BE-B51A-325A033DE42E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FakeMSSQLDAL", "FakeDALMSSQL\FakeMSSQLDAL.csproj", "{8F6D8AE7-AB56-4902-BFF8-5D97FC2F39C4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{008A9C62-F6FF-46BE-B51A-325A033DE42E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{008A9C62-F6FF-46BE-B51A-325A033DE42E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{008A9C62-F6FF-46BE-B51A-325A033DE42E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F6D8AE7-AB56-4902-BFF8-5D97FC2F39C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F6D8AE7-AB56-4902-BFF8-5D97FC2F39C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F6D8AE7-AB56-4902-BFF8-5D97FC2F39C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F6D8AE7-AB56-4902-BFF8-5D97FC2F39C4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -9,7 +9,6 @@ namespace BusnLogicLaag
 {
     /// <summary>
     /// Een gebruiker heeft een gebruikersnaam en alias die beiden uniek zijn.
-    /// Ook kan de gebruiker bepaalde outfits en onderdelen hebben.
     /// </summary>
     public class Gebruiker
     {

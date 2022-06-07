@@ -9,7 +9,7 @@ namespace BusnLogicLaag
 {
     /// <summary>
     /// Een review heeft een ID en een vaste datum en tijd wanneer het is geplaatst
-    /// Een review hoort bij een bepaalde gebruiker en moet een titel hebben
+    /// Een review moet een titel hebben
     /// </summary>
     public class Review
     {
