@@ -24,6 +24,7 @@ namespace OutfitKing.Models
         [Required]
         public IFormFile Afbeelding { get; set; }
         public RatingVM rating { get; set; }
+        public int gemRating { get; set; }
         public ReviewVM review { get; set; }
         public List<ReviewVM> reviews { get; set; }
 

@@ -17,7 +17,7 @@ namespace OutfitKing.Controllers
         }
 
         /// <summary>
-        /// geeft een log in view
+        /// geeft een log in pagina
         /// </summary>
         /// <returns>Een view voor user log-in</returns>
         public ActionResult Inloggen() 

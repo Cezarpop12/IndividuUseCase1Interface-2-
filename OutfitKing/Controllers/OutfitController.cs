@@ -153,6 +153,7 @@ namespace OutfitKing.Controllers
             try
             {
                 OutfitVM outfit = new(outfitContainer.GetOutfit(id));
+                outfit.gemRating = ratingContainer.GemRatingBijOutfit(outfit.ID);
                 return View(outfit);
             }
             catch (TemporaryExceptions ex)
@@ -172,12 +173,11 @@ namespace OutfitKing.Controllers
         /// <param name="GemRating">De gemiddelde rating die wordt opgehaald uit db</param>
         /// <returns>Return de user naar de homepagina</returns>
         [HttpPost]
-        public IActionResult OutfitRatingAanmaken(OutfitVM outfit, int GemRating)
+        public IActionResult OutfitRatingAanmaken(OutfitVM outfit)
         {
             try
             {
                 ratingContainer.AddRating(outfit.ID, outfit.rating.Waarde);
-                GemRating = ratingContainer.GemRatingBijOutfit(outfit.ID);
                 return RedirectToAction("Index", "Home");
             }
             catch (TemporaryExceptions ex)
