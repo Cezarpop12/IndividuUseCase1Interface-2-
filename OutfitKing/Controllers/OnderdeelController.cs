@@ -38,11 +38,11 @@ namespace OutfitKing.Controllers
             }
             catch (TemporaryExceptions ex)
             {
-                return Content($"Er heeft een fout plaatsgevonden, probeer het in 5 minuten nog eens. " + ex.Message);
+                return View("SqlErrorMessage");
             }
             catch (PermanentExceptions ex)
             {
-                return Redirect("https://twitter.com/outfitservicestatus");
+                return View("PermanentError");
             }
         }
 
@@ -59,11 +59,11 @@ namespace OutfitKing.Controllers
             }
             catch (TemporaryExceptions ex)
             {
-                return Content($"Er heeft een fout plaatsgevonden, probeer het in 5 minuten nog eens. " + ex.Message);
+                return View("SqlErrorMessage");
             }
             catch (PermanentExceptions ex)
             {
-                return Redirect("https://twitter.com/outfitservicestatus");
+                return View("PermanentError");
             }
         }
 
@@ -87,11 +87,11 @@ namespace OutfitKing.Controllers
             }
             catch (TemporaryExceptions ex)
             {
-                return Content($"Er heeft een fout plaatsgevonden, probeer het in 5 minuten nog eens. " + ex.Message);
+                return View("SqlErrorMessage");
             }
             catch (PermanentExceptions ex)
             {
-                return Redirect("https://twitter.com/outfitservicestatus");
+                return View("PermanentError");
             }
         }
 
@@ -112,11 +112,11 @@ namespace OutfitKing.Controllers
             }
             catch (TemporaryExceptions ex)
             {
-                return Content($"Er heeft een fout plaatsgevonden, probeer het in 5 minuten nog eens. " + ex.Message);
+                return View("SqlErrorMessage");
             }
             catch (PermanentExceptions ex)
             {
-                return Redirect("https://twitter.com/outfitservicestatus");
+                return View("PermanentError");
             }
         }  
 

@@ -11,12 +11,11 @@ namespace DALMSSQLSERVER
     {
         public string errorMessage { get; set; }
         public string? PermanentErrorMessage { get; set; }
-        //optionele error message als 2e in de constructor
 
-        public PermanentExceptions(string errormessage, string? permanentErrorMessage = null) : base(errormessage)
+        public PermanentExceptions(string errorMessage, string? perError = null) : base(errorMessage)
         {
-            this.errorMessage = errormessage;
-            this.PermanentErrorMessage = permanentErrorMessage;
+            this.errorMessage = errorMessage;
+            PermanentErrorMessage = perError;
         }
 
         public string GetFullError()

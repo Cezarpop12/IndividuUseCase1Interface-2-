@@ -6,14 +6,22 @@
 <h1>Geef een rating!</h1>
 
 <form asp-action="OutfitRatingAanmaken">
-  <div class="mb-3">
-    <label asp-for="rating.Waarde" class="form-label">Waarde</label>
-    <input asp-for="rating.Waarde" class="form-control" id="Waarde" aria-describedby="Waarde">
-    <span asp-validation-for="rating.Waarde" style="color:red"></span>
-    <div id="Waarde" class="form-text">Vul een score in van 1-5</div>
-    <input type="submit" value="Save" class="btn btn-primary" style="margin-top:1%" />  
-  </div>
+    <div class="mb-3">
+        <label asp-for="rating.Waarde" class="form-label">Waarde</label>
+        <input asp-for="rating.Waarde" class="form-control" id="Waarde" aria-describedby="Waarde">
+        <span asp-validation-for="rating.Waarde" style="color:red"></span>
+        <div id="Waarde" class="form-text">Vul een score in van 1-5</div>
+        <input type="submit" value="Save" class="btn btn-primary" style="margin-top:1%" />  
+    </div>
+    @if (Model.gemRating != 0)
+  {
  <div class="mb-4">
-</div>
+     <label asp-for="gemRating" class="form-label">Gemiddelde Rating:</label>
+     <input disabled asp-for="gemRating" class="form-control" />
+        </div>
+    }
+    else
+    {
+    }
 </form>
 

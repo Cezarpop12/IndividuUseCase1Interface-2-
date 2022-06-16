@@ -17,7 +17,7 @@ namespace OutfitKing.Controllers
         }
 
         /// <summary>
-        /// geeft een log in view
+        /// geeft een log in pagina
         /// </summary>
         /// <returns>Een view voor user log-in</returns>
         public ActionResult Inloggen() 
@@ -30,11 +30,11 @@ namespace OutfitKing.Controllers
             }
             catch (TemporaryExceptions ex)
             {
-                return Content($"Er heeft een fout plaatsgevonden, probeer het in 5 minuten nog eens. " + ex.Message);
+                return View("SqlErrorMessage");
             }
             catch (PermanentExceptions ex)
             {
-                return Redirect("https://twitter.com/outfitservicestatus");
+                return View("PermanentError");
             }
         }
 
@@ -63,12 +63,12 @@ namespace OutfitKing.Controllers
             }
             catch (TemporaryExceptions ex)
             {
-                return Content($"Er heeft een fout plaatsgevonden, probeer het in 5 minuten nog eens. " + ex.Message); 
+                return View("SqlErrorMessage");
             }
             catch (PermanentExceptions ex)
             {
-                return Redirect("https://twitter.com/outfitservicestatus");
-            }       
+                return View("PermanentError");
+            }
         }
 
         /// <summary>
@@ -90,11 +90,11 @@ namespace OutfitKing.Controllers
             }
             catch (TemporaryExceptions ex)
             {
-                return Content($"Er heeft een fout plaatsgevonden, probeer het in 5 minuten nog eens. " + ex.Message);
+                return View("SqlErrorMessage");
             }
             catch (PermanentExceptions ex)
             {
-                return Redirect("https://twitter.com/outfitservicestatus");
+                return View("PermanentError");
             }
         }
 
@@ -113,11 +113,11 @@ namespace OutfitKing.Controllers
             }
             catch (TemporaryExceptions ex)
             {
-                return Content($"Er heeft een fout plaatsgevonden, probeer het in 5 minuten nog eens. " + ex.Message);
+                return View("SqlErrorMessage");
             }
             catch (PermanentExceptions ex)
             {
-                return Redirect("https://twitter.com/outfitservicestatus");
+                return View("PermanentError");
             }
         }
 
@@ -147,11 +147,11 @@ namespace OutfitKing.Controllers
             }
             catch (TemporaryExceptions ex)
             {
-                return Content($"Er heeft een fout plaatsgevonden, probeer het in 5 minuten nog eens. " + ex.Message);
+                return View("SqlErrorMessage");
             }
             catch (PermanentExceptions ex)
             {
-                return Redirect("https://twitter.com/outfitservicestatus");
+                return View("PermanentError");
             }
         }
     }
