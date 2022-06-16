@@ -7,9 +7,21 @@
 
 <h1>Mijn Outfits</h1>
 
+<br />
+
+@if(TempData["AllertMessage"] != null)
+{
+    <div class="alert alert-danger">
+    <strong>Oops!</strong> @TempData["AllertMessage"]
+    </div>
+}
+
 <p>
 <a asp-action="OutfitAanmaken">Nieuw</a>
 </p>
+<div class="row">
+<div class="col">
+<div class="leftside d-flex justify-content-center align-items-center" style="margin-top:40px">
 <table class="table">
   <thead>
     <tr>
@@ -46,8 +58,8 @@
    </td>
    <td>
     <div class="btn-group">
-      <a asp-controller="Outfit" asp-action="OutfitUpdaten" asp-route-id="@item.ID" class="btn btn-primary">Updaten</a>
-      <a asp-controller="Outfit" asp-action="OutfitVerwijderen" asp-route-id="@item.ID" class="btn btn-sm btn-danger m1-1">Verwijderen</a>
+      <a asp-controller="Outfit" asp-action="OutfitUpdaten" asp-route-id="@item.ID" class="btn btn-primary" style="background-color:white; color:#0096FF">Updaten</a>
+      <a asp-controller="Outfit" asp-action="OutfitVerwijderen" asp-route-id="@item.ID" class="btn btn-sm btn-danger m1-1" style="background-color:white; color:#0096FF">Verwijderen</a>
     </div>
    </td>
   </tr>

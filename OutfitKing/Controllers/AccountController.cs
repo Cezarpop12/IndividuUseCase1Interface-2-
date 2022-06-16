@@ -48,18 +48,22 @@ namespace OutfitKing.Controllers
         {               
             try
             {
-                Gebruiker gebr = gebrContainer.ZoekGebrOpGebrnaamEnWW(gebruiker.Gerbuikersnaam, gebruiker.Wachtwoord);
-                if (gebr != null)
+                if(ModelState.IsValid)
                 {
-                    HttpContext.Session.SetInt32("ID", gebr.ID);
-                    return RedirectToAction("Index", "Home", gebruiker);
+                    Gebruiker gebr = gebrContainer.ZoekGebrOpGebrnaamEnWW(gebruiker.Gerbuikersnaam, gebruiker.Wachtwoord);
+                    if (gebr != null)
+                    {
+                        HttpContext.Session.SetInt32("ID", gebr.ID);
+                        return RedirectToAction("Index", "Home", gebruiker);
+                    }
+                    else
+                    {
+                        GebruikerVM gebrVM = new GebruikerVM();
+                        ModelState.AddModelError("", "Gebruikersnaam en/of wachtwoord is incorrect");
+                        return View(gebrVM);
+                    }
                 }
-                else
-                {
-                    GebruikerVM gebrVM = new GebruikerVM();
-                    gebrVM.Retry = true;
-                    return View(gebrVM);
-                }
+                return View(gebruiker);
             }
             catch (TemporaryExceptions ex)
             {
@@ -84,9 +88,10 @@ namespace OutfitKing.Controllers
                 if (ID != null)
                 {
                     HttpContext.Session.Clear();
-                    return Content("Uitgelogd!");
+                    TempData["AllertMessage"] = "U bent succesvol uitgelogd!";
+                    return RedirectToAction("Inloggen");
                 }
-                return Content("Geen gebruiker gevonden.");
+                return RedirectToAction("Index", "Home");
             }
             catch (TemporaryExceptions ex)
             {
@@ -132,18 +137,22 @@ namespace OutfitKing.Controllers
             Gebruiker gebr = null;
             try
             {
-                gebr = gebrContainer.ZoekGebrOpGebrnaamOfAlias(gebruiker.Gerbuikersnaam, gebruiker.Alias);
-                if (gebr != null)
+                if (ModelState.IsValid)
                 {
-                    GebruikerVM gebrVM = new GebruikerVM();
-                    gebrVM.Retry = true;
-                    return View(gebrVM);
+                    gebr = gebrContainer.ZoekGebrOpGebrnaamOfAlias(gebruiker.Gerbuikersnaam, gebruiker.Alias);
+                    if (gebr != null)
+                    {
+                        GebruikerVM gebrVM = new GebruikerVM();
+                        ModelState.AddModelError("", "Deze gebruikersnaam en/of alias bestaat al");
+                        return View(gebrVM);
+                    }
+                    else
+                    {
+                        gebrContainer.CreateGebr(new Gebruiker(gebruiker.ID, gebruiker.Gerbuikersnaam, gebruiker.Alias), gebruiker.Wachtwoord);
+                        return RedirectToAction("Index", "Home", gebruiker);
+                    }
                 }
-                else
-                {
-                    gebrContainer.CreateGebr(new Gebruiker(gebruiker.ID, gebruiker.Gerbuikersnaam, gebruiker.Alias), gebruiker.Wachtwoord);
-                    return RedirectToAction("Index", "Home", gebruiker);
-                }
+                return View(gebruiker);
             }
             catch (TemporaryExceptions ex)
             {

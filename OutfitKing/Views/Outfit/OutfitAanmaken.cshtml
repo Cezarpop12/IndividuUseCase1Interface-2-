@@ -4,6 +4,15 @@
     ViewData["Title"] = "OutfitAanmaken";
 }
 
+<br />
+
+@if(TempData["AllertMessage"] != null)
+{
+    <div class="alert alert-danger">
+    <strong>Oops!</strong> @TempData["AllertMessage"]
+    </div>
+}
+
 <html>
 <head>
 <style>

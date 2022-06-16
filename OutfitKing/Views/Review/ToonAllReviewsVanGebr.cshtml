@@ -7,6 +7,15 @@
 
 <h1>Mijn reviews</h1>
 
+<br />
+
+@if(TempData["AllertMessage"] != null)
+{
+    <div class="alert alert-danger">
+    <strong>Oops!</strong> @TempData["AllertMessage"]
+    </div>
+}
+
 <table class="table">
   <thead>
     <tr>
@@ -37,8 +46,8 @@
    </td>
    <td>
     <div class="btn-group">
-      <a asp-controller="Review" asp-action="ReviewVerwijderen" asp-route-id="@item.ID" class="btn btn-sm btn-danger m1-1">Verwijderen</a>
-      <a asp-controller="Review" asp-action="ReviewUpdaten" asp-route-id="@item.ID" class="btn btn-primary">Updaten</a>
+      <a asp-controller="Review" asp-action="ReviewVerwijderen" asp-route-id="@item.ID" class="btn btn-sm btn-danger m1-1" style="background-color:white; color:#0096FF">Verwijderen</a>
+      <a asp-controller="Review" asp-action="ReviewUpdaten" asp-route-id="@item.ID" class="btn btn-primary" style="background-color:white; color:#0096FF">Updaten</a>
     </div>
    </td>
   </tr>

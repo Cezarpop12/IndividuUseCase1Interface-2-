@@ -19,7 +19,7 @@ namespace BusnLogicLaag
 
         public Gebruiker? ZoekGebrOpGebrnaamEnWW(string gebrnaam, string wachtwoord)
         {
-            GebruikerDTO gebruikerdto = Container.ZoekGebrOpGebrnaamEnWW(gebrnaam, wachtwoord);
+            GebruikerDTO? gebruikerdto = Container.ZoekGebrOpGebrnaamEnWW(gebrnaam, wachtwoord);
             if (gebruikerdto != null)
             {
                 Gebruiker gebruiker = new Gebruiker(gebruikerdto);

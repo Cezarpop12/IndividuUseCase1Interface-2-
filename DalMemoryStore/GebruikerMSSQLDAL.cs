@@ -59,7 +59,7 @@ namespace DALMSSQLSERVER
             try
             {
                 OpenConnection();
-                GebruikerDTO? dto = null;
+                GebruikerDTO dto = null;
                 SqlCommand command = new SqlCommand(@"SELECT * FROM Gebruiker WHERE Gebruikersnaam = @gebrnaam", this.connection);
                 command.Parameters.AddWithValue("@gebrnaam", gebrnaam);
                 SqlDataReader reader = command.ExecuteReader();
@@ -67,8 +67,7 @@ namespace DALMSSQLSERVER
                 {
                     while (reader.Read())
                     {
-                        string hash = reader["Hash"].ToString();
-                        bool correct = BCrypt.Net.BCrypt.EnhancedVerify(wachtwoord, hash);
+                        bool correct = BCrypt.Net.BCrypt.EnhancedVerify(wachtwoord, reader["Hash"].ToString());
                         if (correct)
                         {
                             dto = new GebruikerDTO(
@@ -77,8 +76,8 @@ namespace DALMSSQLSERVER
                             reader["Alias"].ToString());
                         }
                     }
+                    CloseConnection();
                 }
-                CloseConnection();
                 return dto;
             }
             catch (InvalidOperationException ex)

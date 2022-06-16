@@ -124,6 +124,17 @@ h2, .h2 {
     font-size: calc(1.325rem + 0.9vw);
 }
 
+.Btn {
+    color: #fff;
+    background-color: #e83283;
+}
+
+    .Btn:hover {
+        color: #fff;
+        background-color: #c52b6f;
+
+    }
+
 @media (min-width: 1200px) {
     h2, .h2 {
         font-size: 2rem;
@@ -3303,7 +3314,7 @@ fieldset:disabled .btn {
 .btn-primary {
     color: #fff;
     background-color: #e83283;
-    border-color: #e83283;
+    border-color: #C0C0C0;
 }
 
     .btn-primary:hover {

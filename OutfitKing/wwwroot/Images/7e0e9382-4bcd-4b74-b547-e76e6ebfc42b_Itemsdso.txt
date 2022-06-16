@@ -1,0 +1,14 @@
+Amulet		destructor	damage
+Cloak		heroes		damage
+Belt		zeal (prem day)	attackspeed
+Ring		balor		damage
+Ring		balor		damage
+
+Weapon		anniversary	damage
+Weaponadornment	brigavik	crit
+
+Helmet		unique (algem)	crit
+Shoulders	unique (algem)	crit
+Torso		destructor	attackspeed
+Gloves		q10		attackspeed  OR reign of terror
+Boots		brigavik	movementspeed

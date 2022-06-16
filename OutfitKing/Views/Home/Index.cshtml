@@ -5,6 +5,15 @@
     ViewData["Title"] = "Home Page";
 }
 
+<br />
+
+@if(TempData["AllertMessage"] != null)
+{
+    <div class="alert alert-danger">
+    <strong>Oops!</strong> @TempData["AllertMessage"]
+    </div>
+}
+
 <div class="text-center">
 <h1 class="display-4">Welkom bij OutfitKing</h1>
 
@@ -79,9 +88,9 @@
  </td>
  <td>
  <div class="btn-group">
-    <a asp-controller="Outfit" asp-action="OutfitRatingAanmaken" asp-route-id="@item.ID" class="btn btn-primary" style="background-color:purple">Beoordelen</a>
-    <a asp-controller="Review" asp-action="ReviewAanmakenOutfit" asp-route-id="@item.ID" class="btn btn-primary" style="background-color:purple">Reviewen</a>
-    <a asp-controller="Review" asp-action="ToonAlleReviewsOutfit" asp-route-id="@item.ID" class="btn btn-primary" style="background-color:purple">Alle reviews</a>
+    <a asp-controller="Outfit" asp-action="OutfitRatingAanmaken" asp-route-id="@item.ID" class="btn btn-primary" style="background-color:white; color:#0096FF">Beoordelen</a>
+    <a asp-controller="Review" asp-action="ReviewAanmakenOutfit" asp-route-id="@item.ID" class="btn btn-primary" style="background-color:white; color:#0096FF">Reviewen</a>
+    <a asp-controller="Review" asp-action="ToonAlleReviewsOutfit" asp-route-id="@item.ID" class="btn btn-primary" style="background-color:white; color:#0096FF">Alle reviews</a>
   </div>
  </td>
 </tr>

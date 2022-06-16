@@ -9,7 +9,7 @@ namespace InterfaceLib
     public interface IGebruikerContainer
     {
         public void CreateGebr(GebruikerDTO gebruiker, string wachtwoord);
-        public GebruikerDTO ZoekGebrOpGebrnaamEnWW(string gebrnaam, string wachtwoord);
+        public GebruikerDTO? ZoekGebrOpGebrnaamEnWW(string gebrnaam, string wachtwoord);
         public GebruikerDTO ZoekGebrOpGebrnaamOfAlias(string gebrnaam, string alias);
     }
 }

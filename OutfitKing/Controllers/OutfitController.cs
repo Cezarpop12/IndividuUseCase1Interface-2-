@@ -33,6 +33,7 @@ namespace OutfitKing.Controllers
                     List<Outfit> Outfits = outfitContainer.GetAllOutfitsVanGebr(ID.Value);
                     return View(Outfits);
                 }
+                TempData["AllertMessage"] = "Log eerst in!";
                 return RedirectToAction("Index", "Home");
             }
             catch (TemporaryExceptions ex)
@@ -77,7 +78,8 @@ namespace OutfitKing.Controllers
                 int? ID = HttpContext.Session.GetInt32("ID");
                 if (ID == null)
                 {
-                    return Content("U bent niet ingelogd");
+                    TempData["AllertMessage"] = "Log eerst in!";
+                    return RedirectToAction("Index", "Home");
                 }
                 else
                 {

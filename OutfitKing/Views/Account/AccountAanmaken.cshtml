@@ -3,15 +3,6 @@
     ViewData["Title"] = "Registratie";
 }
 
-@if (Model.Retry)
-{
-  <div class = "row">
-    <p style="color:red">
-      Uw gebruikersnaam en/of alias bestaat al!
-     </p>
-   </div>
-}
-
 <form class="vh-100">
   <div class="container py-5 h-100">
     <div class="row d-flex align-items-center justify-content-center h-100">
@@ -21,7 +12,8 @@
       </div>
      <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
    </form>
-  
+
+<div asp-validation-summary="ModelOnly" style="color:red"></div>
 <form method ="post">
   <div class="form-outline mb-4">
     <label asp-for="Alias">Alias</label>

@@ -7,9 +7,21 @@
 
 <h1>Mijn Onderdelen</h1>
 
+<br />
+
+@if(TempData["AllertMessage"] != null)
+{
+    <div class="alert alert-danger">
+    <strong>Oops!</strong> @TempData["AllertMessage"]
+    </div>
+}
+
 <p>
 <a asp-action="OnderdeelAanmaken">Nieuw</a>
 </p>
+<div class="row">
+<div class="col">
+<div class="rightside d-flex justify-content-center align-items-center" style="margin-top:40px">
 <table class="table">
   <thead>
     <tr>

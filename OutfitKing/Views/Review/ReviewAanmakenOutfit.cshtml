@@ -4,6 +4,15 @@
     ViewData["Title"] = "ReviewAanmakenOutfit";
 }
 
+<br />
+
+@if(TempData["AllertMessage"] != null)
+{
+    <div class="alert alert-danger">
+    <strong>Oops!</strong> @TempData["AllertMessage"]
+    </div>
+}
+
 <div class="col-11 mx-auto pt-3">
   <div class="card">
    <div class="card-header bg-primary text-uppercase text-white">

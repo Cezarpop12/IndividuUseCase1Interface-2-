@@ -6,6 +6,17 @@
 
 <i><center>Inlogpagina</center></i>
 
+<br />
+
+@if(TempData["AllertMessage"] != null)
+{
+    <div class="alert alert-success">
+    <strong>Succes!</strong> @TempData["AllertMessage"]
+    </div>
+}
+@*https://www.youtube.com/watch?v=DyFgB878pOI&ab_channel=CodeWithGopi*@
+
+
 <html>
 <head>
 <style>
@@ -14,15 +25,6 @@ margin-bottom: 120px;
 }
 </style>
 </head>
-
-@if (Model.Retry)
-{
-  <div class = "row">
-    <p style="color:red">
-      Uw gebruikersnaam en/of wachtwoord is niet correct!
-     </p>
-   </div>
-}
 
 <form class="vh-100">
   <div class="container py-5 h-100">
@@ -33,18 +35,21 @@ margin-bottom: 120px;
      </div>
     <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
   </form>
-          
-<form method ="post" asp-action=Inloggen>
-  <div class="form-outline mb-4">
+<br />
+
+<div asp-validation-summary="ModelOnly" style="color:red"></div>
+<form method ="post" asp-controller="Account" asp-action=Inloggen>
+    <span asp-validation-for="Gerbuikersnaam" style="color:red"></span>
+    <div class="form-outline mb-4">
      <label asp-for="Gerbuikersnaam">Gebruikersnaam</label>
      <input asp-for="Gerbuikersnaam" class="form-control" />
-     <span asp-validation-for="Gerbuikersnaam" style="color:red"></span>
     </div>
+   <span asp-validation-for="Wachtwoord" style="color:red"></span>
   <div class="form-outline mb-4">  
      <label asp-for="Wachtwoord">Wachtwoord</label>
      <input asp-for="Wachtwoord" type="password" class="form-control" /> 
-     <span asp-validation-for="Wachtwoord" style="color:red"></span>
-    </div>                 
+    </div> 
+    <br />
   <div class="d-flex justify-content-around align-items-center mb-4">
     <div class="form-check">
        <input class="form-check-input" type="checkbox" value="" id="checkbox" checked />
@@ -58,11 +63,11 @@ margin-bottom: 120px;
          Account aanmaken  
        </a>         
        </div>
-     </form>
     </div>
    </div>
   </div>
  </section>
+  </form>
 
 
 

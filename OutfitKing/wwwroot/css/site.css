@@ -52,16 +52,16 @@ html {
 }
 
 .leftside, .rightside {
-    height: 70vh;
-    width: 100%;
+    height: auto;
+    width: auto;
 }
 
 .leftside {
-    background: red;
+    background: #0096FF;
 }
 
 .rightside {
-    background: blue;
+    background: #4169E1;
 }
 
 input, select, textarea {
